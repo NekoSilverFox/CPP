@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "90 - 继承中的同名成员处理", "90 - 继承中的同名成员处理.vcxproj", "{6027B329-A77F-497A-B76F-423734F60AEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Debug|x64.ActiveCfg = Debug|x64
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Debug|x64.Build.0 = Debug|x64
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Debug|x86.ActiveCfg = Debug|Win32
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Debug|x86.Build.0 = Debug|Win32
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Release|x64.ActiveCfg = Release|x64
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Release|x64.Build.0 = Release|x64
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Release|x86.ActiveCfg = Release|Win32
+		{6027B329-A77F-497A-B76F-423734F60AEA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6B0380A-2E86-468B-83EA-A7379236711E}
+	EndGlobalSection
+EndGlobal

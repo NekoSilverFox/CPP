@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "48 - 案例_学生成绩_开辟多个结构体堆空间", "48 - 案例_学生成绩_开辟多个结构体堆空间.vcxproj", "{AD3CE5BF-242D-4FF7-8747-806B201E0511}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Debug|x64.ActiveCfg = Debug|x64
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Debug|x64.Build.0 = Debug|x64
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Debug|x86.ActiveCfg = Debug|Win32
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Debug|x86.Build.0 = Debug|Win32
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Release|x64.ActiveCfg = Release|x64
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Release|x64.Build.0 = Release|x64
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Release|x86.ActiveCfg = Release|Win32
+		{AD3CE5BF-242D-4FF7-8747-806B201E0511}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDAD634E-C382-4527-BFFB-5197EB2D12D6}
+	EndGlobalSection
+EndGlobal

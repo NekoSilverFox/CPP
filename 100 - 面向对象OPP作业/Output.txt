@@ -1,0 +1,32 @@
+Number of food : 5
+
+-----------  °Ì 1 -----------
+Name : ∫Ï…’»‚
+Type : Chinese
+CAL  : 2500K
+Time : 60min
+
+-----------  °Ì 2 -----------
+Name : C®¢Taing
+Type : Vietnamese
+CAL  : 1674K
+Time : 32min
+
+-----------  °Ì 3 -----------
+Name : Pasta
+Type : Italian
+CAL  : 1324K
+Time : 12min
+
+-----------  °Ì 4 -----------
+Name : Lacr®∫pe
+Type : French
+CAL  : 666K
+Time : 25min
+
+-----------  °Ì 5 -----------
+Name : ß¢ß‡ß‚ßÎ
+Type : Russian
+CAL  : 166K
+Time : 20min
+

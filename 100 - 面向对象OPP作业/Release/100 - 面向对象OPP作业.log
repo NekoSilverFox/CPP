@@ -1,0 +1,9 @@
+﻿  100 - 面向对象OPP作业.cpp
+100 - 面向对象OPP作业.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall LinkNodeList::OutPutInFile_LinkNodeFood(struct LinkNode *)" (?OutPutInFile_LinkNodeFood@LinkNodeList@@QAEXPAULinkNode@@@Z)
+100 - 面向对象OPP作业.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall LinkNodeList::BubbleSort_LinkListFood(struct LinkNode *)" (?BubbleSort_LinkListFood@LinkNodeList@@QAEXPAULinkNode@@@Z)
+100 - 面向对象OPP作业.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall LinkNodeList::ChoiceCAL_LinkListFood(struct LinkNode *)" (?ChoiceCAL_LinkListFood@LinkNodeList@@QAEXPAULinkNode@@@Z)
+100 - 面向对象OPP作业.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall LinkNodeList::Clear_LinkListFood(struct LinkNode *)" (?Clear_LinkListFood@LinkNodeList@@QAEXPAULinkNode@@@Z)
+100 - 面向对象OPP作业.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall LinkNodeList::Destroy_LinkListFood(struct LinkNode *)" (?Destroy_LinkListFood@LinkNodeList@@QAEXPAULinkNode@@@Z)
+100 - 面向对象OPP作业.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall LinkNodeList::ForEach_LinkListFood(struct LinkNode *)" (?ForEach_LinkListFood@LinkNodeList@@QAEXPAULinkNode@@@Z)
+100 - 面向对象OPP作业.obj : error LNK2001: 无法解析的外部符号 "public: struct LinkNode * __thiscall LinkNodeList::Init_LinkListFood(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?Init_LinkListFood@LinkNodeList@@QAEPAULinkNode@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+C:\Users\mi\Desktop\C\◆自学练习◆\100 - 面向对象OPP作业\Release\100 - 面向对象OPP作业.exe : fatal error LNK1120: 7 个无法解析的外部命令

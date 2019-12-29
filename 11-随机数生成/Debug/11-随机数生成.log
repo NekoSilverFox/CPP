@@ -1,0 +1,3 @@
+﻿  源.cpp
+C:\Users\mi\Desktop\C\◆自学练习◆\11-随机数生成\源.cpp(13,13): warning C4244:  “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  11-随机数生成.vcxproj -> C:\Users\mi\Desktop\C\◆自学练习◆\11-随机数生成\Debug\11-随机数生成.exe

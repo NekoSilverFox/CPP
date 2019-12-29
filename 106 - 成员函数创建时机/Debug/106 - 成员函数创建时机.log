@@ -1,0 +1,6 @@
+﻿  106 - 成员函数创建时机.cpp
+C:\Users\mi\Desktop\C\◆自学练习◆\106 - 成员函数创建时机\106 - 成员函数创建时机.cpp(42,1): error C2039:  “print_2”: 不是“Person1”的成员
+C:\Users\mi\Desktop\C\◆自学练习◆\106 - 成员函数创建时机\106 - 成员函数创建时机.cpp(5): message :  参见“Person1”的声明
+C:\Users\mi\Desktop\C\◆自学练习◆\106 - 成员函数创建时机\106 - 成员函数创建时机.cpp(41): message :  在编译 类 模板 成员函数“void myClass<Person1>::func2(void)”时
+C:\Users\mi\Desktop\C\◆自学练习◆\106 - 成员函数创建时机\106 - 成员函数创建时机.cpp(51): message :  查看对正在编译的函数 模板 实例化“void myClass<Person1>::func2(void)”的引用
+C:\Users\mi\Desktop\C\◆自学练习◆\106 - 成员函数创建时机\106 - 成员函数创建时机.cpp(49): message :  查看对正在编译的 类 模板 实例化“myClass<Person1>”的引用

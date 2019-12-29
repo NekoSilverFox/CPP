@@ -1,0 +1,7 @@
+﻿  75 - 成员函数做友元函数.cpp
+C:\Users\mi\Desktop\C\◆自学练习◆\75 - 成员函数做友元函数\75 - 成员函数做友元函数.cpp(20,25): error C2027:  使用了未定义类型“Building”
+C:\Users\mi\Desktop\C\◆自学练习◆\75 - 成员函数做友元函数\75 - 成员函数做友元函数.cpp(7): message :  参见“Building”的声明
+C:\Users\mi\Desktop\C\◆自学练习◆\75 - 成员函数做友元函数\75 - 成员函数做友元函数.cpp(24,70): error C2027:  使用了未定义类型“Building”
+C:\Users\mi\Desktop\C\◆自学练习◆\75 - 成员函数做友元函数\75 - 成员函数做友元函数.cpp(7): message :  参见“Building”的声明
+C:\Users\mi\Desktop\C\◆自学练习◆\75 - 成员函数做友元函数\75 - 成员函数做友元函数.cpp(25,70): error C2027:  使用了未定义类型“Building”
+C:\Users\mi\Desktop\C\◆自学练习◆\75 - 成员函数做友元函数\75 - 成员函数做友元函数.cpp(7): message :  参见“Building”的声明
