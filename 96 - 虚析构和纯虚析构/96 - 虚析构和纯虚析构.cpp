@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 using namespace std;
+
 class Animal
 {
 public:
@@ -19,7 +20,7 @@ public:
 
 	//纯虚析构 写法如下 
 	//纯虚析构 ，需要声明 还需要实现 类内声明，类外实现 ！！！！
-	virtual ~Animal() = 0;
+	 virtual ~Animal() = 0;
 	//如果函数中出现了 纯虚析构函数，那么这个类也算抽象类
 	//抽象类 不可实例化对象
 };
