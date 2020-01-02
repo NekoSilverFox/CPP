@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "120 - 异常变量的生命周期", "120 - 异常变量的生命周期.vcxproj", "{BA18C87A-A780-4B91-B152-0BFD046470DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Debug|x64.ActiveCfg = Debug|x64
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Debug|x64.Build.0 = Debug|x64
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Debug|x86.ActiveCfg = Debug|Win32
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Debug|x86.Build.0 = Debug|Win32
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Release|x64.ActiveCfg = Release|x64
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Release|x64.Build.0 = Release|x64
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Release|x86.ActiveCfg = Release|Win32
+		{BA18C87A-A780-4B91-B152-0BFD046470DE}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5E7D68A-DBC6-4080-B18E-F1AEEF9A8A1A}
+	EndGlobalSection
+EndGlobal
