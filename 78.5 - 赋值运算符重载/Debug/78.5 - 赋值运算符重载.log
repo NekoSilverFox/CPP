@@ -1,0 +1,7 @@
+﻿  78.5 - 赋值运算符重载.cpp
+C:\Users\mi\Desktop\CPP\78.5 - 赋值运算符重载\78.5 - 赋值运算符重载.cpp(70,22): error C2664:  “Person2::Person2(const Person2 &)”: 无法将参数 1 从“const char [5]”转换为“char *”
+C:\Users\mi\Desktop\CPP\78.5 - 赋值运算符重载\78.5 - 赋值运算符重载.cpp(70,13): message :  从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\Users\mi\Desktop\CPP\78.5 - 赋值运算符重载\78.5 - 赋值运算符重载.cpp(72,22): error C2664:  “Person2::Person2(const Person2 &)”: 无法将参数 1 从“const char [5]”转换为“char *”
+C:\Users\mi\Desktop\CPP\78.5 - 赋值运算符重载\78.5 - 赋值运算符重载.cpp(72,13): message :  从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\Users\mi\Desktop\CPP\78.5 - 赋值运算符重载\78.5 - 赋值运算符重载.cpp(74,16): error C2664:  “Person2::Person2(const Person2 &)”: 无法将参数 1 从“const char [1]”转换为“char *”
+C:\Users\mi\Desktop\CPP\78.5 - 赋值运算符重载\78.5 - 赋值运算符重载.cpp(74,13): message :  从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
