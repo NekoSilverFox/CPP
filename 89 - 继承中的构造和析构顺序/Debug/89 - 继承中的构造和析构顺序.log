@@ -1,2 +1,6 @@
 ﻿  89 - 继承中的构造和析构顺序.cpp
-  89 - 继承中的构造和析构顺序.vcxproj -> C:\Users\mi\Desktop\C\◆自学练习◆\89 - 继承中的构造和析构顺序\Debug\89 - 继承中的构造和析构顺序.exe
+C:\Users\mi\Desktop\CPP\89 - 继承中的构造和析构顺序\89 - 继承中的构造和析构顺序.cpp(28,1): warning C4624:  “Son”: 已将析构函数隐式定义为“已删除”
+C:\Users\mi\Desktop\CPP\89 - 继承中的构造和析构顺序\89 - 继承中的构造和析构顺序.cpp(81,1): error C2280:  “Son::Son(void)”: 尝试引用已删除的函数
+C:\Users\mi\Desktop\CPP\89 - 继承中的构造和析构顺序\89 - 继承中的构造和析构顺序.cpp(28): message :  编译器已在此处生成“Son::Son”
+C:\Users\mi\Desktop\CPP\89 - 继承中的构造和析构顺序\89 - 继承中的构造和析构顺序.cpp(28,1): message :  “Son::Son(void)”: 由于“Son”的数据成员“Base”具有已删除或不可访问的析构函数，因此已隐式删除函数
+C:\Users\mi\Desktop\CPP\89 - 继承中的构造和析构顺序\89 - 继承中的构造和析构顺序.cpp(17): message :  参见“Base”的声明
