@@ -38,7 +38,38 @@ LinkNode* Init_LinkList()
 }
 
 // 在 值为 oldval 后面插入一个新的数据 newval
-void InSetByValue_LinkList(LinkNode* herder, int old_val, int new_val);
+void InSetByValue_LinkList(LinkNode* header)
+{
+	if (header->next == nullptr)
+	{
+		cerr << "NO date" << endl;
+		return;
+	}
+
+	int old_val, new_val;
+
+	cout << "Old val :"; cin >> old_val;
+	cout << "New val : "; cin >> new_val;
+
+	LinkNode* pRear = header;
+	LinkNode* pBehand = header->next;
+
+	while(pBehand != nullptr)
+	{
+		if (pBehand->date == old_val)
+		{
+			break;
+		}
+		pRear = pBehand;
+		pBehand = pBehand->next;
+	}
+
+	LinkNode* newNode = new LinkNode;
+	newNode->date = new_val;
+
+	pRear->next = newNode;
+	newNode->next = pBehand;
+}
 
 // 删除值为val的节点
 void RemByValue_LinkList(LinkNode* header)
@@ -79,12 +110,14 @@ void RemByValue_LinkList(LinkNode* header)
 // 遍历
 void ForEach_LinkList(LinkNode* header)
 {
-	LinkNode* pCurrent = header->next;
 
-	if (header->next == nullptr)
+	if (header->next == nullptr || header == nullptr)
 	{
 		cerr << "NO DATE" << endl;
+		return;
 	}
+
+	LinkNode* pCurrent = header->next;
 
 	while (pCurrent != nullptr)
 	{
@@ -94,7 +127,27 @@ void ForEach_LinkList(LinkNode* header)
 }
 
 // 销毁
-void Destroy_LinkNode(LinkNode* header);
+void Destroy_LinkNode(LinkNode* header)
+{
+	if (header->next == nullptr)
+	{
+		cout << "NO DATE" << endl;
+		return;
+	}
+	LinkNode* pRear = header;
+	LinkNode* pBehand = header->next;
+
+	while (pBehand != nullptr)
+	{
+		delete pRear;
+		pRear = pBehand;
+		pBehand = pBehand->next;
+	}
+	delete pRear;
+	pRear = nullptr;
+	pBehand = nullptr;
+	header = nullptr;
+}
 
 // 清空
 void Clear_LinkList(LinkNode* header)
@@ -128,6 +181,6 @@ int main()
 	ForEach_LinkList(header);
 
 
-	Clear_LinkList(header);
+	InSetByValue_LinkList(header);
 	ForEach_LinkList(header);
 }
