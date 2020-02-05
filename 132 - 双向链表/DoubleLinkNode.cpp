@@ -58,7 +58,7 @@ void InSetByValue_LinkList(DouLinkNode* header)
 			newNode->pre = pCurrent->pre;
 			newNode->next = pCurrent;
 			pCurrent->pre->next = newNode;
-			pCurrent->next->pre = newNode;
+			pCurrent->pre = newNode;
 		}
 		pCurrent = pCurrent->next;
 	}
