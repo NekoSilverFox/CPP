@@ -10,17 +10,18 @@ typedef struct DouLinkNode
 {
 	int date;
 	DouLinkNode* pre, * next;
+	unsigned int static lenth;
 };
-
+unsigned int DouLinkNode::lenth = 0;
 
 // 初始化链表
 DouLinkNode* Init_LinkList();
 
 // 在 值为 oldval 后面插入一个新的数据 newval
-void InSetByValue_LinkList(DouLinkNode* herder, int old_val, int new_val);
+void InSetByValue_LinkList(DouLinkNode* header);
 
 // 删除值为val的节点
-void RemByValue_LinkList(DouLinkNode* header, int del_val);
+void RemByValue_LinkList(DouLinkNode* header);
 
 // 遍历
 void ForEach_LinkList(DouLinkNode* header);
