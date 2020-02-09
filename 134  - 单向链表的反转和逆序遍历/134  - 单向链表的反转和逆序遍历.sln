@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "134  - 单向链表的反转和逆序遍历", "134  - 单向链表的反转和逆序遍历.vcxproj", "{7E3C4A60-C122-4F30-BFC6-62FD760D8881}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Debug|x64.ActiveCfg = Debug|x64
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Debug|x64.Build.0 = Debug|x64
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Debug|x86.ActiveCfg = Debug|Win32
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Debug|x86.Build.0 = Debug|Win32
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Release|x64.ActiveCfg = Release|x64
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Release|x64.Build.0 = Release|x64
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Release|x86.ActiveCfg = Release|Win32
+		{7E3C4A60-C122-4F30-BFC6-62FD760D8881}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5E29B8C-3E02-4AEF-AA03-6D4E980D7F78}
+	EndGlobalSection
+EndGlobal
