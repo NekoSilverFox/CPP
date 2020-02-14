@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "150 - OOP单向链表功能总结", "150 - OOP单向链表功能总结.vcxproj", "{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Debug|x64.ActiveCfg = Debug|x64
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Debug|x64.Build.0 = Debug|x64
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Debug|x86.ActiveCfg = Debug|Win32
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Debug|x86.Build.0 = Debug|Win32
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Release|x64.ActiveCfg = Release|x64
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Release|x64.Build.0 = Release|x64
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Release|x86.ActiveCfg = Release|Win32
+		{DCDEAF6B-07ED-4D42-93C3-AAFD52C441FF}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6210D185-5F7D-45A5-8441-27CFC46BBD11}
+	EndGlobalSection
+EndGlobal
