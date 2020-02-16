@@ -1,5 +1,9 @@
 #include"LinkList.h"
-LinkNode::LinkNode(const LinkNode& p) : data(p.data) {} // 拷贝构造
+LinkNode::LinkNode(const LinkNode& ln) // 拷贝构造
+{
+	this->data = ln.data;
+	this->next = ln.next;
+}
 LinkNode::LinkNode(LinkNode&& p) : data(p.data) // 移动构造
 {
 	p.data = NULL;
@@ -26,15 +30,15 @@ LinkList::~LinkList()
 	LinkNode* pCurrent = header;
 	LinkNode* pNext = header->next;
 
-	while (pNext != nullptr)
+	while (pNext != nullptr && pCurrent != nullptr)
 	{
 		delete  pCurrent;
 		pCurrent = nullptr;
 		pCurrent = pNext;
 		pNext = pNext->next;
 	}
-	delete pCurrent;
-	pCurrent = nullptr;
+	//delete pCurrent;
+	//pCurrent = nullptr;
 	//delete header; 已经删除了，删除第二遍会出错
 	header = nullptr;
 }
@@ -100,7 +104,7 @@ LinkNode* Init_LinkList()
 // 遍历链表
 void Foreach_LinkNode(LinkNode* header)
 {
-	if (header->next == nullptr || header == nullptr)
+	if (header == nullptr || header->next == nullptr)
 	{
 		cerr << "!!!NO DATA!!!" << endl;
 		return;
@@ -162,10 +166,134 @@ void Clearn_LinkNode(LinkNode* header)
 }
 
 // 插入节点
-void Inset_LinkNode(LinkNode* header);
+void Inset_LinkNode(LinkNode* header)
+{
+	if (header == nullptr || header->next == nullptr)
+	{
+		return;
+	}
 
-// merge算法
-void Merge_LinkNode(LinkNode* header);
+	int new_val, old_val; 
+	cout << "New val = "; cin >> new_val;
+	cout << "Old val = "; cin >> old_val;
+
+	LinkNode* pRear = header;
+	LinkNode* pCurrent = header->next;
+
+	while (pCurrent != nullptr)
+	{
+		if (pCurrent->data == old_val) break;
+		pRear = pCurrent;
+		pCurrent = pCurrent->next;
+	}
+	LinkNode* newNode = new LinkNode;
+	newNode->data = new_val;
+	newNode->next = pCurrent;
+	pRear->next = newNode;
+}
+
+
+// merge 算法
+LinkNode* Merge_LinkNode(LinkNode* header1, LinkNode* header2)
+{
+	if (header1 == nullptr || header2 == nullptr || header1->next == nullptr || header2->next == nullptr) return nullptr;
+
+	//LinkNode* pCurrent = header1->next;
+	//LinkNode* firstNode_list_1 = header1->next;
+	//LinkNode* lastNode_list_1 = nullptr;
+
+	//while (pCurrent != nullptr)
+	//{
+	//	lastNode_list_1 = pCurrent;
+	//	pCurrent = pCurrent->next;
+	//}
+
+	//pCurrent = header2->next;
+	//LinkNode* firstNode_list_2 = header2->next;
+	//LinkNode* lastNode_list_2 = nullptr;
+
+	//while (pCurrent != nullptr)
+	//{
+	//	lastNode_list_2 = pCurrent;
+	//	pCurrent = pCurrent->next;
+	//}
+
+	//cout << length_list_1 << "  " << length_list_2 << endl;
+	//cout << firstNode_list_1 << "   " << lastNode_list_1 << endl;
+	//cout << firstNode_list_2 << "   " << lastNode_list_2 << endl;
+
+	LinkNode* newHeader = new LinkNode;
+	newHeader->data = NULL;
+	newHeader->next = nullptr;
+	LinkNode* pCurrent_newList = newHeader;
+
+	LinkNode* pCurrent_1 = header1->next;
+	LinkNode* pCurrent_2 = header2->next;
+
+	while (true)
+	{
+		if (pCurrent_1 == nullptr || pCurrent_2 == nullptr) break;
+		if (pCurrent_1->data <= pCurrent_2->data)
+		{
+			LinkNode* newNode = new LinkNode;
+			newNode->data = pCurrent_1->data;
+			newNode->next = nullptr;
+			pCurrent_newList->next = newNode;
+			pCurrent_newList = newNode;
+			pCurrent_1 = pCurrent_1->next;
+		}
+		if (pCurrent_1 == nullptr || pCurrent_2 == nullptr) break;
+		if (pCurrent_1->data > pCurrent_2->data)
+		{
+			LinkNode* newNode = new LinkNode;
+			newNode->data = pCurrent_2->data;
+			newNode->next = nullptr;
+			pCurrent_newList->next = newNode;
+			pCurrent_newList = newNode;
+			pCurrent_2 = pCurrent_2->next;
+		}
+	}
+
+	if (pCurrent_2 == nullptr)
+	{
+		while (pCurrent_1 != nullptr)
+		{
+			LinkNode* newNode = new LinkNode;
+			newNode->data = pCurrent_1->data;
+			newNode->next = nullptr;
+			pCurrent_newList->next = newNode;
+			pCurrent_newList = pCurrent_newList->next;
+			pCurrent_1 = pCurrent_1->next;
+
+			//LinkNode* newNodeCopy = new LinkNode;
+			//newNodeCopy = pCurrent_1;
+			//pCurrent_newList->next = newNodeCopy;
+			//pCurrent_newList = pCurrent_newList->next;
+			//pCurrent_1 = pCurrent_1->next;
+		}
+		return newHeader;
+		// pCurrent_newList->next = pCurrent_2;
+	}
+	if (pCurrent_1 == nullptr)
+	{
+		while (pCurrent_2 != nullptr)
+		{
+			LinkNode* newNode = new LinkNode;
+			newNode->data = pCurrent_2->data;
+			newNode->next = nullptr;
+			pCurrent_newList->next = newNode;
+			pCurrent_newList = pCurrent_newList->next;
+			pCurrent_2 = pCurrent_2->next;
+
+			//LinkNode* newNodeCopy = pCurrent_2;
+			//pCurrent_newList->next = newNodeCopy;
+			//pCurrent_newList = pCurrent_newList->next;
+			//pCurrent_2 = pCurrent_2->next;
+		}
+		// pCurrent_newList->next = pCurrent_2;
+	}
+	return newHeader;
+}
 
 // 冒泡排序
 void Burrbe_LinkNode(LinkNode* header)
@@ -297,7 +425,18 @@ int main()
 	list1.header = Init_LinkList();
 	Foreach_LinkNode(list1.header);
 
-	Burrbe_LinkNode(list1.header);
-	Foreach_LinkNode(list1.header);
+	LinkList list2;
+	list2.header = Init_LinkList();
+	Foreach_LinkNode(list2.header);
+
+	//Burrbe_LinkNode(list1.header);
+	//Foreach_LinkNode(list1.header);
+
+	//Inset_LinkNode(list1.header);
+	//Foreach_LinkNode(list1.header);
+
+	LinkList list3;
+	list3.header = Merge_LinkNode(list1.header, list2.header);
+	Foreach_LinkNode(list3.header);
 }
 

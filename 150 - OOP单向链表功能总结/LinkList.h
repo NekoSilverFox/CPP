@@ -13,7 +13,7 @@ struct LinkNode
 	LinkNode& operator++();
 	LinkNode operator++(int);
 	LinkNode& operator+=(const LinkNode& t1);
-	LinkNode(const LinkNode& p); // 拷贝构造
+	LinkNode(const LinkNode& ln); // 拷贝构造
 	LinkNode(LinkNode&& p); // 移动构造
 	// bool operator>(const LinkNode& node1, const LinkNode& node2) const;
 };
@@ -48,7 +48,7 @@ void Clearn_LinkNode(LinkNode* header);
 void Inset_LinkNode(LinkNode* header);
 
 // merge算法
-void Merge_LinkNode(LinkNode* header);
+LinkNode* Merge_LinkNode(LinkNode* header1, LinkNode* header2);
 
 // 冒泡排序
 void Burrbe_LinkNode(LinkNode* header);
