@@ -1,2 +1,9 @@
 ﻿  137 - 栈的链式存储.cpp
-  137 - 栈的链式存储.vcxproj -> C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\Debug\137 - 栈的链式存储.exe
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\LinkStack.h(16,11): error C2955:  “LinkNode”: 使用 类 模板 需要 模板 参数列表
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\LinkStack.h(10): message :  参见“LinkNode”的声明
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\137 - 栈的链式存储.cpp(18,27): error C2440:  “=”: 无法从“LinkNode *”转换为“LinkNode<T> *”
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\137 - 栈的链式存储.cpp(18,23): message :  与指向的类型无关；强制转换要求 reinterpret_cast、C 样式强制转换或函数样式强制转换
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\137 - 栈的链式存储.cpp(26,27): error C2440:  “return”: 无法从“LinkNode<T> *”转换为“LinkNode *”
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\137 - 栈的链式存储.cpp(26,22): message :  与指向的类型无关；强制转换要求 reinterpret_cast、C 样式强制转换或函数样式强制转换
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\137 - 栈的链式存储.cpp(70,56): error C2512:  “LinkNode”: 没有合适的默认构造函数可用
+C:\Users\mi\Desktop\CPP\137 - 栈的链式存储\LinkStack.h(10,1): message :  参见“LinkNode”的声明

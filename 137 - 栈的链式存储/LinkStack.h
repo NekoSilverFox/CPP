@@ -5,6 +5,7 @@
 #include <string>
 using namespace std;
 
+template<class T>
 struct LinkNode
 {
 	LinkNode* next;
