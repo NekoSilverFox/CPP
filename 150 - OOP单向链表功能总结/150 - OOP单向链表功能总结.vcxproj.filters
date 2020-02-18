@@ -18,6 +18,9 @@
     <ClCompile Include="150 - OOP单向链表功能总结.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Operator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkList.h">

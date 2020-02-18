@@ -43,38 +43,7 @@ LinkList::~LinkList()
 	header = nullptr;
 }
 // ============================================================================
-ostream& operator<<(ostream& cout, LinkNode* pCurrent)
-{
-	cout << pCurrent->data << "     ";
-	return cout;
-}
 
-bool operator>(const LinkNode& node1, const LinkNode& node2)
-{
-	return node1.data > node2.data;
-	//if (node1.data > node2.data) return true;
-	//else return false;
-}
-
-// 重置前置++
-LinkNode& LinkNode::operator++() // 前置++返回引用
-{
-	this->data++;
-	return *this;
-}
-
-// 重置后置++
-LinkNode LinkNode::operator++(int) // 后置++返回值
-{
-	LinkNode temp = *this;
-	this->data++;
-	return temp;
-}
-
-LinkNode& LinkNode::operator+=(const LinkNode& node) {
-	this->data += node.data;
-	return *this;
-}
 // ============================================================================
 
 // 初始化链表
@@ -435,8 +404,19 @@ int main()
 	//Inset_LinkNode(list1.header);
 	//Foreach_LinkNode(list1.header);
 
-	LinkList list3;
-	list3.header = Merge_LinkNode(list1.header, list2.header);
-	Foreach_LinkNode(list3.header);
+	//LinkList list3;
+	//list3.header = Merge_LinkNode(list1.header, list2.header);
+	//Foreach_LinkNode(list3.header);
+
+	cout << "Operator & : ";
+	LinkList list4;
+	list4.header = *(list1.header) & *(list2.header);
+	Foreach_LinkNode(list4.header);
+
+	cout << "Operator | : ";
+	LinkList list5;
+	list5.header = *(list1.header) | *(list2.header);
+	Foreach_LinkNode(list5.header);
+
 }
 

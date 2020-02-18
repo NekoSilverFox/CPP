@@ -6,7 +6,11 @@ using namespace std;
 
 struct LinkNode
 {
-	/// friend bool operator>(const LinkNode& node1, const LinkNode& node2);
+	friend LinkNode* operator|(const LinkNode& header1, const LinkNode& header2);
+	friend LinkNode* operator&(const LinkNode& header1, const LinkNode& header2);
+	friend ostream& operator<<(ostream& cout, LinkNode* pCurrent);
+	bool operator==(const LinkNode& node) const;
+
 	int data;
 	LinkNode* next;
 	LinkNode() {}
@@ -14,14 +18,13 @@ struct LinkNode
 	LinkNode operator++(int);
 	LinkNode& operator+=(const LinkNode& t1);
 	LinkNode(const LinkNode& ln); // 拷贝构造
-	LinkNode(LinkNode&& p); // 移动构造
-	// bool operator>(const LinkNode& node1, const LinkNode& node2) const;
+	LinkNode(LinkNode&& p);			// 移动构造
 };
 
 class LinkList
 {
-	friend ostream& operator<<(ostream& cout, LinkNode pCurrent);
-	
+	friend ostream& operator<<(ostream& cout, LinkNode* pCurrent);
+	friend LinkNode* operator&(const LinkNode& header1, const LinkNode& header2);
 public:
 	LinkList();
 	LinkList(LinkList&& linklist);
