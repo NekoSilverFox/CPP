@@ -78,7 +78,7 @@ void OperatorOperate(LinkStack* stack, char* p) {
 
 	//先取出栈顶符号
 	MyChar* mychar = (MyChar*)Top_LinkStack(stack);
-	if (mychar == NULL) {
+	if (mychar == nullptr) {
 		Push_LinkStack(stack, (LinkNode*)CreateMyChar(p));
 		return;
 	}
@@ -116,7 +116,7 @@ void OperatorOperate(LinkStack* stack, char* p) {
 
 int main() {
 
-	char* str = (char*)("8+(3-1)*(5+7)");  // 8+(3-1)*5
+	char* str = (char*)("8+5*2*4-(6-2)*3");  // 8+(3-1)*5
 	char* p = str;
 	cout << str << endl << endl;
 	//创建栈
