@@ -64,12 +64,3 @@ void Desgroy_LinkStack(LinkStack* stack)
 	delete stack;
 	stack = nullptr;
 }
-class Person
-{
-public:
-	Person(string name, int age) : name_(name), age_(age) {}
-public:
-	LinkNode node;
-	string name_;
-	int age_;
-};

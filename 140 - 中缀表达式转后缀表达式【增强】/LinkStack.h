@@ -39,4 +39,44 @@ void Clear_LinkStack(LinkStack* stack);
 // 种障梬
 void Desgroy_LinkStack(LinkStack* stack);
 
+/**************************************************************************************************************************************/
+// Is number or not
+bool isNumber(const char ch);
+
+// Is the '('
+bool isLeft(const char ch);
+
+// Is the ')'
+bool isRight(const char ch);
+
+// Is operator
+bool isOperator(const char  ch);
+
+// Get priority - 扭把我抉把我找快找
+int getPriority(const char ch);
+
+// Operation of Number
+void operNumber(string& postix_formula, char ch);
+
+// Operation of Operator
+void operOperator(string& postix_formula, LinkStack* stack, char* ch);
+
+// Operation of '('
+void operLeftBracket(LinkStack* stack, char* ch);
+
+// Operation of ')'
+void operRightBracket(string& postix_formula, LinkStack* stack, char ch);
+
+// Infix expression TO Postix expression
+string infixToPostix(LinkStack* stack, string infix_formula);
+
+struct MyChar {
+	LinkNode node;
+	char* ch;
+};
+
+MyChar* CreateMyChar(char* p);
+
+/**************************************************************************************************************************************/
+
 #endif
