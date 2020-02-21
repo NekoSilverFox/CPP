@@ -18,13 +18,13 @@
     <ClCompile Include="LinkStack.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="140 - 后缀求解.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="140 - main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="140 - Infix to Postix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="140 - Calculate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

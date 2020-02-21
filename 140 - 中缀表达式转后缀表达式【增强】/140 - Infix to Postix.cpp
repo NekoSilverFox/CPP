@@ -11,6 +11,11 @@
 
 **************************************************************************************************************************************/
 
+struct MyChar {
+	LinkNode node;
+	char* ch;
+};
+
 //Create MyChar
 MyChar* CreateMyChar(char* ch) {
 	MyChar* mychar = new MyChar;
@@ -62,30 +67,30 @@ void operNumber(string& postix_formula, char ch)
 // Operation of Operator
 void operOperator(string& postix_formula, LinkStack* stack, char* ch)
 {
-	MyChar* mychar = (MyChar*)Top_LinkStack(stack);
-	if (mychar == nullptr) {
+	MyChar* char_top = (MyChar*)Top_LinkStack(stack);
+	if (char_top == nullptr) {
 		Push_LinkStack(stack, (LinkNode*)CreateMyChar(ch));
 		return;
 	}
 
-	if (getPriority(*(mychar->ch)) < getPriority(*ch)) Push_LinkStack(stack, (LinkNode*)CreateMyChar(ch)); // if stack is null or Top_stack > ch; make ch in the stack
+	if (getPriority(*(char_top->ch)) < getPriority(*ch)) { Push_LinkStack(stack, (LinkNode*)CreateMyChar(ch)); }// if stack is null or Top_stack > ch; make ch in the stack
 
 	//if(getPriority(*(mychar->ch)) >= getPriority(*ch))
 	else
 	{
-		while (Size_LinkStack(stack) > 0)
+		while (Size_LinkStack(stack) >= 0)
 		{
-			MyChar* mychar2 = (MyChar*)Top_LinkStack(stack);
+			MyChar* char_top2 = (MyChar*)Top_LinkStack(stack);
 
 			//如果优先级低 当前符号入栈
-			if (getPriority(*(mychar2->ch)) < getPriority(*ch))
+			if (Size_LinkStack(stack) == 0 || getPriority(*(char_top2->ch)) < getPriority(*ch))
 			{
 				Push_LinkStack(stack, (LinkNode*)CreateMyChar(ch));
 				return;
 			}
-			postix_formula += *(mychar2->ch);
+			postix_formula += *(char_top2->ch);
 			Pop_LinkStack(stack);
-			delete mychar2;
+			delete char_top2;
 		}
 
 		//	while (IsEmpty_LinkStack(stack) || getPriority(*(mychar->ch)) < getPriority(*ch)) // if priority Top_stack  > priority ch, pop_stack until it's null or priority ch > Top_stack
@@ -133,13 +138,14 @@ string infixToPostix(LinkStack* stack, string infix_formula)
 	for (int i = 0; i < infix_formula.size(); i++)
 	{
 		if (isNumber(infix_formula.at(i))) operNumber(postix_formula, infix_formula.at(i));
-		if (isOperator(infix_formula.at(i))) operOperator(postix_formula, stack, &(infix_formula.at(i)));
-		if (isLeft(infix_formula.at(i))) operLeftBracket(stack, &(infix_formula.at(i)));
-		if (isRight(infix_formula.at(i))) operRightBracket(postix_formula, stack, infix_formula.at(i));
+		else if (isOperator(infix_formula.at(i))) operOperator(postix_formula, stack, &(infix_formula.at(i)));
+		else if (isLeft(infix_formula.at(i))) operLeftBracket(stack, &(infix_formula.at(i)));
+		else if (isRight(infix_formula.at(i))) operRightBracket(postix_formula, stack, infix_formula.at(i));
+		else return nullptr;
 	}
 
 	// Pop stack until it's NULL
-	while (IsEmpty_LinkStack(stack) == false)
+	while (Size_LinkStack(stack) > 0)
 	{
 		MyChar* mychar = (MyChar*)Top_LinkStack(stack);
 		postix_formula += *(mychar->ch);

@@ -124,7 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="140 - Infix to Postix.cpp" />
-    <ClCompile Include="140 - 后缀求解.cpp" />
+    <ClCompile Include="140 - Calculate.cpp" />
     <ClCompile Include="LinkStack.cpp" />
     <ClCompile Include="140 - main.cpp" />
   </ItemGroup>

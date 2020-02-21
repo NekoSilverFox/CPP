@@ -3,6 +3,7 @@
 #define LINKSTACK_H
 #include <iostream>
 #include <string>
+#include<Windows.h>
 using namespace std;
 
 struct LinkNode
@@ -70,13 +71,7 @@ void operRightBracket(string& postix_formula, LinkStack* stack, char ch);
 // Infix expression TO Postix expression
 string infixToPostix(LinkStack* stack, string infix_formula);
 
-struct MyChar {
-	LinkNode node;
-	char* ch;
-};
-
-MyChar* CreateMyChar(char* p);
-
+double Calculate(LinkStack* stack, string postix_formula);
 /**************************************************************************************************************************************/
 
 #endif
