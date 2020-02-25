@@ -1,0 +1,7 @@
+﻿E:\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (151 - 队列的链式存储.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  151 - 队列的顺序存储.cpp
+  SeqQueue.cpp
+C:\Users\mi\Desktop\CPP\151 - 队列的顺序存储\SeqQueue.cpp(33,20): warning C4018:  “<”: 有符号/无符号不匹配
+  正在生成代码...
+C:\Users\mi\Desktop\CPP\151 - 队列的顺序存储\SeqQueue.cpp(58,20): warning C4018:  “<”: 有符号/无符号不匹配
+  151 - 队列的链式存储.vcxproj -> C:\Users\mi\Desktop\CPP\151 - 队列的顺序存储\Debug\151 - 队列的顺序存储.exe
