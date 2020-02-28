@@ -15,13 +15,14 @@ void Push_LinkQueue(LinkQueue* queue, LinkNode* data)
 	if (queue == nullptr || data == nullptr) return;
 
 	LinkNode* pCurrent = queue->header;
-
+	LinkNode* pTemp = pCurrent;
 	while (pCurrent != nullptr)
 	{
+		pTemp = pCurrent;
 		pCurrent = pCurrent->next;
 	}
 
-	pCurrent->next = data;
+	pTemp = data;
 
 	queue->size++;
 }
@@ -31,14 +32,16 @@ LinkNode* Frount_LinkQueue(LinkQueue* queue)
 {
 	if (queue == nullptr || queue->size == 0) return nullptr;
 
-	LinkNode* pCurrent = queue->header;
-
-	while (true)
-	{
-		if (pCurrent->next == nullptr) break;
-		pCurrent = pCurrent->next;
-	}
-	return pCurrent;
+	//LinkNode* pCurrent = queue->header;
+	//LinkNode* pTemp = pCurrent;
+	//while (pCurrent != nullptr)
+	//{
+	//	// if (pCurrent->next == nullptr) break;
+	//	pTemp = pCurrent;
+	//	pCurrent = pCurrent->next;
+	//}
+	//return pTemp;
+	return queue->header->next;
 }
 
 // 出队
@@ -55,7 +58,13 @@ void Pop_LinkQueue(LinkQueue* queue)
 // 返回队尾元素
 LinkNode* Back_LinkQueue(LinkQueue* queue)
 {
-	
+	if (queue == nullptr || queue->size == 0) return nullptr;
+	LinkNode* pCurrent = queue->header;
+	while (pCurrent->next != nullptr)
+	{
+		pCurrent = pCurrent->next;
+	}
+	return pCurrent;
 }
 
 // 队列大小
@@ -108,3 +117,4 @@ void Desgroy_LinkQueue(LinkQueue* queue)
 	delete queue;
 	queue = nullptr;
 }
+

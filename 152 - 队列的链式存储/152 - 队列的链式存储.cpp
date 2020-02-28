@@ -26,10 +26,22 @@ void test()
 	Push_LinkQueue(queue, (LinkNode*)CreatPerson("eee", 16));
 	Push_LinkQueue(queue, (LinkNode*)CreatPerson("fff", 17));
 
-	Person* temp = (Person*)Frount_LinkQueue(queue);
+	cout << Size_LinkQueue(queue);
+
+ 	Person* temp = (Person*)Frount_LinkQueue(queue);
 	cout << "First : " << temp->name_ << "   " << temp->age_ << endl << endl;
 
 	temp = (Person*)Back_LinkQueue(queue);
 	cout << "Last : " << temp->name_ << "   " << temp->age_ << endl << endl;
 
+	while (IsEmpty_LinkQueue(queue))
+	{
+		Pop_LinkQueue(queue);
+		temp = (Person*)Frount_LinkQueue(queue);
+		cout << temp->name_ << "   " << temp->age_ << endl;
+	}
+}
+int main()
+{
+	test();
 }
