@@ -1,6 +1,6 @@
 #include"LinkStack.h"
 
-int main()
+void CalTheFolma()
 {
 	LinkStack* stack = InIt_LinkStack();
 	string infix_formula("8+5*2*4-(6-2)*3*2^3"); // 8+5*2*4-(6-2)*3
@@ -18,5 +18,23 @@ int main()
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
 	cout << endl << "Answer ===>>> " << answer << endl;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	
+}
 
+int main()
+{
+	try
+	{
+		CalTheFolma();
+	}
+	catch (char ch)
+	{
+		system("cls");
+		cout << "£¡£¡£¡Expression error £¡£¡£¡" << endl;
+	}
+	catch (...)
+	{
+		system("cls");
+		cout << "£¡£¡£¡Error £¡£¡£¡" << endl;
+	}
 }
