@@ -10,14 +10,14 @@ struct BinaryNode
 
 int CaculateTreeDepth(BinaryNode* root)
 {
-	if (root == nullptr) return;
+	if (root == nullptr) return 0;
 
 	int depth = 0;
 
 	int left_depth = CaculateTreeDepth(root->left_child);
 	int right_depth = CaculateTreeDepth(root->right_child);
 
-	depth = left_depth > right_depth ? left_depth : right_depth;
+	depth = left_depth > right_depth ? ++left_depth : ++right_depth;
 
 	return depth;
 }
