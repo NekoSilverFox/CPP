@@ -21,7 +21,7 @@ void funcCalculate(LinkStack* stack, const char oper)
 	myNum = (MyNumber*)Top_LinkStack(stack);
 	if (myNum == nullptr)
 	{
-		throw 'e';
+		throw "Error Stack";
 	}
 	double leftNum = myNum->num_;
 	Pop_LinkStack(stack);
@@ -103,7 +103,7 @@ double Calculate(LinkStack* stack, string postix_formula)
 	MyNumber* mynum = (MyNumber*)Top_LinkStack(stack);
 	if (mynum == nullptr)
 	{
-		throw 'e';
+		throw 1;
 	}
 	double ansewer = mynum->num_;
 	// cout << ansewer;

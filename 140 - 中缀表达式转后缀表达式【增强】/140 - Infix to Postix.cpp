@@ -141,7 +141,7 @@ string infixToPostix(LinkStack* stack, string infix_formula)
 		else if (isOperator(infix_formula.at(i))) operOperator(postix_formula, stack, &(infix_formula.at(i)));
 		else if (isLeft(infix_formula.at(i))) operLeftBracket(stack, &(infix_formula.at(i)));
 		else if (isRight(infix_formula.at(i))) operRightBracket(postix_formula, stack, infix_formula.at(i));
-		else return nullptr;
+		else throw 2;
 	}
 
 	// Pop stack until it's NULL

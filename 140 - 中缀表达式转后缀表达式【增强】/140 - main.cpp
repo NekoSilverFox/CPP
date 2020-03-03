@@ -27,10 +27,11 @@ int main()
 	{
 		CalTheFolma();
 	}
-	catch (char ch)
+	catch (int err)
 	{
 		system("cls");
-		cout << "£¡£¡£¡Expression error £¡£¡£¡" << endl;
+		if (err == 1) cout << "£¡£¡£¡Expression error £¡£¡£¡" << endl;
+		if (err == 2) cout << "£¡£¡£¡Sign error £¡£¡£¡" << endl;
 	}
 	catch (...)
 	{
