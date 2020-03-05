@@ -1,2 +1,8 @@
 ﻿  149 - main.cpp
-  149 - 二叉树.vcxproj -> C:\Users\mi\Desktop\CPP\149 - 二叉树\Debug\149 - 二叉树.exe
+  149 - Tree.cpp
+C:\Users\mi\Desktop\CPP\149 - 二叉树\Tree.h(90,1): error C2662:  “void BinaryTree<char>::FreeSpaceBinaryTree(BinaryTree<char>::Node *)”: 不能将“this”指针从“const BinaryTree<char>”转换为“BinaryTree<char> &”
+C:\Users\mi\Desktop\CPP\149 - 二叉树\Tree.h(90,3): message :  转换丢失限定符
+C:\Users\mi\Desktop\CPP\149 - 二叉树\Tree.h(89): message :  在编译 类 模板 成员函数“void BinaryTree<char>::deleteTree(void) const”时
+C:\Users\mi\Desktop\CPP\149 - 二叉树\149 - Tree.cpp(42): message :  查看对正在编译的函数 模板 实例化“void BinaryTree<char>::deleteTree(void) const”的引用
+  正在生成代码...
+C:\Users\mi\Desktop\CPP\149 - 二叉树\149 - Tree.cpp(37): message :  查看对正在编译的 类 模板 实例化“BinaryTree<char>”的引用
