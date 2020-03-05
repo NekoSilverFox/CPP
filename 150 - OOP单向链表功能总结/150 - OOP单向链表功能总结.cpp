@@ -392,11 +392,11 @@ int main()
 {
 	LinkList list1;
 	list1.header = Init_LinkList();
-	Foreach_LinkNode(list1.header);
+	Foreach_LinkNode(list1.header); cout << endl;
 
 	LinkList list2;
 	list2.header = Init_LinkList();
-	Foreach_LinkNode(list2.header);
+	Foreach_LinkNode(list2.header); cout << endl;
 
 	//Burrbe_LinkNode(list1.header);
 	//Foreach_LinkNode(list1.header);
@@ -411,12 +411,12 @@ int main()
 	cout << "Operator & : ";
 	LinkList list4;
 	list4.header = *(list1.header) & *(list2.header);
-	Foreach_LinkNode(list4.header);
+	Foreach_LinkNode(list4.header); cout << endl;
 
 	cout << "Operator | : ";
 	LinkList list5;
 	list5.header = *(list1.header) | *(list2.header);
-	Foreach_LinkNode(list5.header);
+	Foreach_LinkNode(list5.header); cout << endl;
 
 }
 
