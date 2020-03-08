@@ -59,17 +59,19 @@ public:
 	{
 		T key_cin;
 		cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
-		this->root_ = CreatBinarySearchTree(this->root_, key_cin);
-		while (root_ != nullptr)
+		if (key_cin == '#') return;
+		this->root_->key_ = key_cin;
+		while (true)
 		{
+			++val_static;
 			cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
 			if ('#' == key_cin)
 			{
 				--val_static;
-				return;
+				break;
 			}
 			CreatBinarySearchTree(this->root_, key_cin);
-		}
+		}		
 	}
 
 	void printTree(string method) 
@@ -128,7 +130,7 @@ private:
 	Node* CreatBinarySearchTree(Node* root, T key)
 	{
 
-		if (nullptr == root) return nullptr;
+		if (nullptr == root) return root;
 
 		// If is the first Node
 		if (0 == val_static)
@@ -137,56 +139,69 @@ private:
 			root->val_ = val_static;
 			root->left_ = nullptr;
 			root->right_ = nullptr;
-			++val_static;
 			return root;
 		}
 
-		if (nullptr == root->left_ && root->key_ > key)
-		{
-			Node* newNode = new Node;
-			newNode->left_ = nullptr;
-			newNode->right_ = nullptr;
-			newNode->key_ = key;
-			newNode->val_ = ++val_static;
-			root->left_ = newNode;
-			//  ++val_static;
-			return root;
-		}
-		else if (nullptr == root->right_ && root->key_ < key)
-		{
-			//Node* newNode = new Node(key);
-			Node* newNode = new Node;
-			newNode->left_ = nullptr;
-			newNode->right_ = nullptr;
-			newNode->key_ = key;
-			newNode->val_ = ++val_static;
-			root->right_ = newNode;
-			// ++val_static;
-			return root;
-		}
-		else
-		{
-			throw 0;
-		}
+		//if (nullptr == root->left_ && (root->key_) > key)
+		//{
+		//	Node* newNode = new Node;
+		//	newNode->left_ = nullptr;
+		//	newNode->right_ = nullptr;
+		//	newNode->key_ = key;
+		//	newNode->val_ = ++val_static;
+		//	root->left_ = newNode;
+		//	//  ++val_static;
+		//	// return root;
+		//}
+		//else if (nullptr == root->right_ && (root->key_) < key)
+		//{
+		//	//Node* newNode = new Node(key);
+		//	Node* newNode = new Node;
+		//	newNode->left_ = nullptr;
+		//	newNode->right_ = nullptr;
+		//	newNode->key_ = key;
+		//	newNode->val_ = ++val_static;
+		//	root->right_ = newNode;
+		//	// ++val_static;
+		//	//return root;
+		//}
+		//else
+		//{
+		//	throw 0;
+		//}
+
+		Node* endNode = root;
 
 		// if other Node
-		if (root->key_ > key)
+		if (endNode->key_ > key)
 		{
-			CreatBinarySearchTree(root->left_, key);
+			if (endNode->left_ != nullptr)	{ endNode = CreatBinarySearchTree(endNode->left_, key);}
+			else
+			{
+				Node* newNode = new Node(key);
+				endNode->left_ = newNode;
+			}
 		}
-		else if (root->key_ < key)
+		else if (endNode->key_ < key)
 		{
-			CreatBinarySearchTree(root->right_, key);
+			if (endNode->right_ != nullptr)
+			{
+				endNode = CreatBinarySearchTree(endNode->right_, key);
+			}
+			else
+			{
+				Node* newNode = new Node(key);
+				endNode->right_ = newNode;
+			}
 		}
-		else if (root->key_ == key)
+		else if (endNode->key_ == key)
 		{
-			root->val_ = ++val_static;
-			return root;
+			endNode->val_ = val_static;
+			return endNode;
 		}
-		else
-		{
-			throw 0;
-		}
+		//if (endNode->key_ > key) endNode->left_ = newNode;
+		//else if(newNode->key_ < key) endNode->right_ = newNode;
+		// return newNode;
 	}
 
 	void Foreach_Tree_DLR(Node* root)
