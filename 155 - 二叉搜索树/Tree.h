@@ -170,38 +170,30 @@ private:
 		//	throw 0;
 		//}
 
-		Node* endNode = root;
-
 		// if other Node
-		if (endNode->key_ > key)
+		if (root->key_ > key)
 		{
-			if (endNode->left_ != nullptr)	{ endNode = CreatBinarySearchTree(endNode->left_, key);}
+			if (root->left_ != nullptr)	{ root = CreatBinarySearchTree(root->left_, key);}
 			else
 			{
 				Node* newNode = new Node(key);
-				endNode->left_ = newNode;
+				root->left_ = newNode;
 			}
 		}
-		else if (endNode->key_ < key)
+		else if (root->key_ < key)
 		{
-			if (endNode->right_ != nullptr)
-			{
-				endNode = CreatBinarySearchTree(endNode->right_, key);
-			}
+			if (root->right_ != nullptr) { root = CreatBinarySearchTree(root->right_, key); }
 			else
 			{
 				Node* newNode = new Node(key);
-				endNode->right_ = newNode;
+				root->right_ = newNode;
 			}
 		}
-		else if (endNode->key_ == key)
+		else if (root->key_ == key)
 		{
-			endNode->val_ = val_static;
-			return endNode;
+			root->val_ = val_static;
+			return root;
 		}
-		//if (endNode->key_ > key) endNode->left_ = newNode;
-		//else if(newNode->key_ < key) endNode->right_ = newNode;
-		// return newNode;
 	}
 
 	void Foreach_Tree_DLR(Node* root)
@@ -307,21 +299,6 @@ private:
 				{
 					cout << node->root->key_ << " ";
 				}
-				//++counter;
-				//if (node->root->key_ == search_key)
-				//{
-				//	if (0 == i)
-				//	{
-				//		place_key[i] = counter - 1;
-				//		++i;
-				//	}
-				//	if (i > 0)
-				//	{
-				//		place_key[i] = counter - place_key[i - 1];
-				//		++i;
-				//	}	
-				//	search_node = node->root;
-				//}
 				search_node = node->root;
 			}
 			else {
@@ -332,11 +309,7 @@ private:
 			}
 		}
 		cout << endl;
-		//for (int j = 0; j < i; ++j)
-		//{
-		//	for (int space_ = 0; space_ < place_key[j]; ++space_) cout << " ";
-		//	cout << "A";
-		//}
+
 		return search_node;
 	}
 
