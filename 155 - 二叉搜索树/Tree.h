@@ -6,10 +6,15 @@
 #include<Windows.h>
 using namespace std;
 
+/****************************************************************
+	recursion - 递归
+	iteration - 迭代
+****************************************************************/
+
 template<typename T>
 class BinarySearchTree
 {
-	// ---------------------------- Node ----------------------------
+	/**************************************Struct - Node**************************************/
 private:
 	struct Node
 	{
@@ -34,8 +39,8 @@ private:
 private:
 	Node* root_;
 	static unsigned int val_static;
-	// -----------------------------------------------------------------
 
+	// ===========================================Public==========================================
 public:
 	BinarySearchTree()
 	{
@@ -55,8 +60,30 @@ public:
 		root_ = new Node<T>(key, left, right, p);
 	}
 
-	void insertTree()
+	/******************************Creat the Binary Search Tree******************************/
+	void CreatTree()
 	{
+		int user_choose;
+		cout << "1. recursion - 递归" << endl
+			<< "2. iteration - 迭代" << endl;
+		cin >> user_choose;
+		switch (user_choose)
+		{
+		case 1:
+			CreatTreeRECURSION();
+			break;
+		case 2:
+			CreatTreeITERATION();
+			break;
+		default:
+			cerr << "!!! Unknown command !!!" << endl;
+			break;
+		}
+	}
+
+	void CreatTreeRECURSION()
+	{
+		val_static = 0;
 		T key_cin;
 		cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
 		if (key_cin == '#') return;
@@ -70,10 +97,51 @@ public:
 				--val_static;
 				break;
 			}
-			CreatBinarySearchTree(this->root_, key_cin);
+			CreatBinarySearchTreeRECURSION(this->root_, key_cin);
 		}		
 	}
 
+	void CreatTreeITERATION()
+	{
+		val_static = 0;
+		root_ = CreatBinarySearchTreeITERATION();
+	}
+	
+
+	/*******************************Insert the Binary Search Tree*******************************/
+	void insetNode()
+	{
+		int user_choose;
+		cout << "1 - recursion - 递归" << endl
+			<< "2 - iteration - 迭代" << endl;
+		cin >> user_choose;
+
+		T key_cin;
+		++val_static;
+		cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
+		if ('#' == key_cin)
+		{
+			--val_static;
+			return;
+		}
+
+		Node* newNode = new Node(key_cin);
+
+		switch (user_choose)
+		{
+		case 1:
+			InsertNodeRECURSION(this->root_, key_cin);
+			break;
+		case 2:
+			InsertNodeITERATION(this->root_, newNode);
+			break;
+		default:
+			cerr << "!!! Unknown command !!!" << endl;
+			break;
+		}
+	}
+
+	/******************************Foreach the Binary Search Tree******************************/
 	void printTree(string method) 
 	{
 		if ("DLR" == method) { Foreach_Tree_DLR(this->root_); }
@@ -94,7 +162,26 @@ public:
 					<< "· ALL" << endl;
 		}
 	}
+	
+	void iterableTree()
+	{
+		T first_key, sec_key, temp;
+		cout << "---------- Scope of search  ----------" << endl;
+		cout << "Key No.1 >>> "; cin >> first_key;
+		cout << "Key No.2 >>> "; cin >> sec_key;
+		cout << "----------------------------------------" << endl;
+		
+		if (first_key > sec_key)
+		{
+			temp = first_key;
+			first_key = sec_key;
+			sec_key = temp;
+		}
+		IterableBinarySearchTree(this->root_, first_key, sec_key);
+		cout << endl;
+	}
 
+	/************************************Function Get XXXXX************************************/
 	int getElementNum()
 	{
 		return CaculateElementNum(this->root_);
@@ -109,7 +196,8 @@ public:
 	{
 		return CaculateTreeDepth(this->root_);
 	}
-
+	
+	/**************************************Other function**************************************/
 	Node* copyTree() const 
 	{
 		return CopyBinaryTree(this->root_);
@@ -117,17 +205,43 @@ public:
 
 	bool iterativeSearch()
 	{
-		return (IterativeSearchNode(this->root_) != nullptr);
+		T search_key;
+		cout << "Which key need to search : "; cin >> search_key;
+		return (IterativeSearchNode(this->root_, search_key) != nullptr);
+	}
+
+	void deleteNode()
+	{
+		int user_choose;
+		cout << "1 - Delete MIN node" << endl
+			<< "2 - Delete MAX node" << endl
+		<< "3 - Delete other Node" << endl;
+		cout << "Choose >>> "; cin >> user_choose;
+		switch (user_choose)
+		{
+		case 1:
+			DeleteMinBinarySearchTree(this->root_);
+			break;
+		case 2:
+			DeleteMaxBinarySearchTree(this->root_);
+			break;
+		default:
+			DeleteNodeBinarySearchTree(this->root_);
+			break;
+		}
+
 	}
 
 	void deleteTree()
 	{
 		FreeSpaceBinaryTree(this->root_);
 	}
+	
 
-	// -----------------------------------------------------------
+	// ===============================================Private===============================================
 private:
-	Node* CreatBinarySearchTree(Node* root, T key)
+	/******************************Creat the Binary Search Tree******************************/
+	Node* CreatBinarySearchTreeRECURSION(Node* root, T key)
 	{
 
 		if (nullptr == root) return root;
@@ -173,7 +287,7 @@ private:
 		// if other Node
 		if (root->key_ > key)
 		{
-			if (root->left_ != nullptr)	{ root = CreatBinarySearchTree(root->left_, key);}
+			if (root->left_ != nullptr)	{ root = CreatBinarySearchTreeRECURSION(root->left_, key);}
 			else
 			{
 				Node* newNode = new Node(key);
@@ -182,7 +296,7 @@ private:
 		}
 		else if (root->key_ < key)
 		{
-			if (root->right_ != nullptr) { root = CreatBinarySearchTree(root->right_, key); }
+			if (root->right_ != nullptr) { root = CreatBinarySearchTreeRECURSION(root->right_, key); }
 			else
 			{
 				Node* newNode = new Node(key);
@@ -196,6 +310,119 @@ private:
 		}
 	}
 
+	Node* CreatBinarySearchTreeITERATION()
+	{
+		T key_cin;
+		cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
+		if (key_cin == '#') return nullptr;
+
+		root_->key_ = key_cin;
+		root_->val_ = val_static;
+
+		Node* pCurrent = root_;
+
+		while (true)
+		{
+			++val_static;
+			cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
+			if (key_cin == '#')
+			{
+				--val_static;
+				break;
+			}
+
+			while (pCurrent->key_ > key_cin && pCurrent->left_ != nullptr)
+			{
+				pCurrent = pCurrent->left_;
+			}
+			while (pCurrent->key_ < key_cin && pCurrent->right_ != nullptr)
+			{
+				pCurrent = pCurrent->right_;
+			}
+			if (pCurrent->key_ > key_cin)
+			{
+				Node* newNode = new Node(key_cin);
+				pCurrent->left_ = newNode;
+			}
+			else if (pCurrent->key_ < key_cin)
+			{
+				Node* newNode = new Node(key_cin);
+				pCurrent->right_ = newNode;
+			}
+			else
+			{
+				pCurrent->val_ = val_static;
+			}
+			pCurrent = root_; // !!!!!!!!!!!!!!
+		}
+		return root_;
+	}
+
+
+	/******************************Insert the Binary Search Tree******************************/
+	void InsertNodeRECURSION(Node* root, T key_new)
+	{
+		if (0 == val_static) return;
+		if (nullptr == root) return;
+
+		if (root->key_ > key_new)
+		{
+			if (root->left_ != nullptr) { InsertNodeRECURSION(root->left_, key_new); }
+			else
+			{
+				Node* newNode = new Node(key_new);
+				root->left_ = newNode;
+				return;
+			}
+		}
+		else if (root->key_ < key_new)
+		{
+			if (root->right_ != nullptr) { InsertNodeRECURSION(root->right_, key_new); }
+			else
+			{
+				Node* newNode = new Node(key_new);
+				root->right_ = newNode;
+				return;
+			}
+		}
+		else
+		{
+			root->val_ = val_static;
+			cout << "Have element " << key_new << " ! Change the value to " << val_static << " !" << endl;
+		}
+	}
+
+	void InsertNodeITERATION(Node* root, Node* newNode)
+	{
+		if (nullptr == root || newNode == nullptr) return;
+
+		Node* pCurrent = root;
+		
+		while (pCurrent->key_ > newNode->key_ && pCurrent->left_ != nullptr)
+		{
+			pCurrent = pCurrent->left_;
+		}
+		while (pCurrent->key_ < newNode->key_ && pCurrent->right_ != nullptr)
+		{
+			pCurrent = pCurrent->right_;
+		}
+		if (pCurrent->key_ > newNode->key_)
+		{
+			pCurrent->left_ = newNode;
+		}
+		else if (pCurrent->key_ < newNode->key_)
+		{
+			pCurrent->right_ = newNode;
+		}
+		else
+		{
+			cout << "Have element " << newNode->key_ << " ! Change the value to " << val_static << " !" << endl;
+			pCurrent->val_ = val_static;
+		}
+	}
+
+
+	/*****************************Foreach the Binary Search Tree*****************************/
 	void Foreach_Tree_DLR(Node* root)
 	{
 		if (nullptr == root) return;
@@ -224,15 +451,72 @@ private:
 		cout << root->key_ << " ";
 	}
 
-	// 创建栈中的结点 - Creat element in stack
-	BinTreeStackNode* CreatBinTreeStackNode(Node* node, bool flag)
+	void IterableBinarySearchTree(Node* root, T key_1, T key_2)
 	{
-		BinTreeStackNode* newNode = new BinTreeStackNode;
-		newNode->root = node;
-		newNode->flag = false;
-		return newNode;
+		if (nullptr == root) return; // 加一个大于判断可以节省内存 - for safe rom
+		IterableBinarySearchTree(root->left_, key_1, key_2);
+		if (root->key_ >= key_1 && root->key_ <= key_2) { cout << root->key_ << " "; }
+		IterableBinarySearchTree(root->right_, key_1, key_2);
 	}
 
+	Node* IterativeSearchNode(Node* root, T search_key)
+	{
+		if (nullptr == root)
+		{
+			cerr << "!!! Don't have any node !!!" << endl;
+			return nullptr;
+		}
+		// Make a Stack
+		LinkStack* stack = InIt_LinkStack();
+		Node* search_node = new Node;
+		search_node = nullptr;
+		//int counter = 0;
+		//int place_key[50];
+		//int i = 0;
+
+
+		// Make a pCurrent to know have or not element, which user cin
+		Node* pBool = nullptr;
+
+		// 将根结点放到栈中
+		Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(root, false));
+
+		while (Size_LinkStack(stack) > 0)
+		{
+			// 先弹出栈顶元素
+			BinTreeStackNode* node = (BinTreeStackNode*)Top_LinkStack(stack);
+			Pop_LinkStack(stack);
+
+			// 判断，如果为 nullptr 直接重新循环
+			if (node->root == nullptr) continue;
+
+			if (node->flag == true)
+			{
+				if (search_key == node->root->key_)
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+					cout << node->root->key_ << " ";
+					pBool = node->root;
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+				}
+				else
+				{
+					cout << node->root->key_ << " ";
+				}
+				search_node = node->root;
+			}
+			else {
+				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->right_, false));
+				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->left_, false));
+				node->flag = true;
+				Push_LinkStack(stack, (LinkNode*)node);
+			}
+		}
+		cout << endl;
+		return pBool;
+	}
+
+	/**************************Caculate XXXX of Binary Search Tree**************************/
 	int CaculateElementNum(Node* root)
 	{
 		if (nullptr == root) return 0;
@@ -261,70 +545,14 @@ private:
 		depth = left_depth > right_depth ? ++left_depth : ++right_depth;
 		return depth;
 	}
-
-	Node* IterativeSearchNode(Node* root)
+	
+	// 创建栈中的结点 - Creat element in stack
+	BinTreeStackNode* CreatBinTreeStackNode(Node* node, bool flag)
 	{
-		// 创建栈
-		LinkStack* stack = InIt_LinkStack();
-		Node* search_node = new Node;
-		search_node = nullptr;
-		//int counter = 0;
-		//int place_key[50];
-		//int i = 0;
-		T search_key;
-
-		cout << "Which key need to search : "; cin >> search_key;
-
-		// 将根结点放到栈中
-		Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(root, false));
-
-		while (Size_LinkStack(stack) > 0)
-		{
-			// 先弹出栈顶元素
-			BinTreeStackNode* node = (BinTreeStackNode*)Top_LinkStack(stack);
-			Pop_LinkStack(stack);
-
-			// 判断，如果为 nullptr 直接重新循环
-			if (node->root == nullptr) continue;
-
-			if (node->flag == true)
-			{
-				if (search_key == node->root->key_)
-				{
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
-					cout << node->root->key_ << " ";
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-				}
-				else
-				{
-					cout << node->root->key_ << " ";
-				}
-				search_node = node->root;
-			}
-			else {
-				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->right_, false));
-				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->left_, false));
-				node->flag = true;
-				Push_LinkStack(stack, (LinkNode*)node);
-			}
-		}
-		cout << endl;
-
-		return search_node;
-	}
-
-	T OutputDataElement(Node* root) // xxx
-	{
-		if (nullptr == root) return 0;
-		unsigned int no_element;
-		cout << "Element number :  "; cin >> no_element;
-		if (no_element > CaculateElementNum(root))
-		{
-			cerr << "Don't have data!" << endl
-				<< "The element number should less than " << CaculateElementNum() << " !" << endl;
-			return 0;
-		}
-
+		BinTreeStackNode* newNode = new BinTreeStackNode;
+		newNode->root = node;
+		newNode->flag = false;
+		return newNode;
 	}
 
 	Node* CopyBinaryTree(Node* root)
@@ -339,14 +567,312 @@ private:
 		newNode->right = right_child;
 	} 
 
+	/**************************************** Delete ****************************************/
+	void DeleteMinBinarySearchTree(Node* root)
+	{
+		if (nullptr == root) return;
+
+		/****************
+					E
+				   /
+				 A
+		****************/
+		else if (root->right_ == nullptr && root->left_ != nullptr)
+		{
+			Node* delete_node = root;
+			root = root->left_;
+			delete delete_node;
+			delete_node = nullptr;
+		}
+		
+
+		/****************
+						S
+					  /
+					E <-root
+				  /
+				 C <-delete
+			   /
+			  A
+		*****************/
+		else if (root->left_ != nullptr && root->left_->right_ == nullptr && root->left_->left_ != nullptr)
+		{
+			Node* delete_node = root;
+			root->left_ = root->left_->left_;
+			delete delete_node;
+			delete_node = nullptr;
+		}
+
+
+		/****************
+						S
+					  /
+					E <- root
+				  /
+				A <- delete
+			  	  \
+					C
+		*****************/
+		else if (root->left_ != nullptr && root->left_->left_ == nullptr && root->left_->right_ != nullptr)
+		{
+			Node* delete_node = root->left_;
+			root->left_ = root->left_->right_;
+			delete delete_node;
+			delete_node = nullptr;
+			return;
+		}
+		else DeleteMinBinarySearchTree(root->left_);
+	}
+
+	void DeleteMaxBinarySearchTree(Node* root)
+	{
+		if (nullptr == root) return;
+
+		/**********************
+			A
+			  \
+			    B
+		**********************/
+		else if (root->left_ == nullptr && root->right_ != nullptr)
+		{
+			Node* delete_node = root;
+			root = root->right_;
+			delete delete_node;
+			delete_node = nullptr;
+		}
+
+
+		/**********************
+			\
+			  B <- root
+			/   \
+		   A	  E <--DELETE
+				 /
+			   C	 
+		**********************/
+		else if (root->right_ != nullptr && root->right_->left_ == nullptr && root->right_->right_ == nullptr)
+		{
+			Node* delete_node = root->right_;
+			root->right_ = nullptr;
+			delete delete_node;
+			delete_node = nullptr;
+		}
+
+
+		/**********************
+					E <- root
+					 \
+					   X <- DELETE
+					  / 
+					S
+		**********************/
+		else if (root->right_ != nullptr && root->right_->right_ == nullptr && root->right_->left_ != nullptr)
+		{
+			Node* delete_node = root->right_;
+			root->right_ = root->right_->left_;
+			delete delete_node;
+			delete_node = nullptr;
+		}
+		else DeleteMaxBinarySearchTree(root->right_);
+	}
+
+	//Node* deleteMin(Node* root)
+	//{
+	//	if (root->left_ == nullptr) return root->right_;
+	//	root->left_ = deleteMin(root->left_);
+	//	// return root;
+	//}
+
+	void DeleteNodeBinarySearchTree(Node* root)
+	{
+		if (nullptr == root) return;
+		T dele_key;
+
+		cout << "Which key need to delete :" << endl << ">>> "; cin >> dele_key;
+
+		// First of all, need to find the node, which need to delete
+		Node* pCurrent = root;
+		Node* pParent = pCurrent;
+		while (true)
+		{
+			if (pCurrent->key_ > dele_key)
+			{
+				pParent = pCurrent;
+				pCurrent = pCurrent->left_;
+			}
+			else if (pCurrent->key_ < dele_key)
+			{
+				pParent = pCurrent;
+				pCurrent = pCurrent->right_;
+			}
+			else if (pCurrent->key_ == dele_key)
+			{
+				break;
+			}
+
+			if (pCurrent == nullptr)
+			{
+				cout << "Don't have node, which key is " << dele_key << " !" << endl;
+				return;
+			}
+		}
+
+		cout << "pParent : " << pParent->key_ << endl;
+		cout << "pCurrent : " << pCurrent->key_ << endl;
+
+		// if delete node is the leaf
+		if (pCurrent->left_ == nullptr && pCurrent->right_ == nullptr)
+		{
+			Node* deleNode = pCurrent;
+			pParent = nullptr;
+			delete deleNode;
+			deleNode = nullptr;
+			return;
+		}
+
+		/*********************
+							S  <-- pParent
+						   /  \
+		DELETE-> E      X
+					  /   \
+					A    null
+				   /  \
+				  *    *
+		*********************/
+		if (pCurrent->left_ != nullptr && pCurrent->right_ == nullptr && pCurrent == pParent->left_)
+		{
+			Node* deleNode = pCurrent;
+			pParent->left_ = deleNode->right_;
+			delete deleNode;
+			deleNode = nullptr;
+		}
+
+
+		/*********************
+							S  <-- pParent
+						   /  \
+		DELETE-> E      X
+					  /   \
+                  null    R  
+				           /  \
+				          *    *
+		*********************/
+		else if (pCurrent->left_ == nullptr && pCurrent->right_ != nullptr && pCurrent == pParent->left_)
+		{
+			Node* deleNode = pCurrent;
+			pParent->left_ = pCurrent->right_;
+			delete deleNode;
+			deleNode = nullptr;
+		}
+		
+
+		/*********************
+							S  <-- pParent
+						   /  \
+		                 E      X <-DELETE
+					           /  \
+                              Q   null
+		*********************/
+		else if (pCurrent->left_ != nullptr && pCurrent->right_ == nullptr && pCurrent == pParent->right_)
+		{
+			Node* deleNode = pCurrent;
+			pParent->right_ = deleNode->left_;
+			delete deleNode;
+			deleNode = nullptr;
+		}
+
+
+		/*********************
+							S  <-- pParent
+						   /  \
+						 E      X <-DELETE
+							   /  \
+							null  Z
+		*********************/
+		else if (pCurrent->left_ == nullptr && pCurrent->right_ != nullptr && pCurrent == pParent->right_)
+		{
+			Node* deleNode = pCurrent;
+			pParent->right_ = deleNode->right_;
+			delete deleNode;
+			deleNode = nullptr;
+		}
+
+
+		// 最复杂的情况 - The WORSSSSSSSSSSSSSSSSSSSSSSSST situation  -  QAQ
+		else if (pCurrent->left_ != nullptr && pCurrent->right_ != nullptr)
+		{
+			Node* deleNode = pCurrent;
+			pCurrent = pCurrent->right_;
+
+			/*********************
+								S  <-- pParent
+							   /  \
+        	DELETE-> E      X
+					   	  /   \
+					   	A     R  <- pCurrent
+			           /  \
+					  *    *
+			*********************/
+			if (pCurrent->left_ == nullptr && pCurrent->right_ == nullptr)
+			{
+				pCurrent->left_ = deleNode->left_;
+				pParent->left_ = pCurrent;
+				delete deleNode;
+				deleNode = nullptr;
+			}
+
+
+			/*********************
+								S  <-- pParent
+							   /  \
+			DELETE-> E      X
+						  /     \
+						A        R <- pCurrent
+					   /  \     /   \
+					  *    *  H      *
+					         /   \
+						   G <---- pCurrent  (之后的pCurrent - pCurrent after "while")
+						 /   \
+					  null   *
+			*********************/
+			else if (pCurrent->left_ != nullptr)
+			{
+				while (pCurrent->left_ != nullptr)
+				{
+					pParent = pCurrent;
+					pCurrent = pCurrent->left_;
+				}
+				
+				deleNode->key_ = pCurrent->key_;
+				deleNode->val_ = pCurrent->val_;
+				pParent->left_ = nullptr;
+				delete pCurrent;
+				pCurrent = nullptr;
+
+
+				//pCurrent->left_ = deleNode->left_;
+				//pCurrent->right_ = deleteMin(deleNode->right_);
+				//// pParent->left_ = pCurrent;
+				//pParent->left_ = nullptr;
+				//InsertNodeITERATION(this->root_, pCurrent->right_);
+				//delete deleNode;
+				//deleNode = nullptr;
+			}
+
+			return;
+		}
+	}
+
 	void FreeSpaceBinaryTree(Node* root)
 	{
 		if (nullptr == root) return;
 		FreeSpaceBinaryTree(root->left_);
 		FreeSpaceBinaryTree(root->right_);
 		delete root;
+		val_static = 0;
 	}
 
+	
 };
 template <typename T>
 unsigned int BinarySearchTree<T>::val_static = 0;
