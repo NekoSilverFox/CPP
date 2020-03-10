@@ -7,8 +7,8 @@
 using namespace std;
 
 /****************************************************************
-	recursion - 递归
-	iteration - 迭代
+	recursion - 递归 - рекурсивно
+	iteration - 迭代 - итеративно
 ****************************************************************/
 
 template<typename T>
@@ -64,9 +64,9 @@ public:
 	void CreatTree()
 	{
 		int user_choose;
-		cout << "1. recursion - 递归" << endl
-			<< "2. iteration - 迭代" << endl;
-		cin >> user_choose;
+		cout << "1. recursion - 递归 - рекурсивно" << endl
+			<< "2. iteration - 迭代 - итеративно" << endl;
+		cout << ">>> ";  cin >> user_choose;
 		switch (user_choose)
 		{
 		case 1:
@@ -112,9 +112,9 @@ public:
 	void insetNode()
 	{
 		int user_choose;
-		cout << "1 - recursion - 递归" << endl
-			<< "2 - iteration - 迭代" << endl;
-		cin >> user_choose;
+		cout << "1 - recursion - 递归 - рекурсивно" << endl
+			<< "2 - iteration - 迭代 - итеративно" << endl;
+		cout << ">>> "; cin >> user_choose;
 
 		T key_cin;
 		++val_static;
@@ -197,6 +197,19 @@ public:
 		return CaculateTreeDepth(this->root_);
 	}
 	
+	void searchBSTbyValue()
+	{
+		Node* searchNode = SearchByValue(this->root_);
+		if (nullptr == searchNode)
+		{
+			cout << "Don't have node !" << endl;
+		}
+		else
+		{
+			cout << "Valul : " << searchNode->val_ << " | Key : " << searchNode->key_ << endl;
+		}
+	}
+
 	/**************************************Other function**************************************/
 	Node* copyTree() const 
 	{
@@ -471,9 +484,6 @@ private:
 		Node* search_node = new Node;
 		search_node = nullptr;
 		//int counter = 0;
-		//int place_key[50];
-		//int i = 0;
-
 
 		// Make a pCurrent to know have or not element, which user cin
 		Node* pBool = nullptr;
@@ -502,6 +512,56 @@ private:
 				else
 				{
 					cout << node->root->key_ << " ";
+				}
+				search_node = node->root;
+			}
+			else {
+				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->right_, false));
+				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->left_, false));
+				node->flag = true;
+				Push_LinkStack(stack, (LinkNode*)node);
+			}
+		}
+		cout << endl;
+		return pBool;
+	}
+
+	Node* SearchByValue(Node* root)
+	{
+		if (nullptr == root) return nullptr;
+		int num_search;
+		cout << "Node number >>> "; cin >> num_search;
+
+		if (nullptr == root)
+		{
+			cerr << "!!! Don't have any node !!!" << endl;
+			return nullptr;
+		}
+		// Make a Stack
+		LinkStack* stack = InIt_LinkStack();
+		Node* search_node = new Node;
+		search_node = nullptr;
+
+		// Make a pCurrent to know have or not element, which user cin
+		Node* pBool = nullptr;
+
+		// 将根结点放到栈中
+		Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(root, false));
+
+		while (Size_LinkStack(stack) > 0)
+		{
+			// 先弹出栈顶元素
+			BinTreeStackNode* node = (BinTreeStackNode*)Top_LinkStack(stack);
+			Pop_LinkStack(stack);
+
+			// 判断，如果为 nullptr 直接重新循环
+			if (node->root == nullptr) continue;
+
+			if (node->flag == true)
+			{
+				if (num_search == node->root->val_)
+				{
+					return node->root;
 				}
 				search_node = node->root;
 			}
@@ -676,13 +736,6 @@ private:
 		else DeleteMaxBinarySearchTree(root->right_);
 	}
 
-	//Node* deleteMin(Node* root)
-	//{
-	//	if (root->left_ == nullptr) return root->right_;
-	//	root->left_ = deleteMin(root->left_);
-	//	// return root;
-	//}
-
 	void DeleteNodeBinarySearchTree(Node* root)
 	{
 		if (nullptr == root) return;
@@ -723,10 +776,14 @@ private:
 		// if delete node is the leaf
 		if (pCurrent->left_ == nullptr && pCurrent->right_ == nullptr)
 		{
-			Node* deleNode = pCurrent;
-			pParent = nullptr;
-			delete deleNode;
-			deleNode = nullptr;
+			if (pParent->left_ == pCurrent)
+			{
+				pParent->left_ = nullptr;
+			}
+			else pParent->right_ = nullptr;
+
+			delete pCurrent;
+			pCurrent = nullptr;
 			return;
 		}
 
@@ -745,6 +802,7 @@ private:
 			pParent->left_ = deleNode->right_;
 			delete deleNode;
 			deleNode = nullptr;
+			return;
 		}
 
 
@@ -763,6 +821,7 @@ private:
 			pParent->left_ = pCurrent->right_;
 			delete deleNode;
 			deleNode = nullptr;
+			return;
 		}
 		
 
@@ -815,10 +874,13 @@ private:
 			*********************/
 			if (pCurrent->left_ == nullptr && pCurrent->right_ == nullptr)
 			{
-				pCurrent->left_ = deleNode->left_;
-				pParent->left_ = pCurrent;
-				delete deleNode;
-				deleNode = nullptr;
+				deleNode->key_ = pCurrent->key_;
+				deleNode->val_ = pCurrent->val_;
+				deleNode->right_ = nullptr;
+
+				delete pCurrent;
+				pCurrent = nullptr;
+				return;
 			}
 
 
@@ -835,7 +897,7 @@ private:
 						 /   \
 					  null   *
 			*********************/
-			else if (pCurrent->left_ != nullptr)
+			if (pCurrent->left_ != nullptr)
 			{
 				while (pCurrent->left_ != nullptr)
 				{
@@ -848,17 +910,7 @@ private:
 				pParent->left_ = nullptr;
 				delete pCurrent;
 				pCurrent = nullptr;
-
-
-				//pCurrent->left_ = deleNode->left_;
-				//pCurrent->right_ = deleteMin(deleNode->right_);
-				//// pParent->left_ = pCurrent;
-				//pParent->left_ = nullptr;
-				//InsertNodeITERATION(this->root_, pCurrent->right_);
-				//delete deleNode;
-				//deleNode = nullptr;
-			}
-
+			 }
 			return;
 		}
 	}
@@ -872,7 +924,6 @@ private:
 		val_static = 0;
 	}
 
-	
 };
 template <typename T>
 unsigned int BinarySearchTree<T>::val_static = 0;

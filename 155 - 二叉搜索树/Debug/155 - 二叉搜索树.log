@@ -1,3 +1,3 @@
 ﻿  155 - main.cpp
-C:\Users\mi\Desktop\CPP\155 - 二叉搜索树\Tree.h(311): warning C4715:  “BinarySearchTree<char>::CreatBinarySearchTreeRECURSION”: 不是所有的控件路径都返回值
+C:\Users\mi\Desktop\CPP\155 - 二叉搜索树\Tree.h(324): warning C4715:  “BinarySearchTree<char>::CreatBinarySearchTreeRECURSION”: 不是所有的控件路径都返回值
   155 - 二叉搜索树.vcxproj -> C:\Users\mi\Desktop\CPP\155 - 二叉搜索树\Debug\155 - 二叉搜索树.exe
