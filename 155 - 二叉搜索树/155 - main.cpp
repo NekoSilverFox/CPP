@@ -1,20 +1,20 @@
 #include"LinkStack.h"
 #include"Tree.h"
 
-void FunCreatBinaryTree()
+void funcBinarySearchTree()
 {
 	BinarySearchTree<char> charTree;
 
-	cout <<               "---------------------Creat Binary Search Tree---------------------" << endl;
+	cout <<               "----------------------Creat Binary Search Tree----------------------" << endl;
 	charTree.CreatTree();
 
-	cout << endl << "---------------------Print Binary Search Tree---------------------" << endl;
+	cout << endl << "----------------------Print Binary Search Tree----------------------" << endl;
 	charTree.printTree("LDR");
 
-	cout << endl << "----------------------------Insert Node----------------------------" << endl;
+	cout << endl << "-----------------------------Insert Node-----------------------------" << endl;
 	charTree.insetNode();
 
-	cout << endl << "---------------------Print Binary Search Tree---------------------" << endl;
+	cout << endl << "----------------------Print Binary Search Tree----------------------" << endl;
 	charTree.printTree("LDR");
 
 	cout << endl << "------------------------Print Tree with scope------------------------" << endl;
@@ -50,5 +50,5 @@ void FunCreatBinaryTree()
 
 int main()
 {
-	FunCreatBinaryTree();
+	funcBinarySearchTree();
 }

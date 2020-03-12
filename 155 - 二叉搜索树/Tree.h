@@ -111,33 +111,36 @@ public:
 	/*******************************Insert the Binary Search Tree*******************************/
 	void insetNode()
 	{
-		int user_choose;
+		char user_choose;
 		cout << "1 - recursion - 递归 - рекурсивно" << endl
-			<< "2 - iteration - 迭代 - итеративно" << endl;
+			<< "2 - iteration - 迭代 - итеративно" << endl
+			<< "# - Exit" << endl;
 		cout << ">>> "; cin >> user_choose;
 
 		T key_cin;
-		++val_static;
-		cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
-		if ('#' == key_cin)
-		{
-			--val_static;
-			return;
-		}
 
-		Node* newNode = new Node(key_cin);
-
-		switch (user_choose)
+		while (true)
 		{
-		case 1:
-			InsertNodeRECURSION(this->root_, key_cin);
-			break;
-		case 2:
-			InsertNodeITERATION(this->root_, newNode);
-			break;
-		default:
-			cerr << "!!! Unknown command !!!" << endl;
-			break;
+			++val_static;
+			cout << "Value = " << val_static << " | Key = "; cin >> key_cin;
+			if ('#' == key_cin)
+			{
+				--val_static;
+				return;
+			}
+
+			switch (user_choose)
+			{
+			case '1':
+				InsertNodeRECURSION(this->root_, key_cin);
+				break;
+			case '2':
+				InsertNodeITERATION(this->root_, key_cin);
+				break;
+			default:
+				cerr << "!!! Unknown command !!!" << endl;
+				break;
+			}
 		}
 	}
 
@@ -344,14 +347,22 @@ private:
 				break;
 			}
 
-			while (pCurrent->key_ > key_cin && pCurrent->left_ != nullptr)
+			while (true)
 			{
-				pCurrent = pCurrent->left_;
+				while (pCurrent->key_ > key_cin && pCurrent->left_ != nullptr)
+				{
+					pCurrent = pCurrent->left_;
+				}
+				while (pCurrent->key_ < key_cin && pCurrent->right_ != nullptr)
+				{
+					pCurrent = pCurrent->right_;
+				}
+
+				if (pCurrent->key_ > key_cin && pCurrent->left_ == nullptr) break;
+				else if (pCurrent->key_ < key_cin && pCurrent->right_ == nullptr) break;
+				else if (pCurrent->key_ == key_cin) break;
 			}
-			while (pCurrent->key_ < key_cin && pCurrent->right_ != nullptr)
-			{
-				pCurrent = pCurrent->right_;
-			}
+
 			if (pCurrent->key_ > key_cin)
 			{
 				Node* newNode = new Node(key_cin);
@@ -405,31 +416,41 @@ private:
 		}
 	}
 
-	void InsertNodeITERATION(Node* root, Node* newNode)
+	void InsertNodeITERATION(Node* root, T key_new)
 	{
-		if (nullptr == root || newNode == nullptr) return;
-
+		if (nullptr == root || key_new == '#') return;
+		
 		Node* pCurrent = root;
 		
-		while (pCurrent->key_ > newNode->key_ && pCurrent->left_ != nullptr)
+		while (true)
 		{
-			pCurrent = pCurrent->left_;
+			while (pCurrent->key_ > key_new && pCurrent->left_ != nullptr)
+			{
+				pCurrent = pCurrent->left_;
+			}
+			while (pCurrent->key_ < key_new && pCurrent->right_ != nullptr)
+			{
+				pCurrent = pCurrent->right_;
+			}
+
+			if (pCurrent->key_ > key_new && pCurrent->left_ == nullptr) break;
+			else if (pCurrent->key_ < key_new && pCurrent->right_ == nullptr) break;
+			else if (pCurrent->key_ == key_new) break;
 		}
-		while (pCurrent->key_ < newNode->key_ && pCurrent->right_ != nullptr)
+
+		if (pCurrent->key_ > key_new)
 		{
-			pCurrent = pCurrent->right_;
-		}
-		if (pCurrent->key_ > newNode->key_)
-		{
+			Node* newNode = new Node(key_new);
 			pCurrent->left_ = newNode;
 		}
-		else if (pCurrent->key_ < newNode->key_)
+		else if (pCurrent->key_ < key_new)
 		{
+			Node* newNode = new Node(key_new);
 			pCurrent->right_ = newNode;
 		}
 		else
 		{
-			cout << "Have element " << newNode->key_ << " ! Change the value to " << val_static << " !" << endl;
+			cout << "Have element " << key_new << " ! Change the value to " << val_static << " !" << endl;
 			pCurrent->val_ = val_static;
 		}
 	}
@@ -894,7 +915,7 @@ private:
 					   /  \     /   \
 					  *    *  H      *
 					         /   \
-						   *      *
+     pParent --->  *      *  ( pParent after "while")
 						 /
 					   G <---- pCurrent  (之后的pCurrent - pCurrent after "while")
 					 /   \
@@ -910,7 +931,7 @@ private:
 				
 				deleNode->key_ = pCurrent->key_;
 				deleNode->val_ = pCurrent->val_;
-				pParent->left_ = nullptr;
+				pParent->left_ = pCurrent->right_;
 				delete pCurrent;
 				pCurrent = nullptr;
 			 }
