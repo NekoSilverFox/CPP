@@ -7,8 +7,8 @@
 using namespace std;
 
 /****************************************************************
-	recursion - 递归 - рекурсивно
-	iteration - 迭代 - итеративно
+							recursion - 递归 - рекурсивно
+							iteration - 迭代 - итеративно
 ****************************************************************/
 
 template<typename T>
@@ -466,7 +466,7 @@ private:
 
 	void IterableBinarySearchTree(Node* root, T key_1, T key_2)
 	{
-		if (nullptr == root) return; // 加一个大于判断可以节省内存 - for safe rom
+		if (nullptr == root) return; 
 		IterableBinarySearchTree(root->left_, key_1, key_2);
 		if (root->key_ >= key_1 && root->key_ <= key_2) { cout << root->key_ << " "; }
 		IterableBinarySearchTree(root->right_, key_1, key_2);
@@ -488,12 +488,12 @@ private:
 		// Make a pCurrent to know have or not element, which user cin
 		Node* pBool = nullptr;
 
-		// 将根结点放到栈中
+		// 将根结点放到栈中 - first, make the root of the tree in the stack
 		Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(root, false));
 
 		while (Size_LinkStack(stack) > 0)
 		{
-			// 先弹出栈顶元素
+			// 先弹出栈顶元素 - Pop the element, which is on the top of the stack
 			BinTreeStackNode* node = (BinTreeStackNode*)Top_LinkStack(stack);
 			Pop_LinkStack(stack);
 
@@ -516,6 +516,7 @@ private:
 				search_node = node->root;
 			}
 			else {
+				// put the child of the node in the stack
 				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->right_, false));
 				Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(node->root->left_, false));
 				node->flag = true;
@@ -537,20 +538,20 @@ private:
 			cerr << "!!! Don't have any node !!!" << endl;
 			return nullptr;
 		}
+
 		// Make a Stack
 		LinkStack* stack = InIt_LinkStack();
+
+		// node need to search
 		Node* search_node = new Node;
 		search_node = nullptr;
 
-		// Make a pCurrent to know have or not element, which user cin
-		Node* pBool = nullptr;
-
-		// 将根结点放到栈中
+		// 将根结点放到栈中 - first, make the root of the tree in the stack
 		Push_LinkStack(stack, (LinkNode*)CreatBinTreeStackNode(root, false));
 
 		while (Size_LinkStack(stack) > 0)
 		{
-			// 先弹出栈顶元素
+			// 先弹出栈顶元素 - Pop the element, which is on the top of the stack
 			BinTreeStackNode* node = (BinTreeStackNode*)Top_LinkStack(stack);
 			Pop_LinkStack(stack);
 
@@ -573,7 +574,7 @@ private:
 			}
 		}
 		cout << endl;
-		return pBool;
+		return nullptr;
 	}
 
 	/**************************Caculate XXXX of Binary Search Tree**************************/
@@ -788,7 +789,7 @@ private:
 		}
 
 		/*********************
-							S  <-- pParent
+							 S  <-- pParent
 						   /  \
 		DELETE-> E      X
 					  /   \
@@ -857,7 +858,7 @@ private:
 		}
 
 
-		// 最复杂的情况 - The WORSSSSSSSSSSSSSSSSSSSSSSSST situation  -  QAQ
+		// 最复杂的情况 - The WORST situation  -  QAQ
 		else if (pCurrent->left_ != nullptr && pCurrent->right_ != nullptr)
 		{
 			Node* deleNode = pCurrent;
@@ -893,9 +894,11 @@ private:
 					   /  \     /   \
 					  *    *  H      *
 					         /   \
-						   G <---- pCurrent  (之后的pCurrent - pCurrent after "while")
-						 /   \
-					  null   *
+						   *      *
+						 /
+					   G <---- pCurrent  (之后的pCurrent - pCurrent after "while")
+					 /   \
+				  null   *
 			*********************/
 			if (pCurrent->left_ != nullptr)
 			{
