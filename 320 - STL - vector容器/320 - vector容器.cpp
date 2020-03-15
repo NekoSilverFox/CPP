@@ -180,6 +180,71 @@ void test03()
 	cout << "\' <- 预留位置不初始化，元素不可访问。!!!" << endl << endl; // 预留位置不初始化，元素不可访问。!!!
 }
 
+
+
+/*
+vector数据存取操作
+at(int idx); //返回索引idx所指的数据，如果idx越界，抛出out_of_range异常。
+operator[];//返回索引idx所指的数据，越界时，运行直接报错
+front();//返回容器中第一个数据元素
+back();//返回容器中最后一个数据元素
+
+3.2.4.5 vector插入和删除操作
+insert(const_iterator pos, int count, ele);//迭代器指向位置pos插入count个元素ele.
+push_back(ele); //尾部插入元素ele
+pop_back();//删除最后一个元素
+erase(const_iterator start, const_iterator end);//删除迭代器从start到end之间的元素
+erase(const_iterator pos);//删除迭代器指向的元素
+clear();//删除容器中所有元素
+
+*/
+void test04()
+{
+	vector<int> v;
+	for (int i = 0; i < 10; i++)
+	{
+		v.push_back(i);
+	}
+	cout << "The first element : " << v.front() << endl;
+	cout << "The last element : " << v.back() << endl;
+
+	cout << endl;
+
+	v.insert(v.begin() + 2, 66);
+	for (vector<int>::iterator it = v.begin(); it != v.end(); it++) cout << *it << " "; cout << endl;
+	v.insert(v.begin() + 5,4, 77);
+	for (vector<int>::iterator it = v.begin(); it != v.end(); it++) cout << *it << " "; cout << endl;
+
+	v.erase(v.begin() + 4, v.begin() + 9);
+	for (vector<int>::iterator it = v.begin(); it != v.end(); it++) cout << *it << " "; cout << endl;
+
+	v.erase(v.begin());
+	for (vector<int>::iterator it = v.begin(); it != v.end(); it++) cout << *it << " "; cout << endl;
+
+	v.pop_back();
+	for (vector<int>::iterator it = v.begin(); it != v.end(); it++) cout << *it << " "; cout << endl;
+
+	v.clear();
+	for (vector<int>::iterator it = v.begin(); it != v.end(); it++) cout << *it << " "; cout << endl;
+	if (v.empty()) cout << "null" << endl;
+}
+
+
+// 逆序遍历
+void test05()
+{
+	vector<char> v;
+	for (char ch = 'a'; ch < 'h'; ch++)
+	{
+		v.push_back(ch);
+	}
+	// 正序遍历
+	for (vector<char>::iterator it = v.begin(); it != v.end(); it++) cout << *it << " "; cout << endl;
+
+	//reverse_iterator 逆序迭代器 ##################################################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	for (vector<char>::reverse_iterator r_it = v.rbegin(); r_it != v.rend(); r_it++) cout << *r_it << " "; cout << endl;
+}
+
 int main()
 {
 	vector_test();
@@ -190,4 +255,7 @@ int main()
 	cout << endl << "-----------------------------------------------------------" << endl << endl;
 	test03();
 	cout << endl << "-----------------------------------------------------------" << endl << endl;
+	test04();
+	cout << endl << "-----------------------------------------------------------" << endl << endl;
+	test05();
 }
