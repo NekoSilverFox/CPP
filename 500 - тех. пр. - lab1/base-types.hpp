@@ -3,6 +3,7 @@
 #define BASE_TYPES_HPP
 #include<iostream>
 #include<stdexcept>
+#include<string>
 using namespace std;
 
 // ------------------------------ ERROR INFO ------------------------------
@@ -36,5 +37,4 @@ struct rectangle_t
 	double width, height;
 	point_t pos;
 };
-
 #endif

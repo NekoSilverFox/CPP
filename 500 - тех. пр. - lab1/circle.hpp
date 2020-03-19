@@ -23,6 +23,4 @@ private:
 	point_t pointCircle_;
 	double rCircle_;
 };
-
 #endif // !CIRCLE_HPP
-

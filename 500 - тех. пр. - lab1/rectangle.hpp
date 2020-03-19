@@ -17,7 +17,7 @@ public:
 
 	rectangle_t getFrameRect() const;
 
-	void move(double x_move, double y_new);
+	void move(double x_move, double y_move);
 
 	void move(const point_t& point_new);
 
@@ -26,5 +26,4 @@ public:
 private:
 	rectangle_t rectangle_;
 };
-
 #endif // !RECTANGLE_HPP
