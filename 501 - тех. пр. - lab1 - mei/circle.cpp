@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <cassert>
-
+#define _USE_MATH_DEFINES
 Circle::Circle (double rCircle, const point_t &cpoint):
   rCircle_(rCircle),
   pos_(cpoint)
@@ -12,7 +12,7 @@ Circle::Circle (double rCircle, const point_t &cpoint):
 
 double Circle::getArea() const
 {
-  return /*M_PI **/ rCircle_* rCircle_;
+  return M_PI * rCircle_* rCircle_;
 }
 
 rectangle_t Circle::getFrameRect() const
