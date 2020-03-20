@@ -54,7 +54,7 @@ public:
 
 	// --------------------------- method functions---------------------------
 public:
-	void push_LQ(const T& data)
+	void push(const T& data)
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		QueueNode* newNode = new QueueNode;
@@ -66,7 +66,7 @@ public:
 		this->size_++;
 	}
 
-	void pop_LQ()
+	void pop()
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		if (0 == this->size_) throw MyErrorInfo("queue_not_data");
@@ -87,33 +87,33 @@ public:
 		this->size_--;
 	}
 
-	T back_LQ() const
+	T back() const
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		if (0 == this->size_) throw MyErrorInfo("queue_not_data");
 		return this->rear_->data_;
 	}
 
-	T front_LQ() const
+	T front() const
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		if (0 == this->size_) throw MyErrorInfo("queue_not_data");
 		return this->header_->next_->data_;
 	}
 
-	bool empty_LQ() const
+	bool empty() const
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		return this->size_;
 	}
 
-	int size_LQ() const
+	int size() const
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		return this->size_;
 	}
 
-	void clear_LQ()
+	void clear()
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		if (0 == this->size_) return;
@@ -131,7 +131,7 @@ public:
 		}
 	}
 
-	void destroy_LQ()
+	void destroy()
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("queue_is_nullptr");
 		QueueNode* pCurrent = this->header;
