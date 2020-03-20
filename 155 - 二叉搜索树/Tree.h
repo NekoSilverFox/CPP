@@ -951,4 +951,5 @@ private:
 };
 template <typename T>
 unsigned int BinarySearchTree<T>::val_static = 0;
+
 #endif

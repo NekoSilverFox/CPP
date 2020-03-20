@@ -18,6 +18,15 @@ int main(){
 		cout << rand() % 100<< endl;
 	}
 
+	int num = 10;
+	int* temp = new int;
+	temp = &num;
+
+
+	cout << "==========================================" << endl
+		<< temp << endl
+		<< *temp << endl;
+
 	cin.get();
 	return 0;
 }
