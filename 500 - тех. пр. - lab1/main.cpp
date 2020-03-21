@@ -1,7 +1,7 @@
-#include<iostream>
+#include <iostream>
 
-#include"circle.hpp"
-#include"rectangle.hpp"
+#include "circle.hpp"
+#include "rectangle.hpp"
 
 void command_lab1(Shape& shape)
 {
@@ -20,12 +20,13 @@ void command_lab1(Shape& shape)
 
 int main()
 {
-  Rectangle rectangle_1(5, 9, 13, 21);
-  Circle circle_1(3, 7, 6);
+  Rectangle rectangle_1(5.0, 9.0, 13.0, 21.0);
+  Circle circle_1(3.0, 7.0, 6.0);
 
   std::cout << "-------------------------- Rectangle --------------------------\n";
   command_lab1(rectangle_1);
 
   std::cout << "---------------------------- Circle ----------------------------\n";
   command_lab1(circle_1);
+  return 0;
 }
