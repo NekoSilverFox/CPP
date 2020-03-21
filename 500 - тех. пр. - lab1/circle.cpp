@@ -1,9 +1,8 @@
+#include "circle.hpp"
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
 #include <cassert>
-#include "circle.hpp"
-
-#define _USE_MATH_DEFINES
 
 Circle::Circle(point_t point, double r_circle)
 {
@@ -34,7 +33,7 @@ rectangle_t Circle::getFrameRect() const
   return rec;
 }
 
-void Circle::move(double x_move, double y_move)
+void Circle::move(const double x_move, const double y_move)
 {
   this->pointCircle_.x += x_move;
   this->pointCircle_.y += y_move;

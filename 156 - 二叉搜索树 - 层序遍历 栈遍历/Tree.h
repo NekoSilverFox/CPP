@@ -66,7 +66,7 @@ public:
 		char user_choose;
 		cout << "1 ~ recursion - 递归 - рекурсивно" << endl
 			<< "2 ~ iteration - 迭代 - итеративно" << endl
-			<< "# ~ Exit" << endl;
+			<< "\033[31m# ~ Exit insert\033[0m" << endl; 
 		cout << ">>> ";  cin >> user_choose;
 		switch (user_choose)
 		{
@@ -118,7 +118,7 @@ public:
 		char user_choose;
 		cout << "1 - recursion - 递归 - рекурсивно" << endl
 			<< "2 - iteration - 迭代 - итеративно" << endl
-			<< "# - Exit" << endl;
+			<< "\033[31m# ~ Exit insert\033[0m" << endl;
 		cout << ">>> "; cin >> user_choose;
 
 		T key_cin;
@@ -163,7 +163,7 @@ public:
 			<< "4 ~ ALL(1-3 use recursion)" << endl
 			<< "5 ~ DLR (use Stack) " << "\033[32m<---lab 6(choose this one first)\033[0m" << endl
 			<< "6 ~ Lever order (use Queue) " << "\033[32m<---lab 6\033[0m" <<endl;
-		cout << "Please choose a foreach method >>> "; cin >> user_choose;
+		cout << "Please choose a foreach method >>> "; cin >> user_choose; cout << endl;
 
 		switch (user_choose)
 		{
@@ -186,7 +186,7 @@ public:
 			break;
 
 		case DLR_stack:
-			Foreach_Tree_ByStack(this->root_);
+			Foreach_Tree_ByStack(this->root_); //  <<<<<=========================LAB6==========================
 			break;
 
 		case lever_order_queue:
@@ -205,7 +205,12 @@ public:
 		}
 	}
 	
-	void printByLeverOrder()
+	void printLDR()
+	{
+		Foreach_Tree_LDR(this->root_);
+	}
+
+	void printByLeverOrder()  //  <<<<<=========================LAB6==========================
 	{
 		Foreach_LeverOrder(this->root_);
 	}
@@ -297,6 +302,11 @@ public:
 		FreeSpaceBinaryTree(this->root_);
 	}
 	
+	double howSameTree(BinarySearchTree<T>& tree)
+	{
+		return SimilarityTwoTree(this->root_, tree.root_);
+	}
+
 
 	// ===============================================Private===============================================
 private:
@@ -502,7 +512,7 @@ private:
 		cout << root->key_ << " ";
 	}
 
-	void Foreach_Tree_ByStack(Node* root)
+	void Foreach_Tree_ByStack(Node* root) //  <<<<<=========================LAB6==========================
 	{
 		if (nullptr == root)
 		{
@@ -539,9 +549,77 @@ private:
 		cout << endl;
 	}
 
-	void Foreach_LeverOrder(Node* node)
+	void Foreach_LeverOrder(Node* root) //  <<<<<=========================LAB6==========================
 	{
+		if (nullptr == root) throw MyErrorInfo("null_tree");
+		if (0 == val_static) return;
 
+		LinkQueue<Node*>queue;
+		Node* pCurrent = root;
+
+		queue.push(pCurrent);
+		while (queue.size() > 0)
+		{
+			pCurrent = queue.front();
+			cout << "\033[32m" << pCurrent->key_  << "\033[0m" << " ";
+			queue.pop();
+			if (pCurrent->left_ != nullptr) queue.push(pCurrent->left_);
+			if (pCurrent->right_ != nullptr) queue.push(pCurrent->right_);
+		}
+	}
+
+	double SimilarityTwoTree(Node* root_1, Node* root_2)
+	{
+		if (nullptr == root_1 || nullptr == root_2) throw MyErrorInfo("null_tree");
+		if (0 == val_static) return 0;
+
+		double count_same_node = 0;
+		LinkQueue<Node*>queue;
+		Node* pCurrent = root_1;
+
+		cout << "Same key : ";
+		queue.push(pCurrent);
+		while (queue.size() > 0)
+		{
+			pCurrent = queue.front();
+
+			// Make a Stack
+			LinkStack<BinTreeStackNode*> stack;
+
+			// 将根结点放到栈中 - first, make the root of the tree in the stack
+			stack.push(CreatBinTreeStackNode(root_2, false));
+
+			while (stack.size() > 0)
+			{
+				// 先弹出栈顶元素 - Pop the element, which is on the top of the stack
+				BinTreeStackNode* node = (BinTreeStackNode*)stack.top();
+				stack.pop();
+
+				// 判断，如果为 nullptr 直接重新循环
+				if (node->root == nullptr) continue;
+
+				if (node->flag == true)
+				{
+					if (pCurrent->key_ == node->root->key_)
+					{
+						count_same_node++;
+						cout << "\033[32m" << pCurrent->key_ << "\033[0m" << " ";
+					}
+				}
+				else {
+					// put the child of the node in the stack
+					stack.push(CreatBinTreeStackNode(node->root->right_, false));
+					stack.push(CreatBinTreeStackNode(node->root->left_, false));
+					node->flag = true;
+					stack.push(node);
+				}
+			}
+
+			queue.pop();
+			if (pCurrent->left_ != nullptr) queue.push(pCurrent->left_);
+			if (pCurrent->right_ != nullptr) queue.push(pCurrent->right_);
+		}
+		return count_same_node / CaculateElementQuantity(root_1);
 	}
 
 	/***************************************** Search *****************************************/

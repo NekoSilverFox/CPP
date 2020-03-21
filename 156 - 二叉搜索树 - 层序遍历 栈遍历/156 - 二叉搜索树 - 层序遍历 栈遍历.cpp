@@ -9,8 +9,22 @@ void funcBinarySearchTree()
 	cout << "----------------------Creat Binary Search Tree----------------------" << endl;
 	charTree.CreatTree();
 
-	cout << endl << "----------------------Print Binary Search Tree----------------------" << endl;
+
+	cout << endl << endl << "----------------------Print Binary Search Tree----------------------" << endl;
 	charTree.printTree();
+
+
+	cout << endl << endl << "-------------------------Similarity Two Tree-------------------------" << endl;
+	BinarySearchTree<char> charTree_2;
+	cout << "Please creat the second tree >> " << endl; charTree_2.CreatTree(); 
+
+	cout << endl << endl 
+		<< "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+	cout << "The  first  tree  :"; charTree.printLDR(); cout << endl;
+	cout << "The second tree :"; charTree_2.printLDR(); cout << endl;
+	double similarity = charTree.howSameTree(charTree_2);
+	cout << endl << "Similarity = " << similarity * 100 << "%" << endl 
+		<< "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
 	/*cout << endl << "-----------------------------Insert Node-----------------------------" << endl;
 	charTree.insetNode();
@@ -21,7 +35,7 @@ void funcBinarySearchTree()
 	cout << endl << "------------------------Print Tree with scope------------------------" << endl;
 	charTree.iterableTree();*/
 
-	cout << endl << "--------------------------------Depth--------------------------------" << endl;
+	/*cout << endl << "--------------------------------Depth--------------------------------" << endl;
 	cout << "Depth : " << charTree.getDepth() << endl;
 
 	cout << endl << "-----------------------------Leaf quantity-----------------------------" << endl;
@@ -30,7 +44,7 @@ void funcBinarySearchTree()
 	cout << endl << "----------------------------Node quantity----------------------------" << endl;
 	cout << "Node quantity : " << charTree.getElementQuantity() << endl;
 
-	/*cout << endl << "-----------------------------Delete node-----------------------------" << endl;
+	cout << endl << "-----------------------------Delete node-----------------------------" << endl;
 	charTree.deleteNode();
 
 	cout << endl << "-----------------------------After delete-----------------------------" << endl;

@@ -55,12 +55,14 @@ public:
 		if (1 == this->size_)
 		{
 			QueueNode* deleNode = this->header_->next_;
-			this->header_->next_ = this->rear_;
+			this->header_->next_ = nullptr;
+			this->rear_ = this->header_;
 			delete deleNode;
 			deleNode = nullptr;
 			this->size_--;
 			return;
 		}
+
 		QueueNode* deleNode = this->header_->next_;
 		this->header_->next_ = this->header_->next_->next_;
 		delete deleNode;

@@ -1,7 +1,6 @@
+#include "rectangle.hpp"
 #include <iostream>
 #include <cassert>
-
-#include "rectangle.hpp"
 
 Rectangle::Rectangle(rectangle_t rec)
 {
@@ -38,7 +37,7 @@ rectangle_t Rectangle::getFrameRect() const
   return this->rectangle_;
 }
 
-void Rectangle::move(double x_move, double y_move) 
+void Rectangle::move(const double x_move, const double y_move) 
 {
   this->rectangle_.pos.x += x_move;
   this->rectangle_.pos.y += y_move;

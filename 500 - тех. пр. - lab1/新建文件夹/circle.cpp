@@ -1,21 +1,30 @@
-#include"circle.hpp"
+#include <cmath>
+#include <iostream>
+#include <cassert>
+#include "circle.hpp"
+
+#define _USE_MATH_DEFINES
+
 Circle::Circle(point_t point, double r_circle)
 {
-  if (r_circle <= 0) throw MyErrorInfo("domain_error");
+  assert(r_circle > 0);
   this->pointCircle_ = point;
   this->rCircle_ = r_circle;
 }
+
 Circle::Circle(double x_circle, double y_circle, double r_circle)
 {
-  if (r_circle <= 0) throw MyErrorInfo("domain_error");
+  assert(r_circle > 0);
   this->pointCircle_.x = x_circle;
   this->pointCircle_.y = y_circle;
   this->rCircle_ = r_circle;
 }
+
 double Circle::getArea() const
 {
-  return 3.1415926 * this->rCircle_ * this->rCircle_;
+  return M_PI * this->rCircle_ * this->rCircle_;
 }
+
 rectangle_t Circle::getFrameRect() const
 {
   rectangle_t rec;
@@ -24,20 +33,22 @@ rectangle_t Circle::getFrameRect() const
   rec.width = 2 * this->rCircle_;
   return rec;
 }
+
 void Circle::move(double x_move, double y_move)
 {
   this->pointCircle_.x += x_move;
   this->pointCircle_.y += y_move;
 }
+
 void Circle::move(const point_t& point_new)
 {
-  this->pointCircle_.x = point_new.x;
-  this->pointCircle_.y = point_new.y;
+  this->pointCircle_ = point_new;
 }
+
 void Circle::printInfo() const
 {
-  cout << "Circle - x --> " << this->pointCircle_.x << endl;
-  cout << "Circle - y --> " << this->pointCircle_.y << endl;
-  cout << "Circle - r --> " << this->rCircle_ << endl;
-  cout << "Circle - area --> " << this->getArea() << endl;
+  std::cout << "Circle - x --> " << this->pointCircle_.x << "\n"
+            << "Circle - y --> " << this->pointCircle_.y << "\n"
+            << "Circle - r --> " << this->rCircle_ << "\n"
+            << "Circle - area --> " << this->getArea() << "\n";
 }

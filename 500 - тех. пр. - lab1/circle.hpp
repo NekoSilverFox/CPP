@@ -10,7 +10,7 @@ public:
   Circle(double x_circle, double y_circle, double r_circle);
   double getArea() const override;
   rectangle_t getFrameRect() const override;
-  void move(double x_move, double  y_move) override;
+  void move(const double x_move, const double  y_move) override;
   void move(const point_t& point_new) override;
   void printInfo() const override;
 
