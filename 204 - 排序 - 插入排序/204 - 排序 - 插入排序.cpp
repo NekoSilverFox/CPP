@@ -6,7 +6,7 @@ using namespace std;
 
 const int MAX = 100000;
 
-void SelectSort(int arr[], int length)
+void InsertSort(int arr[], int length)
 {
 	int j;
 	for (int i = 1; i < length; i++)
@@ -56,7 +56,7 @@ int main()
 	cout << __TIME__ << endl;
 	//printArray(arr, MAX);
 	double t_start = getSystemTime();
-	SelectSort(arr, MAX);
+	InsertSort(arr, MAX);
 	double t_end = getSystemTime();
 	//printArray(arr, MAX);
 
