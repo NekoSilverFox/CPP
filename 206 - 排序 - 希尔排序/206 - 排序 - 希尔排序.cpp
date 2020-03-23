@@ -9,7 +9,7 @@ const int MAX = 250000;
 void ShellSort(int arr[], int length)
 {
 	int i, j, k;
-	int increasement = length;
+	int increasement = length / 3 + 1;
 
 	do
 	{
@@ -69,11 +69,11 @@ int main()
 	}
 
 	cout << __TIME__ << endl;
-	//printArray(arr, MAX);
+	printArray(arr, MAX);
 	double t_start = getSystemTime();
 	ShellSort(arr, MAX);
 	double t_end = getSystemTime();
-	//printArray(arr, MAX);
+	printArray(arr, MAX);
 
 	cout << endl << "Use time : " << (t_end - t_start) / 1000;
 
