@@ -1,5 +1,19 @@
 #include<iostream>
+#include<time.h>
+#include<sys/timeb.h>
 using namespace std;
+
+int* CreatArray(int length, int max_num)
+{
+	srand((unsigned int)time(NULL));
+	int* arr = new int[length];
+	for (int i = 0; i < length + 1; i++)
+	{
+		arr[i] = rand() % max_num;
+	}
+	return arr;
+}
+
 
 void QuickSort(int arr[], int start_arr, int end_arr)
 {
@@ -54,11 +68,27 @@ void printArray(int arr[], int length)
 	cout << endl;
 }
 
+// count the time 
+long getSystemTime() {
+	timeb tb;
+	ftime(&tb);
+	return tb.time * 1000 + tb.millitm;
+}
+
 int main()
 {
-	int arr[] = { 4,2,8,0,5,7,1,3,9 };
-	printArray(arr, sizeof(arr) / sizeof(int));
-	QuickSort(arr, 0, sizeof(arr) / sizeof(int) - 1);
-	printArray(arr, sizeof(arr) / sizeof(int));
+	int length = 100000000;
+	int max = 100000000;
+	int* arr = CreatArray(length, max);
+
+	// printArray(arr, length);
+	double t_start = getSystemTime();
+	QuickSort(arr, 0, length);
+	double t_end = getSystemTime();
+	// printArray(arr, length);
+
+	cout << endl << "Use time : " << (t_end - t_start) / 1000;
+
+
 
 }
