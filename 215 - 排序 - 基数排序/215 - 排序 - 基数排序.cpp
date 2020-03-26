@@ -50,7 +50,6 @@ void RadixSort(int arr[], const int length_arr, const int time_sort) // 4
 		temp_arr[i].second = 0;
 	}
 
-	int num_insert; // 插入的数
 	int division_num_10 = 1; // 除以的10
 
 	//  arr_pair.first 储存了当前数组的值，arr_pair.second 存储了个/十/百/千/万 上的值
@@ -72,9 +71,7 @@ void RadixSort(int arr[], const int length_arr, const int time_sort) // 4
 		// 取到当前的位数上的值	
 		for (int i = 0; i < length_arr; i++)
 		{
-			num_insert =arr_pair[i].first;
-			num_insert = num_insert / division_num_10 % 10;
-			arr_pair[i].second = num_insert;
+			arr_pair[i].second = arr_pair[i].first / division_num_10 % 10;
 			cout << arr_pair[i].second << " ";
 
 			temp_arr[arr_pair[i].second].first[temp_arr[arr_pair[i].second].second++] = arr_pair[i];
@@ -101,7 +98,7 @@ void RadixSort(int arr[], const int length_arr, const int time_sort) // 4
 
 int main()
 {
-	int arr[] = { 1244, 4576, 3634, 1111, 7656, 7767,3343, 8878, 9869, 1480, 3800,5790, 5769 };
+	int arr[] = { 1244, 4576, 3634, 1111, 7656, 7767,343, 8878, 9869, 1480, 3800,5790, 5769, 941, 41 };
 
 	int length_arr = GetArrayLength(arr);
 	int max_num = GetMaxElemArray(arr, length_arr);
