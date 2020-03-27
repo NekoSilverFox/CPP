@@ -24,30 +24,30 @@ int PrintArray(T& arr)
 
 int GetMaxElemArray(int arr[], int length_arr)
 {
-	int max_ele = arr[0];
+	int max_value = arr[0];
 	for (int i = 0; i < length_arr; i++)
 	{
-		if (max_ele < arr[i]) max_ele = arr[i];
+		if (max_value < arr[i]) max_value = arr[i];
 	}
-	return max_ele;
+	return max_value;
 }
 
 int GetMinElemArray(int arr[], int length_arr)
 {
-	int min_ele = arr[0];
+	int min_value = arr[0];
 	for (int i = 0; i < length_arr; i++)
 	{
-		if (min_ele > arr[i]) min_ele = arr[i];
+		if (min_value > arr[i]) min_value = arr[i];
 	}
-	return min_ele;
+	return min_value;
 }
 
 void BucketSort(int arr[], const int length_arr)
 {
-	int max_ele = GetMaxElemArray(arr, length_arr);
-	int min_ele = GetMinElemArray(arr, length_arr);
-	int gap = (max_ele - min_ele) / length_arr + 1;
-	int num_backet = (max_ele - min_ele) / gap + 1;
+	int max_value = GetMaxElemArray(arr, length_arr);
+	int min_value = GetMinElemArray(arr, length_arr);
+	int gap = (max_value - min_value) / length_arr + 1;
+	int num_backet = (max_value - min_value) / gap + 1;
 
 	pair<vector<int>, int>* backet_arr = new pair<vector<int>, int>[num_backet]; // first - 数组， second - first中元素数量
 
@@ -55,7 +55,7 @@ void BucketSort(int arr[], const int length_arr)
 	int put_in_which_backet;
 	for (int i = 0; i < length_arr; i++)
 	{
-		put_in_which_backet = (arr[i] - min_ele) / gap;
+		put_in_which_backet = (arr[i] - min_value) / gap;
 		backet_arr[put_in_which_backet].first.push_back(arr[i]);
 		backet_arr[put_in_which_backet].second++;
 	}
@@ -83,7 +83,7 @@ void BucketSort(int arr[], const int length_arr)
 
 int main()
 {
-	int arr[] = { 9,6,7,4,3,1,3,3,8,9,67,23,89,43,78,12,90,45,34,76,12,78,43 };
+	int arr[] = { 9,6,7,4,3,1,3,3,8,9,67,23,89,43,78, 142,12,90,45,34,76,12,78,43 };
 
 	int length_arr = GetArrayLength(arr);
 
