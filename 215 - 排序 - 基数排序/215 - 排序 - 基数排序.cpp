@@ -22,20 +22,20 @@ int PrintArray(T& arr)
 
 int GetMaxElemArray(int arr[], int length_arr)
 {
-	int max_ele = arr[0];
+	int max_value = arr[0];
 	for (int i = 0; i < length_arr; i++)
 	{
-		if (max_ele < arr[i]) max_ele = arr[i];
+		if (max_value < arr[i]) max_value = arr[i];
 	}
-	return max_ele;
+	return max_value;
 }
 
-int GetSortTime(int max_num)
+int GetSortTime(int max_value)
 {
 	int time_sort = 0;
-	while (max_num)
+	while (max_value)
 	{
-		max_num /= 10;
+		max_value /= 10;
 		time_sort++;
 	}
 	return time_sort;
@@ -101,8 +101,8 @@ int main()
 	int arr[] = { 1244, 4576, 3634, 1111, 7656, 7767,343, 8878, 9869, 1480, 3800,5790, 5769, 941, 41 };
 
 	int length_arr = GetArrayLength(arr);
-	int max_num = GetMaxElemArray(arr, length_arr);
-	int time_sort = GetSortTime(max_num);
+	int max_value = GetMaxElemArray(arr, length_arr);
+	int time_sort = GetSortTime(max_value);
 	PrintArray(arr);
 	RadixSort(arr, length_arr, time_sort);
 	PrintArray(arr);
