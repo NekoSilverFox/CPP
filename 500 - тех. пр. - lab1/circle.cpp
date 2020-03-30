@@ -1,22 +1,12 @@
 #include "circle.hpp"
-#define _USE_MATH_DEFINES
 #include <cmath>
-#include <iostream>
 #include <cassert>
 
-Circle::Circle(point_t point, double r_circle)
+Circle::Circle(const point_t point, const double r_circle):
+  pointCircle_(point),
+  rCircle_(r_circle)
 {
   assert(r_circle > 0);
-  this->pointCircle_ = point;
-  this->rCircle_ = r_circle;
-}
-
-Circle::Circle(double x_circle, double y_circle, double r_circle)
-{
-  assert(r_circle > 0);
-  this->pointCircle_.x = x_circle;
-  this->pointCircle_.y = y_circle;
-  this->rCircle_ = r_circle;
 }
 
 double Circle::getArea() const
@@ -26,11 +16,7 @@ double Circle::getArea() const
 
 rectangle_t Circle::getFrameRect() const
 {
-  rectangle_t rec;
-  rec.pos = this->pointCircle_;
-  rec.height = 2 * this->rCircle_;
-  rec.width = 2 * this->rCircle_;
-  return rec;
+  return {2 * this->rCircle_, 2 * this->rCircle_, this->pointCircle_};
 }
 
 void Circle::move(const double x_move, const double y_move)
@@ -42,12 +28,4 @@ void Circle::move(const double x_move, const double y_move)
 void Circle::move(const point_t& point_new)
 {
   this->pointCircle_ = point_new;
-}
-
-void Circle::printInfo() const
-{
-  std::cout << "Circle - x --> " << this->pointCircle_.x << "\n"
-            << "Circle - y --> " << this->pointCircle_.y << "\n"
-            << "Circle - r --> " << this->rCircle_ << "\n"
-            << "Circle - area --> " << this->getArea() << "\n";
 }
