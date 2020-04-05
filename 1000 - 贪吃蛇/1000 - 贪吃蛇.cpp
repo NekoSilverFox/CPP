@@ -6,7 +6,7 @@
 #include <Windows.h>
 using namespace std;
 
-void test01()
+void game()
 {
 	srand((unsigned int)time(NULL));
 
@@ -42,7 +42,9 @@ void test01()
 		{
 			if (key == snake.UP || key == snake.DOWN || key == snake.LEFT || key == snake.RIGHT)
 			{
+
 				// 判断本次的按键是否与上次冲突
+				// 如果180 ° 旋转，将这次按键变为上次按键
 				if (key == snake.LEFT && preKey == snake.RIGHT ||
 					key == snake.RIGHT && preKey == snake.LEFT ||
 					key == snake.UP && preKey == snake.DOWN ||
@@ -50,12 +52,16 @@ void test01()
 				{
 					key = preKey;
 				}
+				else // 如果不冲突，将新按键标识
+				{
+					preKey = key;
+				}
 
 				if (snake.moveSnake(key) == true)
 				{
 					system("cls");
 					wall.drawWall();
-					Sleep(300);
+					Sleep(snake.getSleepTime());
 				}
 				else
 				{
@@ -80,7 +86,7 @@ int main()
 {
 	try
 	{
-		test01();
+		game();
 	}
 	catch (MyException& error)
 	{

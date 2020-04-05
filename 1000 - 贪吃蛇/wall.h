@@ -19,7 +19,12 @@ public:
 	// 根据索引，获取当前位置上的符号
 	char getWall(int x, int y);
 
+	// 设置分数
+	int setScore(int score_plus);
+
+	// 获取分数
+	int getScore();
 private:
 	char wall_[Row][Law];
-
+	int score_ = 0;
 };

@@ -24,7 +24,7 @@ void Wall::drawWall()
 		if (11 == i) cout << "        " << "s - down";
 		if (12 == i) cout << "        " << "a - left";
 		if (13 == i) cout << "        " << "d - right";
-		// if (14 == i) cout << "        " << "w - up";
+		if (14 == i) cout << "        " << "Score : " << getScore();
 		if (15 == i) cout << "        " << "狐行狐语";
 		if (16 == i) cout << "        " << "Bate 0.1";
 
@@ -42,4 +42,17 @@ char Wall::getWall(int x, int y)
 {
 	if (x > Row || y > Law || x < 0 || y < 0) throw MyException("out_of_range");
 	return wall_[x][y];
+}
+
+// 设置分数
+int Wall::setScore(int score_plus)
+{
+	score_ += score_plus;
+	return score_;
+}
+
+// 获取分数
+int Wall::getScore()
+{
+	return score_;
 }
