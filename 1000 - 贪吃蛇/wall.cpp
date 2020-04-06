@@ -17,18 +17,25 @@ void Wall::drawWall()
 {
 	for (int i = 0; i < Row; i++)
 	{
-		for (int j = 0; j < Law; j++) std::cout << wall_[i][j] << ' ';
-
+		for (int j = 0; j < Law; j++)
+		{
+			//if ('#' == wall_[i][j])
+			//{
+			//	cout << "\033[33m" << wall_[i][j] << " \033[0m";
+			//	continue;
+			//}
+			cout << wall_[i][j] << ' ';
+		}
 		// 提示信息
-		if (10 == i) cout << "        " << "w - up";
-		if (11 == i) cout << "        " << "s - down";
-		if (12 == i) cout << "        " << "a - left";
-		if (13 == i) cout << "        " << "d - right";
-		if (14 == i) cout << "        " << "Score : " << getScore();
+		if (9 == i) cout << "        " << "w - up";
+		if (10 == i) cout << "        " << "s - down";
+		if (11 == i) cout << "        " << "a - left";
+		if (12 == i) cout << "        " << "d - right";
+		if (14 == i) cout << "        " << "\033[32mScore : " << getScore() << "\033[0m";
 		if (15 == i) cout << "        " << "狐行狐语";
-		if (16 == i) cout << "        " << "Bate 0.1";
+		if (16 == i) cout << "        " << "Bate 1.1";
 
-		std::cout << std::endl;
+		cout << endl;
 	}
 }
 

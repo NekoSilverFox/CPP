@@ -1,6 +1,7 @@
 #pragma once
 #include "wall.h"
 #include <iostream>
+#include <Windows.h>
 using namespace std;
 
 class Food

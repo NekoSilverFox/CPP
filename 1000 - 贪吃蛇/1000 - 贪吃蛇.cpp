@@ -6,6 +6,15 @@
 #include <Windows.h>
 using namespace std;
 
+void gotoxy_game(HANDLE hOut_game, int x, int y)
+{
+	COORD pos;
+	pos.X = x;             // 横坐标
+	pos.Y = y;            // 纵坐标
+	SetConsoleCursorPosition(hOut_game, pos);
+}
+HANDLE hOut_game = GetStdHandle(STD_OUTPUT_HANDLE); // 定义显示器句柄变量
+
 void game()
 {
 	srand((unsigned int)time(NULL));
@@ -17,14 +26,15 @@ void game()
 
 	Wall wall;
 	wall.initWall();
-	
+	wall.drawWall();
+
 	Food food(wall);
 	food.setFood();
 
 	Snake snake(wall, food);
 	snake.initSnake();
 
-	wall.drawWall();
+	
 
 	while (!isDead)
 	{
@@ -59,8 +69,13 @@ void game()
 
 				if (snake.moveSnake(key) == true)
 				{
-					system("cls");
-					wall.drawWall();
+					// system("cls");
+					// wall.drawWall();
+
+					// 分数表加分
+					gotoxy_game(hOut_game, 60, 14);
+					cout << "\033[32mScore : " << wall.getScore() << "\033[0m";
+
 					Sleep(snake.getSleepTime());
 				}
 				else
@@ -92,4 +107,6 @@ int main()
 	{
 		cout << error.what() << endl;
 	}
+	cin.get();
+	return 0;
 }

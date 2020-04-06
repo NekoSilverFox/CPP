@@ -2,6 +2,7 @@
 #include "wall.h"
 #include "myexception.h"
 #include "food.h"
+#include <Windows.h>
 #include <iostream>
 
 class Snake
