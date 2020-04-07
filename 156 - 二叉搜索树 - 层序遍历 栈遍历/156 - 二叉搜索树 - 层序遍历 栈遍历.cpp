@@ -1,6 +1,6 @@
-#include "Tree.h"
-#include "LinkQueue.h"
-#include "LinkStack.h"
+#include "Tree.hpp"
+#include "LinkQueue.hpp"
+#include "LinkStack.hpp"
 
 void funcBinarySearchTree()
 {
@@ -16,14 +16,14 @@ void funcBinarySearchTree()
 
 	cout << endl << endl << "-------------------------Similarity Two Tree-------------------------" << endl;
 	BinarySearchTree<char> charTree_2;
-	cout << "Please creat the second tree >> " << endl; charTree_2.CreatTree(); 
+	cout << "Please creat the second tree >> " << endl; charTree_2.CreatTree();
 
-	cout << endl << endl 
+	cout << endl << endl
 		<< "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 	cout << "The  first  tree  :"; charTree.printLDR(); cout << endl;
 	cout << "The second tree :"; charTree_2.printLDR(); cout << endl;
 	double similarity = charTree.howSameTree(charTree_2);
-	cout << endl << "Similarity = " << similarity * 100 << "%" << endl 
+	cout << endl << "Similarity = " << similarity * 100 << "%" << endl
 		<< "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
 	/*cout << endl << "-----------------------------Insert Node-----------------------------" << endl;

@@ -1,4 +1,4 @@
-#include"LinkQueue.h"
+#include"LinkQueue.hpp"
 
 void test01()
 {
