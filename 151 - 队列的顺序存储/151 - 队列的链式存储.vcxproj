@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SeqQueue.h" />
+    <ClInclude Include="myexception.h" />
+    <ClInclude Include="SeqQueue.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="151 - 队列的顺序存储.cpp" />
-    <ClCompile Include="SeqQueue.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
