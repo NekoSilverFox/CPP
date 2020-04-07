@@ -45,13 +45,13 @@ public:
 		size_++;
 	}
 
-	T front()
+	T front() const
 	{
 		if (nullptr == data_ || 0 == this->size_) throw MyException("no_data");
 		return data_[0];
 	}
 
-	T back()
+	T back() const
 	{
 		if (nullptr == data_ || 0 == this->size_) throw MyException("no_data");
 		return data_[size_ - 1];
@@ -137,19 +137,19 @@ public:
 	}
 
 
-	int size()
+	int size() const
 	{
 		if (nullptr == data_) return -1;
 		return size_;
 	}
 
-	int capacity()
+	int capacity() const
 	{
 		if (nullptr == data_) return -1;
 		return capacity_;
 	}
 
-	bool empty()
+	bool empty() const
 	{
 		if (nullptr == data_) return false;
 		return size_;

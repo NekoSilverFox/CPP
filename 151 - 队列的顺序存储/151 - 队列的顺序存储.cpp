@@ -19,12 +19,16 @@ void testQueue()
 	Person p5 = { "eee", 50 };
 
 	SeqQueue<Person> queue(3);
-	queue.push(p1);
-	queue.push(p2);
-	queue.push(p3);
-	queue.push(p4);
-	queue.push(p5);
 
+	if (!queue.empty()) cout << "null" << endl << endl;
+	else cout << "not null" << endl << endl;
+
+	cout << ">>> Push p1"; queue.push(p1);
+	cout << "\n>>> Push p2"; queue.push(p2);
+	cout << "\n>>> Push p3"; queue.push(p3);
+	cout << "\n>>> Push p4"; queue.push(p4);
+	cout << "\n>>> Push p5"; queue.push(p5);
+	cout << endl << endl;
 
 	// first element in queue
 	Person firstPerson = queue.front();
@@ -45,7 +49,7 @@ void testQueue()
 	while (queue.size() > 0) {
 
 		Person p = queue.front();
-		cout << "Size queue : " << queue.size();
+		cout << ">>> Pop - Size queue : " << queue.size();
 		cout << "      Name : " << p.name << "  Age : " << p.age << endl;
 
 		queue.pop();
