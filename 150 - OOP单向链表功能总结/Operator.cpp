@@ -4,6 +4,7 @@ ostream& operator<<(ostream& cout, LinkNode* pCurrent)
 	cout << pCurrent->data << "   ";
 	return cout;
 }
+
 bool LinkNode::operator==(const LinkNode& node) const
 {
 	if (&node == nullptr) return true;
