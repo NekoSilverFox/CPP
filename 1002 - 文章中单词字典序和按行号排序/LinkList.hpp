@@ -11,7 +11,7 @@ template<typename T> bool operator>(const LinkNode<T>& node1, const LinkNode<T>&
 template<typename T>
 ostream& operator<<(ostream& cout, LinkNode<T>& pCurrent)
 {
-	cout << pCurrent.data_ << "  ";
+	cout << pCurrent.data_;
 	return cout;
 }
 
@@ -27,7 +27,7 @@ class LinkNode
 	friend ostream& operator<<<T>(ostream& cout, LinkNode<T>& pCurrent); // !! Pay att-en <T>
 	friend bool operator><T>(const LinkNode<T>& node1, const LinkNode<T>& node2);
 	friend class LinkList<T>;
-
+	friend class BinarySearchTree;
 private:
 	T data_;
 	LinkNode* next_;
@@ -36,11 +36,11 @@ private:
 template<typename T>
 class LinkList
 {
+	friend class BinarySearchTree;
 public:
 	LinkList()
 	{
 		header_ = new LinkNode<T>;
-		header_->data_ = 0;
 		header_->next_ = nullptr;
 	}
 

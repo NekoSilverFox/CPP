@@ -21,12 +21,20 @@
 #pragma once
 #include "LinkList.hpp"
 #include "MyErrorInfo.hpp"
+#include "BinarySearchTree.hpp"
+
+class BinarySearchTree;
+class WordInfo;
+struct Node;
 
 class WordInfo
 {
-	friend class Word;
-private:
-	LinkList<pair<int, int>>* header_; // save the row and col of the world
-	unsigned int count_word_;
+	friend class BinarySearchTreeord;
+	friend struct Node;
+public:
+	WordInfo() : count_same_word_(0), length_word_(0) {}
+public:
+	LinkList<pair<int, int>> header_; // save the row and col of the world
+	unsigned int count_same_word_;
 	unsigned int length_word_;
 };

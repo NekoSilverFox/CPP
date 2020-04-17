@@ -54,15 +54,24 @@ void test03(string& word)
 	}
 }
 
+void test04()
+{
+	BinarySearchTree t;
+	t.addRowNum();
+	t.makeWordTree();
+	t.foreachDictionaryOrder();
+}
+
 int main()
 {
 	try
 	{
-		string str("Woefs's");
-		cout << str << endl;
-		// test02();
-		test03(str);
-		cout << str << endl;
+		//string str("Woefs's");
+		//cout << str << endl;
+		//// test02();
+		//// test03(str);
+		//cout << str << endl;
+		test04();
 	}
 	catch ( MyErrorInfo& err)
 	{
