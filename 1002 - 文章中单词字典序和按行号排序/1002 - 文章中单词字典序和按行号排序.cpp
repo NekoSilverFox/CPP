@@ -2,76 +2,26 @@
 #include "BinarySearchTree.hpp"
 using namespace std;
 
-void test01()
+void testFunc()
 {
-	LinkList<int> list;
-	list.insert(4);
-	list.insert(6);
-	list.insert(0);
-	list.insert(1);
-	list.insert(6);
-	list.insert(79);
-	list.insert(3);
+	string file_name;
+	cout << "◆ Please enter the required file name : "; cin >> file_name;
 
-	list.foreach();
-
-	list.sort();
-	list.foreach();
-}
-
-void test02()
-{
 	BinarySearchTree tree;
-	tree.addRowNum();
-}
-
-void test03(string& word)
-{
-
-	if (word.empty()) throw MyErrorInfo("null_string");
-	if (word.at(0) > 64 && word.at(0) < 91)
-	{
-		word.at(0) += 32; // 操作ASCII码更改大小写
-	}
-
-	int index = 0;
-	while (word.find(',', index) != string::npos)
-	{
-		index = word.find(',', index);
-		word.erase(index, 1);
-	}
-
-	while (word.find('.', index) != string::npos)
-	{
-		index = word.find('.', index);
-		word.erase(index, 1);
-	}
-
-	while (word.find("'s", index) != string::npos)
-	{
-		index = word.find("'s", index);
-		word.erase(index, 2);
-	}
-}
-
-void test04()
-{
-	BinarySearchTree t;
-	t.addRowNum();
-	t.makeWordTree();
-	t.foreachDictionaryOrder();
+	tree.openFile(file_name);
+	tree.printTextWithRowNum();
+	tree.makeTree();
+	tree.printDictionaryOrder(false);
+	tree.searchWord("fire");
+	tree.deleteWord("fire");
+	tree.outputDictionaryOrderInFile(false);
 }
 
 int main()
 {
 	try
 	{
-		//string str("Woefs's");
-		//cout << str << endl;
-		//// test02();
-		//// test03(str);
-		//cout << str << endl;
-		test04();
+		testFunc();
 	}
 	catch ( MyErrorInfo& err)
 	{

@@ -1,7 +1,6 @@
 #pragma once
-#include <iostream>
-#include <string>
 #include "MyErrorInfo.hpp"
+#include <string>
 using namespace std;
 
 template<typename T>

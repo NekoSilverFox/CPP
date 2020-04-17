@@ -1,7 +1,7 @@
 #pragma once
 #include "MyErrorInfo.hpp"
-#include <iostream>
 #include <string>
+#include <iostream>
 
 template<typename T> class LinkNode;
 template<typename T> class LinkList;
