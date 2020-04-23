@@ -1,4 +1,3 @@
-
 /*
 	【---13.4.2020---lab 1.2.1 --】
 	注意、：数据域应包含：单词的 行列信息(【行(row)    列(col)】-对组链表)    出现次数(count)    长度(length) 
@@ -97,6 +96,11 @@ public:
 		makeWordTree();
 	}
 
+	/*
+	** print the words on screen
+	** true - print same word;
+	** false - do not print same word
+	*/
 	void printDictionaryOrder(bool repetitive_word)
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("nullptr_root_in_foreachDictionaryOrder()");
@@ -113,6 +117,9 @@ public:
 		foreachTreeLDRonScreen(this->root_, repetitive_word);
 	}
 
+	/*
+	** out put the word by Dictionary order in to the file "output.txt"
+	*/
 	void outputDictionaryOrderInFile(bool repetitive_word)
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("nullptr_root_in_outputDictionaryOrderInFile(bool repetitive_word)");
@@ -131,8 +138,12 @@ public:
 		}
 
 		foreachTreeLDROutputInFile(this->root_, ofs, repetitive_word);
+		cout << endl << "Successful output in 【output.txt】!" << endl;
 	}
 
+	/*
+	** Seach word by cin
+	*/
 	void searchWord(string word_search)
 	{
 		Node* searchWord = searchWordInTree(word_search);
@@ -151,6 +162,9 @@ public:
 		}
 	}
 
+	/*
+	** Delete word by cin
+	*/
 	void deleteWord(string dele_word)
 	{
 		bool is_dele = deleteNodeBinarySearchTree(dele_word);
@@ -168,6 +182,9 @@ public:
 
 private:
 
+	/*
+	** Insert one word into the binary search tree
+	*/
 	void insertNode(Node* nodeInsert, unsigned int count_word_text)
 	{
 		if (nullptr == root_ || nullptr == nodeInsert) throw MyErrorInfo("nullptr_root_or_nodeInsert_in_insertNode()");
@@ -216,16 +233,19 @@ private:
 		}
 	}
 
+	/*
+	** Insert all word into the binary search tree
+	*/
 	void makeWordTree()
 	{
 		// read data(text)
 		ifstream ifs_word, ifs_row;
 
 		ifs_row.open(file_name_, ios::in);
-		if (!ifs_row.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_row_in_makeWordTree()"); // 是否打开成功
+		if (!ifs_row.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_row_in_makeWordTree()"); 
 
 		ifs_word.open(file_name_, ios::in);
-		if (!ifs_word.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_word_in_makeWordTree()"); // 是否打开成功
+		if (!ifs_word.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_word_in_makeWordTree()"); 
 
 		string temp_word, temp_line;
 		unsigned int row_word = 0, col_word = 0, row_length = 0, count_word_text = 0;
@@ -235,7 +255,9 @@ private:
 			col_word = 0;
 			row_length = 0;
 
-			// 如果为空行，直接跳过，计数器不进行累加
+			/*
+			** If a blank line, skip, the counter does not accumulate
+			*/ 
 			if (0 == temp_line.length())
 			{
 				continue;
@@ -251,10 +273,11 @@ private:
 				changeCaseAndClearSign(temp_word);
 				pair<unsigned int, unsigned int> row_col_word = make_pair(row_word, col_word);
 
-				/*添加到二叉树*/
-				if (!isHaveSameWord( temp_word, row_col_word))
+				/*
+				** Insert to binary search tree
+				*/
+				if (!isHaveSameWord( temp_word, row_col_word)) // First determine if there are identical words in tree
 				{
-					// 此为没有重复单词的情况，还需先判断是否有重复的单词
 					WordInfo* newWordInfo = new WordInfo;
 					newWordInfo->header_.insert(row_col_word);
 					newWordInfo->count_same_word_ = 1;
@@ -265,7 +288,7 @@ private:
 					newNode->info_ = newWordInfo;
 					insertNode(newNode, count_word_text);
 				}
-				if (temp_line.length() == row_length) // 如果行的长度（去除空格）等于 累加单词的长度 ，那么代表本行读取结束。 进行断行
+				if (temp_line.length() == row_length) // Broken line
 				{
 					break;
 				}
@@ -277,19 +300,21 @@ private:
 
 	void addRowNum()
 	{
-		// read data(text)
+		/*
+		** read data(text)
+		*/
 		string temp_word, temp_line;
 		ifstream ifs_word, ifs_row;
 
 		ifs_row.open(file_name_, ios::in);
-		if (!ifs_row.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_row_in_addRowNum()"); // 是否打开成功
+		if (!ifs_row.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_row_in_addRowNum()"); 
 
 		ifs_word.open(file_name_, ios::in);
-		if (!ifs_word.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_word_in_addRowNum()"); // 是否打开成功
+		if (!ifs_word.is_open()) throw MyErrorInfo("cant_open_the_file_ifs_word_in_addRowNum()"); 
 
 		ofstream ofs;
 		ofs.open("./output.txt", ios::out);	 // ::out
-		if (!ofs.is_open()) throw MyErrorInfo("cant_open_the_file_output_in_addRowNum()"); // 是否打开成功
+		if (!ofs.is_open()) throw MyErrorInfo("cant_open_the_file_output_in_addRowNum()");
 
 		unsigned int row_length = 0, row_num = 1, count_word_text = 0, count_word_row = 0;
 		while (getline(ifs_row, temp_line))
@@ -300,7 +325,9 @@ private:
 			clearAllSpace(temp_line);
 			// row_length = temp_line.length();
 
-			// 如果为空行，直接跳过，计数器不进行累加
+			/*
+			** If a blank line, skip, the counter does not accumulate
+			*/
 			if (0 == temp_line.length())
 			{
 				ofs << endl << flush;
@@ -312,7 +339,7 @@ private:
 				ifs_word >> temp_word;
 				count_word_row++;
 				row_length += temp_word.length();
-				if (temp_line.length() == row_length) // 如果行的长度（去除空格）等于 累加单词的长度 ，那么代表本行读取结束。 进行断行
+				if (temp_line.length() == row_length)  // Broken line
 				{
 					ofs << "【Words in this row : " << count_word_row << "】" << endl;
 					break;
@@ -331,6 +358,9 @@ private:
 		ofs.close();
 	}
 
+	/*
+	**  print on screen
+	*/
 	void foreachTreeLDRonScreen(Node* root, bool repetitive_word)
 	{
 		if (nullptr == root) return;
@@ -377,6 +407,9 @@ private:
 		foreachTreeLDRonScreen(root->right_, repetitive_word);
 	}
 
+	/*
+	**  output in file [output.txt]
+	*/
 	void foreachTreeLDROutputInFile(Node* root, ofstream& ofs, bool repetitive_word)
 	{
 		if (nullptr == root) return;
@@ -423,12 +456,17 @@ private:
 		foreachTreeLDROutputInFile(root->right_, ofs, repetitive_word);
 	}
 
+	/*
+	** Delete all the " "(space), (,), (.), ('s)
+	** Change case " Student -> student"
+	** If have word : "Student's" change it to "student"
+	*/
 	void changeCaseAndClearSign(string& word)
 	{
 		if (word.empty()) throw MyErrorInfo("null_string_in_changeCaseAndClearSign(string& word)");
 		if (word.at(0) > 64 && word.at(0) < 91)
 		{
-			word.at(0) += 32; // 操作ASCII码更改大小写
+			word.at(0) += 32; // use ASCII to change case
 		}
 
 		int index = 0;
@@ -451,7 +489,9 @@ private:
 		}
 	}
 
-	// 创建栈中的结点 - Creat element in stack
+	/*
+	**  Creat element in stack
+	*/
 	BinTreeStackNode* CreatBinTreeStackNode(Node* node, bool flag)
 	{
 		BinTreeStackNode* newNode = new BinTreeStackNode;
@@ -460,7 +500,9 @@ private:
 		return newNode;
 	}
 
-	// 树中是否存在相同的单词，如果有传入更新 WordInfo中的header_.insert(pair)
+	/*
+	**  Does the same word exist in the tree, if have change "header_.insert(pair)" in WordInfo
+	*/
 	bool isHaveSameWord(string word, pair<unsigned int, unsigned int> row_col_word)
 	{
 		if (nullptr == root_) return false;
@@ -468,16 +510,16 @@ private:
 		// Make a Stack
 		LinkStack<BinTreeStackNode*> stack;
 
-		// 将根结点放到栈中 - first, make the root of the tree in the stack
+		// first, make the root of the tree in the stack
 		stack.push(CreatBinTreeStackNode(root_, false));
 
 		while (stack.size() > 0)
 		{
-			// 先弹出栈顶元素 - Pop the element, which is on the top of the stack
+			// Pop the element, which is on the top of the stack
 			BinTreeStackNode* node = (BinTreeStackNode*)stack.top();
 			stack.pop();
 
-			// 判断，如果为 nullptr 直接重新循环
+			// if nullptr in stack ->continue
 			if (node->root == nullptr) continue;
 
 			if (node->flag == true)
@@ -507,16 +549,16 @@ private:
 		// Make a Stack
 		LinkStack<BinTreeStackNode*> stack;
 
-		// 将根结点放到栈中 - first, make the root of the tree in the stack
+		// first, make the root of the tree in the stack
 		stack.push(CreatBinTreeStackNode(root_, false));
 
 		while (stack.size() > 0)
 		{
-			// 先弹出栈顶元素 - Pop the element, which is on the top of the stack
+			// Pop the element, which is on the top of the stack
 			BinTreeStackNode* node = (BinTreeStackNode*)stack.top();
 			stack.pop();
 
-			// 判断，如果为 nullptr 直接重新循环
+			// if nullptr in stack ->continue
 			if (node->root == nullptr) continue;
 
 			if (node->flag == true)
@@ -537,6 +579,9 @@ private:
 		return nullptr;
 	}
 
+	/*
+	** Delete all the " "(space)
+	*/
 	string& clearAllSpace(string& str)
 	{
 		int index = 0;
@@ -580,8 +625,10 @@ private:
 			}
 		}
 
-		// cout << "pParent : " << pParent->key_ << endl;
-		// cout << "pCurrent : " << pCurrent->key_ << endl;
+#if 0
+		cout << "pParent : " << pParent->key_ << endl;
+		 cout << "pCurrent : " << pCurrent->key_ << endl;
+#endif
 
 		// if delete node is the leaf
 		if (pCurrent->left_ == nullptr && pCurrent->right_ == nullptr)
@@ -727,6 +774,9 @@ private:
 		}
 	}
 
+	/*
+	** Delete all the nodes in tree
+	*/
 	void freeSpaceBinaryTree(Node* root)
 	{
 		if (nullptr == root) return;
