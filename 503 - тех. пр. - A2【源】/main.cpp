@@ -7,11 +7,9 @@ void printCircleInfo(const jianing::Circle& circle);
 
 void printRectangleInfo(const jianing::Rectangle& rectangle);
 
-void printShapeInfo(const jianing::Shape& shape);
-
 void moveShapeToPointXY(jianing::Shape& shape, const double x, const double y);
 
-void moveShapeByDisplacement(jianing::Shape& shape const double dx, const double dx);
+void moveShapeByDisplacement(jianing::Shape& shape, const double dx, const double dy);
 
 void scaleShape(jianing::Shape& shape, const double coefficient);
 
@@ -34,21 +32,14 @@ void printRectangleInfo(const jianing::Rectangle& rectangle)
       << "Area: " << rectangle.getArea() << "\n\n";
 }
 
-void printShapeInfo(const jianing::Shape& shape)
-{
-  std::cout << "------Shape Info------\n"
-      << "Center: (" << shape.getCenter().x << ", " << shape.getCenter().y << ")\n"
-      << "Area: " << shape.getArea() << "\n\n";
-}
-
 void moveShapeToPointXY(jianing::Shape& shape, const double x, const double y)
 {
   shape.move({x, y});
 }
 
-void moveShapeByDisplacement(jianing::Shape& shape const double dx, const double dx)
+void moveShapeByDisplacement(jianing::Shape& shape, const double dx, const double dy)
 {
-  shape.move(dx, dx);
+  shape.move(dx, dy);
 }
 
 
@@ -59,16 +50,41 @@ void scaleShape(jianing::Shape& shape, const double coefficient)
 
 int main()
 {
-  Rectangle rectangle({5.0, 9.0, 13.0, 21.0});
-  testShape(&rectangle);
+//==================CIRCLE====================
+  jianing::Circle circle {{3.6, 7.0}, 6.7};
 
-  Circle circle(, );
-  testShape(&circle);
-//======================================
-
-  jianing::Circle circle {{3.0, 7.0}, 6.0}
-  
-  std::cout << "CIRCLE:\n";
+  std::cout << "=============CIRCLE=============\n";
   printCircleInfo(circle);
+
+  std::cout << "Move cirle to (12.4, 3.0):\n";
+  moveShapeToPointXY(circle, 12.4, 3.0);
+  printCircleInfo(circle);
+
+  std::cout << "Move cirle left 7.3, down 9.2:\n";
+  moveShapeByDisplacement(circle, 7.3, -9.2);
+  printCircleInfo(circle);
+
+  std::cout << "Scale circle (x2.0):\n";
+  scaleShape(circle, 2);
+  printCircleInfo(circle);
+
+//===================RECTANGLE===================
+  jianing::Rectangle rectangle {{5.1, 9.3, 13.6, 21.3}};
+
+  std::cout << "=============RECTANGLE=============\n";
+  printRectangleInfo(rectangle);
+
+  std::cout << "Move cirle to (13.4, 7.7):\n";
+  moveShapeToPointXY(rectangle, 13.4, 7.7);
+  printRectangleInfo(rectangle);
+
+  std::cout << "Move cirle right 9.2, up 5.0:\n";
+  moveShapeByDisplacement(rectangle, -9.2, 5.0);
+  printRectangleInfo(rectangle);
+
+  std::cout << "Scale rectangle (x2.0):\n";
+  scaleShape(rectangle, 2);
+  printRectangleInfo(rectangle);
+
   return 0;
 }

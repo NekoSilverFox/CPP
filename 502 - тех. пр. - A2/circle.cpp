@@ -13,7 +13,7 @@ jianing::point_t jianing::Circle::getCenter() const
   return point_circle_;
 }
 
-jianing::Circle::Circle(double r_circle, const point_t& point):
+jianing::Circle::Circle(const point_t& point, double r_circle):
   point_circle_(point),
   r_circle_(r_circle)
 {

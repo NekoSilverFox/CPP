@@ -10,7 +10,7 @@ namespace jianing
   class Circle : public Shape
   {
   public:
-    Circle(double r_circle, const point_t& point);
+    Circle(const point_t& point, double r_circle);
 
     double getRadius() const;
 
