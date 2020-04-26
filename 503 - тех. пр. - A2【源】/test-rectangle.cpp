@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_SUITE(rectangle)
 
   BOOST_AUTO_TEST_CASE(moving_rectangle_by_dx_dy)
   {
-    jianing::Rectangle rectangle {{-5.0, -10.0, 5.0, 10.0}};
+    jianing::Rectangle rectangle {{5.0, 10.0, 5.0, 10.0}};
 
     double expectedWidth = rectangle.getWidth();
     double expectedHeight = rectangle.getHeight();
