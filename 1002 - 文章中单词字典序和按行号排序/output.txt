@@ -41,6 +41,7 @@
   extraordinary       11        4         1        13
            face       15        8         1         4
          family        9        7         1         6
+           fire       14       12         1         4
         follows        8        4         1         7
           folly       15        5         1         5
          forced        9       10         1         6

@@ -36,7 +36,7 @@ void testFunc()
 	/*
 	**  Delete word
 	*/
-	tree.deleteWord("fire");
+	tree.deleteWord("student");
 
 	/*
 	**  out put the word by Dictionary order in to the file "output.txt"

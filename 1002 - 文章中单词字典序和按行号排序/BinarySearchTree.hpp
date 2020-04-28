@@ -149,7 +149,9 @@ public:
 		Node* searchWord = searchWordInTree(word_search);
 		if (nullptr == searchWord)
 		{
-			cout << "\033[31m" << " Don't  have word ¡¾" << word_search << "¡¿!" << "\033[0m" << endl;
+			cout << endl
+				<< "======Search Word======" << endl
+				<< "\033[31m" << " Don't  have word ¡¾" << word_search << "¡¿!" << "\033[0m" << endl <<endl;
 		}
 		else
 		{
