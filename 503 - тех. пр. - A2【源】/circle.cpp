@@ -1,6 +1,6 @@
 #include "circle.hpp"
 #include <cmath>
-#include <cassert>
+#include <stdexcept>
 #include "base-types.hpp"
 
 double jianing::Circle::getRadius() const
@@ -17,7 +17,10 @@ jianing::Circle::Circle(const point_t& point, double r_circle):
   point_circle_(point),
   r_circle_(r_circle)
 {
-  assert(r_circle > 0);
+  if(r_circle <= 0.0)
+  {
+    throw std::domain_error("Error: Radius must be positive!\n");
+  }
 }
 
 double jianing::Circle::getArea() const
@@ -43,6 +46,9 @@ void jianing::Circle::move(const point_t& point_new)
 
 void jianing::Circle::scale(double coef)
 {
-  assert(r_circle_ > 0);
+  if(coef <= 0.0)
+  {
+    throw std::domain_error("Error: Coefficient must be positive!\n");
+  }
   r_circle_ *= coef;
 }
