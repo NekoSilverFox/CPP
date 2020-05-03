@@ -3,10 +3,10 @@
 
 const double accuracy = 0.00001;
 
-// =====================test_initialization_rectangle=====================
-BOOST_AUTO_TEST_SUITE(test_initialize_rectangle)
+// =====================test initialization rectangle=====================
+BOOST_AUTO_TEST_SUITE(InitializeRectangle)
 
-  BOOST_AUTO_TEST_CASE(initialize_rectangle)
+  BOOST_AUTO_TEST_CASE(InitializeRectangle_OnCorrectValue_NoError)
   {
     jianing::Rectangle rectangle {{1.1, 2.2, 3.3, 4.4}};
 
@@ -15,9 +15,14 @@ BOOST_AUTO_TEST_SUITE(test_initialize_rectangle)
     BOOST_REQUIRE_EQUAL(3.3, rectangle.getCenter().x);
     BOOST_REQUIRE_EQUAL(4.4, rectangle.getCenter().y);
     BOOST_REQUIRE_EQUAL(1.1 * 2.2, rectangle.getArea());
+
+    BOOST_REQUIRE_EQUAL(1.1, rectangle.getFrameRect().width);
+    BOOST_REQUIRE_EQUAL(2.2, rectangle.getFrameRect().height);
+    BOOST_REQUIRE_EQUAL(3.3, rectangle.getFrameRect().pos.x);
+    BOOST_REQUIRE_EQUAL(4.4, rectangle.getFrameRect().pos.y);
   }
 
-  BOOST_AUTO_TEST_CASE(initialize_rectangle_on_invalid_coefficient)
+  BOOST_AUTO_TEST_CASE(InitializeRectangle_OnWrongValue_ThrowError)
   {
     BOOST_CHECK_THROW(jianing::Rectangle({-1.1, 2.1, 3.1, 4.1}), std::domain_error);
     BOOST_CHECK_THROW(jianing::Rectangle({1.2, -2.2, 3.2, 4.2}), std::domain_error);
@@ -31,9 +36,9 @@ BOOST_AUTO_TEST_SUITE(test_initialize_rectangle)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-// =====================test_move_rectangle=====================
-BOOST_AUTO_TEST_SUITE(test_move_rectangle)
-  BOOST_AUTO_TEST_CASE(moving_rectangle_to_a_point_x_y)
+// =====================test move rectangle=====================
+BOOST_AUTO_TEST_SUITE(MoveRectangle)
+  BOOST_AUTO_TEST_CASE(MoveRectangle_ToPointXY_CorrectCenterAfterMove)
   {
     jianing::Rectangle rectangle {{5.1, 10.1, 3.1, 4.1}};
 
@@ -44,9 +49,14 @@ BOOST_AUTO_TEST_SUITE(test_move_rectangle)
     BOOST_CHECK_EQUAL(10.9, rectangle.getCenter().x);
     BOOST_CHECK_EQUAL(5.9, rectangle.getCenter().y);
     BOOST_CHECK_EQUAL(5.1 * 10.1, rectangle.getArea());
+
+    BOOST_CHECK_EQUAL(5.1, rectangle.getFrameRect().width);
+    BOOST_CHECK_EQUAL(10.1, rectangle.getFrameRect().height);
+    BOOST_CHECK_EQUAL(10.9, rectangle.getFrameRect().pos.x);
+    BOOST_CHECK_EQUAL(5.9, rectangle.getFrameRect().pos.y);
   }
 
-  BOOST_AUTO_TEST_CASE(moving_rectangle_by_dx_dy)
+  BOOST_AUTO_TEST_CASE(MoveRectangle_Bydxdy_CorrectCenterAfterMove)
   {
     jianing::Rectangle rectangle {{1.1, 2.2, 3.3, 4.4}};
 
@@ -57,19 +67,24 @@ BOOST_AUTO_TEST_SUITE(test_move_rectangle)
     BOOST_CHECK_EQUAL(3.3 - 0.8, rectangle.getCenter().x);
     BOOST_CHECK_EQUAL(4.4 + 0.9, rectangle.getCenter().y);
     BOOST_CHECK_EQUAL(1.1 * 2.2, rectangle.getArea());
+
+    BOOST_CHECK_EQUAL(1.1, rectangle.getFrameRect().width);
+    BOOST_CHECK_EQUAL(2.2, rectangle.getFrameRect().height);
+    BOOST_CHECK_EQUAL(3.3 - 0.8, rectangle.getFrameRect().pos.x);
+    BOOST_CHECK_EQUAL(4.4 + 0.9, rectangle.getFrameRect().pos.y);
   }
 BOOST_AUTO_TEST_SUITE_END()
 
-// =====================test_scale_rectangle=====================
-BOOST_AUTO_TEST_SUITE(test_scale_rectangle)
-  BOOST_AUTO_TEST_CASE(rectangle_scale_on_invalid_coefficient)
+// =====================test scale rectangle=====================
+BOOST_AUTO_TEST_SUITE(ScaleRectangle)
+  BOOST_AUTO_TEST_CASE(ScaleRectangle_OnWrongCoefficientNegativeOrZero_ThrowError)
   {
     jianing::Rectangle rectangle = {{14.15, 9.26, 0.9, 4.8}};
     BOOST_CHECK_THROW(rectangle.scale(0.0), std::domain_error);
     BOOST_CHECK_THROW(rectangle.scale(-5.7), std::domain_error);
   }
 
-  BOOST_AUTO_TEST_CASE(changing_rectangle_size_by_coefficient)
+  BOOST_AUTO_TEST_CASE(ScaleRectangle_OnCorrectCoefficient_CorrectRadiusAfterScale)
   {
     jianing::Rectangle rectangle {{5.5, 6.6, 7.7, 8.8}};
 
@@ -80,6 +95,11 @@ BOOST_AUTO_TEST_SUITE(test_scale_rectangle)
     BOOST_CHECK_CLOSE(5.5 * 2.1, rectangle.getWidth(), accuracy);
     BOOST_CHECK_CLOSE(6.6 * 2.1, rectangle.getHeight(), accuracy);
     BOOST_CHECK_CLOSE(2.1 * 5.5 * 2.1 * 6.6, rectangle.getArea(), accuracy);
+
+    BOOST_CHECK_EQUAL(5.5 * 2.1, rectangle.getFrameRect().width);
+    BOOST_CHECK_EQUAL(6.6 * 2.1, rectangle.getFrameRect().height);
+    BOOST_CHECK_EQUAL(7.7, rectangle.getFrameRect().pos.x);
+    BOOST_CHECK_EQUAL(8.8, rectangle.getFrameRect().pos.y);
   }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -22,7 +22,7 @@ namespace jianing
 
     rectangle_t getFrameRect() const override;
 
-    void move(const double x_move, const double y_move) override;
+    void move(double x_move, double y_move) override;
 
     void move(const point_t& point_new) override;
 

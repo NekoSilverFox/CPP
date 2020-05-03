@@ -31,7 +31,8 @@ int main()
   }
   catch (const std::domain_error& exc)
   {
-    std::cerr << exc.what();
+    std::cerr << "An error has been detected and the error message is：\n"
+        << exc.what();
     return 1;
   }
 
@@ -57,7 +58,8 @@ int main()
   }
   catch (const std::domain_error& exc)
   {
-    std::cerr << exc.what();
+    std::cerr << "An error has been detected and the error message is：\n"
+        << exc.what();
     return 1;
   }
 
