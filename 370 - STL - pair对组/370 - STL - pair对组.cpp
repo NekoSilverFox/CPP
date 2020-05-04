@@ -19,6 +19,7 @@ void test01()
 // 第二种创建
 void test02()
 {
+	// 建议使用
 	pair<string, int> pair_2 = make_pair("Jerry", 14);
 
 	cout << pair_2.first << "  " << pair_2.second << "  " << endl;

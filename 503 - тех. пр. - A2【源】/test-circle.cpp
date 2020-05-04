@@ -13,12 +13,6 @@ BOOST_AUTO_TEST_SUITE(InitializeCircle)
 
     BOOST_REQUIRE_EQUAL(1.1, circle.getCenter().x);
     BOOST_REQUIRE_EQUAL(1.2, circle.getCenter().y);
-
-    BOOST_REQUIRE_EQUAL(3.5 * 2, circle.getFrameRect().width);
-    BOOST_REQUIRE_EQUAL(3.5 * 2, circle.getFrameRect().height);
-    BOOST_REQUIRE_EQUAL(1.1, circle.getFrameRect().pos.x);
-    BOOST_REQUIRE_EQUAL(1.2, circle.getFrameRect().pos.y);
-
     BOOST_REQUIRE_EQUAL(3.5, circle.getRadius());
     BOOST_REQUIRE_EQUAL(M_PI * 3.5 * 3.5, circle.getArea());
   }
@@ -31,8 +25,9 @@ BOOST_AUTO_TEST_SUITE(InitializeCircle)
 
 BOOST_AUTO_TEST_SUITE_END()
 
+// =====================test initialization circle(FrameRect)=====================
 BOOST_AUTO_TEST_SUITE(TestFrameRectWhenInitializeCircle)
-  BOOST_AUTO_TEST_CASE(InitializeCircle_OnCorrectValue_NoError)
+  BOOST_AUTO_TEST_CASE(TestFrameRectWhenInitializeCircle_OnCorrectValue_NoError)
   {
     jianing::Circle circle {{1.1, 1.2}, 3.5};
 
@@ -54,12 +49,6 @@ BOOST_AUTO_TEST_SUITE(MoveCirle)
 
     BOOST_CHECK_EQUAL(-10.0, circle.getCenter().x);
     BOOST_CHECK_EQUAL(-20.0, circle.getCenter().y);
-
-    BOOST_CHECK_EQUAL(5.0 * 2, circle.getFrameRect().width);
-    BOOST_CHECK_EQUAL(5.0 * 2, circle.getFrameRect().height);
-    BOOST_CHECK_EQUAL(-10.0, circle.getFrameRect().pos.x);
-    BOOST_CHECK_EQUAL(-20.0, circle.getFrameRect().pos.y);
-
     BOOST_CHECK_EQUAL(5.0, circle.getRadius());
     BOOST_CHECK_EQUAL(M_PI * 5.0 * 5.0, circle.getArea());
   }
@@ -72,14 +61,37 @@ BOOST_AUTO_TEST_SUITE(MoveCirle)
 
     BOOST_CHECK_EQUAL(-5.1 + 5.0, circle.getCenter().x);
     BOOST_CHECK_EQUAL(5.2 - 5.0, circle.getCenter().y);
+    BOOST_CHECK_EQUAL(2.5, circle.getRadius());
+    BOOST_CHECK_EQUAL(M_PI * 2.5 * 2.5, circle.getArea());
+  }
+
+BOOST_AUTO_TEST_SUITE_END()
+
+// =====================test move circle(FrameRect)=====================
+BOOST_AUTO_TEST_SUITE(TestFrameRectAfterMoveCirle)
+
+  BOOST_AUTO_TEST_CASE(TestFrameRectAfterMoveCirle_ToPointXY_CorrectFrameAfterMove)
+  {
+    jianing::Circle circle {{10.0, 0.0}, 5.0};
+
+    circle.move({-10.0, -20.0});
+
+    BOOST_CHECK_EQUAL(5.0 * 2, circle.getFrameRect().width);
+    BOOST_CHECK_EQUAL(5.0 * 2, circle.getFrameRect().height);
+    BOOST_CHECK_EQUAL(-10.0, circle.getFrameRect().pos.x);
+    BOOST_CHECK_EQUAL(-20.0, circle.getFrameRect().pos.y);
+  }
+
+  BOOST_AUTO_TEST_CASE(TestFrameRectAfterMoveCirle_Bydxdy_CorrectFrameAfterMove)
+  {
+    jianing::Circle circle {{-5.1, 5.2}, 2.5};
+
+    circle.move(5.0, -5.0);
 
     BOOST_CHECK_EQUAL(2.5 * 2, circle.getFrameRect().width);
     BOOST_CHECK_EQUAL(2.5 * 2, circle.getFrameRect().height);
     BOOST_CHECK_EQUAL(-5.1 + 5.0, circle.getFrameRect().pos.x);
     BOOST_CHECK_EQUAL(5.2 - 5.0, circle.getFrameRect().pos.y);
-
-    BOOST_CHECK_EQUAL(2.5, circle.getRadius());
-    BOOST_CHECK_EQUAL(M_PI * 2.5 * 2.5, circle.getArea());
   }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -102,14 +114,25 @@ BOOST_AUTO_TEST_SUITE(ScaleCircle)
 
     BOOST_CHECK_EQUAL(3.3, circle.getCenter().x);
     BOOST_CHECK_EQUAL(-3.3, circle.getCenter().y);
+    BOOST_CHECK_CLOSE(1.5 * 2.2, circle.getRadius(), accuracy);
+    BOOST_CHECK_CLOSE(M_PI * 1.5 * 2.2 * 1.5 *2.2, circle.getArea(), accuracy);
+  }
+
+BOOST_AUTO_TEST_SUITE_END()
+
+// =====================test scale circle(FrameRect)=====================
+BOOST_AUTO_TEST_SUITE(TestFrameRectAfterScaleCircle)
+
+  BOOST_AUTO_TEST_CASE(TestFrameRectAfterScaleCircle_OnCorrectCoefficient_CorrectFrameAfterScale)
+  {
+    jianing::Circle circle {{3.3, -3.3}, 1.5};
+
+    circle.scale(2.2);
 
     BOOST_CHECK_EQUAL(1.5 * 2 * 2.2, circle.getFrameRect().width);
     BOOST_CHECK_EQUAL(1.5 * 2 * 2.2, circle.getFrameRect().height);
     BOOST_CHECK_EQUAL(3.3, circle.getFrameRect().pos.x);
     BOOST_CHECK_EQUAL(-3.3, circle.getFrameRect().pos.y);
-
-    BOOST_CHECK_CLOSE(1.5 * 2.2, circle.getRadius(), accuracy);
-    BOOST_CHECK_CLOSE(M_PI * 1.5 * 2.2 * 1.5 *2.2, circle.getArea(), accuracy);
   }
 
 BOOST_AUTO_TEST_SUITE_END()
