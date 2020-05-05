@@ -7,29 +7,21 @@ template <typename T>
 class AVLTree
 {
 private:
-	template <typename T>
+	
 	struct AVLNode
 	{
-		AVLNode() : height_(0), p_(nullptr), left_(nullptr), right_(nullptr) {}
-		AVLNode(T key) : height_(0), key_ (key), p_(nullptr), left_(nullptr), right_(nullptr) {}
+		AVLNode() : p_(nullptr), left_(nullptr), right_(nullptr) {}
+		AVLNode(T key) : key_ (key), p_(nullptr), left_(nullptr), right_(nullptr) {}
 
-		unsigned int height_;
 		T key_;
-		AVLNode<T>* p_;
-		AVLNode<T>* left_;
-		AVLNode<T>* right_;
+		AVLNode* p_;
+		AVLNode* left_;
+		AVLNode* right_;
 	};
 
-	AVLNode<T>* root_;
+	AVLNode* root_;
 
 public:
-	// 树的高度
-	unsigned int height()
-	{
-		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
-
-		return _height_(this->root_);
-	}
 
 	// 前序遍历 AVL树
 	void preOrder()
@@ -44,7 +36,7 @@ public:
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
 
-		inOrder(this->root_);
+		_inOrder_(this->root_);
 	}
 
 	// 后续遍历 AVL树
@@ -56,11 +48,11 @@ public:
 	}
 
 	// 递归 - 查找输入的key 的节点
-	T* search(T key_search)
+	bool search(T key_search)
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
 
-		AVLNode<T>* node_search = search(this->root_, key_search);
+		AVLNode* node_search = _search_(this->root_, key_search);
 
 		if (nullptr == node_search)
 		{
@@ -69,66 +61,74 @@ public:
 				<< " !"
 				<< "\033[0m"
 				<< endl;
+			return true;
 		}
 		else
 		{
 			cout << "\033[032m"
-				<< "Succeful search the node, which key is" << key_search
+				<< "Succeful search the node, which key is " << key_search
 				<< " !"
 				<<"\033[0m"
 				<< endl;
+			return false;
 		}
 	}
 
 	// 迭代 - 查找输入的key 的节点
-	T* iterativeSearch(T key_search)
+	bool iterativeSearch(T key_search)
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
 
-		AVLNode<T>* node_search = _iterativeSearch_(this->root_, key_search);
+		AVLNode* node_search = _iterativeSearch_(this->root_, key_search);
 
 		if (nullptr == node_search)
 		{
-			cout << "\033[32m"
+			cout << "\033[31m"
 				<< "Can't search the node, which key is " << key_search
 				<< " !"
 				<< "\033[0m"
 				<< endl;
+			return true;
 		}
 		else
 		{
 			cout << "\033[032m"
-				<< "Succeful search the node, which key is" << key_search
+				<< "Succeful search the node, which key is " << key_search
 				<< " !"
 				<< "\033[0m"
 				<< endl;
+			return false;
 		}
 	}
 
 	// 查找最小值
-	T* min()
+	T min()
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
 
-		AVLNode<T>* min_node = _min_(this->root_);
+		AVLNode* min_node = _min_(this->root_);
 
 		cout << "\033[032m"
 			<< "The min node is " << min_node->key_
 			<< "\033[0m"
 			<< endl;
+
+		return min_node->key_;
 	}
 
 	// 查找最大值
-	T* max()
+	T max()
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
 
-		AVLNode<T>* max_node = _min_(this->root_);
+		AVLNode* max_node = _max_(this->root_);
 
 		cout << "\033[032m"
 			<< "The min node is " << max_node->key_
 			<< "\033[0m"
 			<< endl;
+
+		return max_node->key_;
 	}
 
 	// 插入指定的节点到AVL树中
@@ -136,7 +136,7 @@ public:
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
 
-		AVLNode<T>* node_insert = new AVLNode<T>(key_insert);
+		AVLNode* node_insert = new AVLNode(key_insert);
 
 		_insert_(node_insert);
 	}
@@ -157,15 +157,22 @@ private:
 	// 树的高度
 	unsigned int _height_(AVLNode* root)
 	{
-		return root->height_;
+		if (nullptr == root) return 0;
+
+		int left_height = _height_(root->left_);
+		int right_height = _height_(root->right_);
+
+		int height = left_height > right_height ? ++left_height : ++right_height;
+		return height;
 	}
 
 	// 获取两棵树的高度差
-	int _heightDifference_(AVLNode* node_1, AVLNode* node_2)
+	unsigned int _heightDifference_(AVLNode* root_left, AVLNode* root_right)
 	{
-		if (nullptr == node_1 || nullptr == node_2) throw MyErrorInfo("node is nullptr !");
+		int left_height = _height_(root_left);
+		int right_height = _height_(root_right);
 
-		return node_1->height_ - node_2->height_;
+		return left_height - right_height;
 	}
 
 	// 前序遍历 AVL树
@@ -199,24 +206,26 @@ private:
 	}
 
 	// 递归 - 查找输入的key 的节点 【改】
-	AVLNode<T>* _search_(AVLNode* root, const T& key_search)
+	AVLNode* _search_(AVLNode* root, const T& key_search)
 	{
 		if (nullptr == root || key_search == root->key_) return root;
 
 		if (key_search < root->key_)
 		{
-			_search_(root->right_);
+			// 注意：这里 可以 加 return！！！！！！！！！！！！！！！！！！！！！！！！！！节省资源
+			// _search_(root->left_, key_search);
+			return _search_(root->left_, key_search);
 		}
 		else if (key_search > root->key_)
 		{
-			_search_(root->left_);
+			return _search_(root->right_, key_search);
 		}
 	}
 
 	// 迭代 - 查找输入的key 的节点
-	AVLNode<T>* _iterativeSearch_(AVLNode* root, const T& key_search)
+	AVLNode* _iterativeSearch_(AVLNode* root, const T& key_search)
 	{
-		AVLNode<T>* pCurrent = root;
+		AVLNode* pCurrent = root;
 
 		while (nullptr != pCurrent)
 		{
@@ -240,24 +249,24 @@ private:
 	}
 
 	// 查找最小值
-	AVLNode<T>* _min_(AVLNode* root)
+	AVLNode* _min_(AVLNode* root)
 	{
-		AVLNode<T>* t_node = root;
+		AVLNode* t_node = root;
 
 		while (nullptr != t_node->left_)
 		{
-			t_node == t_node->left_;
+			t_node = t_node->left_;
 		}
 
 		return t_node;
 	}
 
 	// 查找最大值
-	AVLNode<T>* _max_(AVLNode* root)
+	AVLNode* _max_(AVLNode* root)
 	{
-		AVLNode<T>* t_node = root;
+		AVLNode* t_node = root;
 
-		while (nullptr != root->right_)
+		while (nullptr != t_node->right_)
 		{
 			t_node = t_node->right_;
 		}
@@ -265,17 +274,54 @@ private:
 		return  t_node;
 	}
 
-	// LL
-	AVLNode<T>* LLRotation(AVLNode<T>* node);
 
-	// RR
-	AVLNode<T>* RRRotation(AVLNode<T>* node);
 
-	// LR
-	AVLNode<T>* LRRotation(AVLNode<T>* node);
+					/*
+				==============LL===============
+							  |
+							 6 <---- p_parents_of_node_insert->p_
+						   /  \
+						  5   null  <<---- p_parents_of_node_insert
+						 /
+					   3	<----node_insert
+				*/
+	AVLNode* _LLRotation_(AVLNode* node);
 
-	// RL
-	AVLNode<T>* RLRotation(AVLNode<T>* node);
+
+					/*
+				==============RR==============
+							   |
+							  9 <---- p_parents_of_node_insert->p_
+						   /    \
+						null   10     <---- p_parents_of_node_insert
+								   \
+									11	 <----node_insert
+				*/
+	AVLNode* _RRRotation_(AVLNode* node);
+
+
+					/*
+					==============LR===============
+								  |
+								 9 <---- p_parents_of_node_insert->p_
+							   /  \
+							  5   null  <<---- p_parents_of_node_insert
+							   \
+								6	 <----node_insert
+					*/
+	AVLNode* _LRRotation_(AVLNode* node);
+
+
+					/*
+				==============RL===============
+							  |
+							 6 <---- p_parents_of_node_insert->p_
+						   /   \
+					   null     8   <---- p_parents_of_node_insert
+								 /
+							   7	<----node_insert
+				*/
+	AVLNode* _RLRotation_(AVLNode* node);
 
 	// 插入指定的节点到AVL树中
 	void _insert_(AVLNode* node_insert)
@@ -292,8 +338,8 @@ private:
 		}
 
 		// 先找到应该插入哪个节点之下
-		AVLNode<T>* pCurrent = root_;
-		AVLNode<T>* p_parents_of_node_insert = pCurrent; // 应插入到此节点之下
+		AVLNode* pCurrent = root_;
+		AVLNode* p_parents_of_node_insert = pCurrent; // 应插入到此节点之下
 		while (nullptr != pCurrent)
 		{
 			if (node_insert->key_ < pCurrent->key_)
@@ -314,15 +360,98 @@ private:
 		}
 
 		// =====================
+		// 只有一个主节点的时候
+		if (nullptr == p_parents_of_node_insert->p_)
+		{
+			if (node_insert->key_ < p_parents_of_node_insert->key_)
+			{
+				p_parents_of_node_insert->left_ = node_insert;
+				node_insert->p_ = p_parents_of_node_insert;
+			}
+			else
+			{
+				p_parents_of_node_insert->right_ = node_insert;
+				node_insert->p_ = p_parents_of_node_insert;
+			}
+			return;
+		}
+
+		// 有多个节点，并且
+		// 将 node 插入到 左子树 的情况
 		if (node_insert->key_ < p_parents_of_node_insert->key_)
 		{
 			p_parents_of_node_insert->left_ = node_insert;
 			node_insert->p_ = p_parents_of_node_insert;
+
+			if (2 == _heightDifference_(p_parents_of_node_insert->p_->left_, p_parents_of_node_insert->p_->right_))
+			{
+				/*
+				==============LL===============
+				              |
+							 6 <---- p_parents_of_node_insert->p_
+						   /  \
+						  5   null  <<---- p_parents_of_node_insert
+						 /
+					   3	<----node_insert			
+				*/
+				if (p_parents_of_node_insert == p_parents_of_node_insert->p_->left)
+				{
+					_LLRotation_(p_parents_of_node_insert->p);
+				}
+
+				/*
+                ==============RL===============
+                			  |
+                			 6 <---- p_parents_of_node_insert->p_
+                		   /   \
+                	   null     8   <---- p_parents_of_node_insert
+                	        	 /
+                	           7	<----node_insert
+                */
+				else if (p_parents_of_node_insert == p_parents_of_node_insert->p_->right_)
+				{
+					_RLRotation_(p_parents_of_node_insert->p_);
+				}
+			}
+
 		}
-		else if (node_insert->key_ > p_parents_of_node_insert)
+
+		// 将 node 插入到 右子树 的情况
+		else if (node_insert->key_ > p_parents_of_node_insert->key_)
 		{
 			p_parents_of_node_insert->right_ = node_insert;
 			node_insert->p_ = p_parents_of_node_insert;
+
+			if (2 == _heightDifference_(p_parents_of_node_insert->p_->left, p_parents_of_node_insert->p_->right_))
+			{
+				/*
+				==============LR===============
+							  |
+							 9 <---- p_parents_of_node_insert->p_
+						   /  \
+						  5   null  <<---- p_parents_of_node_insert
+						   \
+					        6	 <----node_insert
+				*/
+				if (p_parents_of_node_insert == p_parents_of_node_insert->p_->left_)
+				{
+					_LRRotation_(p_parents_of_node_insert->p_);
+				}
+
+				/*
+				==============RR==============
+							   |
+							  9 <---- p_parents_of_node_insert->p_
+						   /    \
+						null   10     <---- p_parents_of_node_insert
+						    	   \
+						    		11	 <----node_insert
+				*/
+				else if (p_parents_of_node_insert = p_parents_of_node_insert->p_->right_)
+				{
+					_RRRotation_(p_parents_of_node_insert->p_);
+				}
+			}
 		}
 
 	}
