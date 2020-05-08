@@ -7,7 +7,7 @@ template <typename T>
 class AVLTree
 {
 private:
-	
+
 	struct AVLNode
 	{
 		AVLNode() : p_(nullptr), height_(1), left_(nullptr), right_(nullptr) {}
@@ -146,7 +146,7 @@ public:
 
 		AVLNode* node_insert = new AVLNode(key_insert);
 
-		_insert_(this->root_, node_insert);
+		this->root_ = _insert_(this->root_, node_insert); // 注意这里 this->root 要重新复制，避免插入的前几个节点时造成节点丢失！！
 	}
 
 	// 删除指定的节点到 AVL树中
@@ -287,72 +287,56 @@ private:
 	/*
 	=============================LL==============================
 				  |																													|
-				 6 <---- root																								5						
+				 k2 <---- root																								k1
 			   /  \																												  /	  \
-			  5   null							                                     ==>							    3      6
-			 /                                                   
-		   3	                                                  
+			  k1   Z							                                     ==>							        X    k2
+			 /  \                                                                                                                   /  \
+		   X	  Y																												Y	 Z
 	*/
-	AVLNode* _LLRotation_(AVLNode* root)
+	AVLNode* _LLRotation_(AVLNode* k2)
 	{
-		if (nullptr == root) throw MyErrorInfo("root is nullptr in _LLRotation_");
+		if (nullptr == k2) throw MyErrorInfo("root is nullptr in _LLRotation_");
 
-		AVLNode* t_root_right = root->left_;
+		AVLNode* k1 = k2->left_;
 
-		root->left_ = t_root_right->right_;
-		t_root_right->right_->p_ = root;
+		k2->left_ = k1->right_;
 
-		AVLNode* t_root_p = root->p_;
-		root->p_ = t_root_right;
-		t_root_right->p_ = t_root_p;
+		if (nullptr != k1->right_)
+		{
+			k1->right_->p_ = k2;
+		}
 
-		t_root_right->right_ = root;
+		k1->right_ = k2;
 
+		if (nullptr != k2->left_)
+		{
+			k2->left_->p_ = k2;
+		}
 
+		k1->p_ = k2->p_;
+		k2->p_ = k1;
 
-#if 0
-		AVLNode* t_root = root;
-
-		root->left_->right_ = root;
-		root->left_->right_->left_ = nullptr;
-		root->left_->right_->p_ = root->left_;
-		root->left_->p_ = root->p_;
-
-		t_root = root->left_;
-
-		return t_root;
-#endif
-
-		//root->left_->right_ = root;
-		//root->left_->p_ = root->p_;
-		//root->left_ = root->left_;
-		//root->left_ = nullptr;
-
-		//t_root = root->p_;
+		return k1; // 返回新的根结点
 	}
 
 	/*
 	=============================LR==============================
 				  |																	|
-				 9 <---- root							    				9 <---root
+				 k3 <---- root							    				k3 <---root
 			   /  \																   / \
-			  5   null                         ==>                        6                             ==>  _LLRotation_(root)
-			   \																/
-				6															   5
+			  k1  D                        ==>                          k2    D                         ==>  _LLRotation_(root)
+			 / \																/ \
+			A	k2															   k1  C
+				/\																/\
+			   B  C														  A   B
 	*/
-	AVLNode* _LRRotation_(AVLNode* root)
+	AVLNode* _LRRotation_(AVLNode* k3)
 	{
-		if (nullptr == root) throw MyErrorInfo("root is nullptr in _LRRotation_");
+		if (nullptr == k3) throw MyErrorInfo("root is nullptr in _LRRotation_");
 
-		AVLNode* t_root_left = root->left_;
+		k3->left_ = _RRRotation_(k3->left_);
 
-		root->left_ = root->left_->right_;
-		root->left_->left_ = t_root_left;
-		root->left_->p_ = t_root_left->p_;
-		t_root_left->p_ = root;
-		t_root_left->right_ = nullptr;
-
-		return _LLRotation_(root);
+		return _LLRotation_(k3);
 
 	}
 
@@ -360,50 +344,56 @@ private:
 	/*
 	=============================RR=============================
 				   |																	|
-				  9 <---- root											  10
-			   /    \															  /  \
-			null   10							==>						9    11
-					   \
-						11		
+				  k1 <---- root											  K2
+			     /   \															  /  \
+			   X     k2							==>						K1   Z
+				   	 /\															/\
+					Y	Z													  X  Y
 	*/
-	AVLNode* _RRRotation_(AVLNode* root) 
+	AVLNode* _RRRotation_(AVLNode* k1)
 	{
-		if (nullptr == root) throw MyErrorInfo("root is nullptr in _RRRotation_");
+		if (nullptr == k1) throw MyErrorInfo("root is nullptr in _RRRotation_");
 
-		AVLNode* t_root = root;
+		AVLNode* k2 = k1->right_;
 
-		root->right_->left_ = root;
-		root->right_->left_->p_ = root->right_;
-		root->right_->left_->left_ = nullptr;
-		root->left_->p_ = root->p_;
+		k1->right_ = k2->left_;
 
-		t_root = root->right_;
+		if (nullptr != k2->left_)
+		{
+			k2->left_->p_ = k1;
+		}
 
-		return t_root;
+		k2->left_ = k1;
+
+		if (nullptr != k1->right_)
+		{
+			k1->right_->p_ = k1;
+		}
+
+		k2->p_ = k1->p_;
+		k1->p_ = k2;
+
+		return k2; // 返回新的根结点
 	}
 
 	/*
 	=============================RL==============================
 				  |														|
-				 6 <---- root								   6
+				 k1 <---- root								   k1
 			   /   \												  / \
-		   null     8							==>                  7                ==>   _RRRotation_(AVLNode* root) 
-					 /													   \
-				   7														8
+		     A     k3							==>         A    k2                ==>   _RRRotation_(AVLNode* root)
+					 /\													   /\
+				   k2  D                                              B   k3
+				   /\															/\
+				 B   C													  C   D
 	*/
-	AVLNode* _RLRotation_(AVLNode* root)
+	AVLNode* _RLRotation_(AVLNode* k1)
 	{
-		if (nullptr == root) throw MyErrorInfo("root is nullptr in _RLRotation_");
+		if (nullptr == k1) throw MyErrorInfo("root is nullptr in _RLRotation_");
 
-		AVLNode* t_root_right = root->right_;
+		k1->right_ = _LLRotation_(k1->right_);
 
-		root->right_ = root->right_->left_;
-		root->right_->right_ = t_root_right;
-		root->right_->p_ = root;
-		t_root_right->p_ = t_root_right->left_;
-		t_root_right->left_ = nullptr;
-
-		return _RRRotation_(root);
+		return _RRRotation_(k1);
 	}
 
 	// 插入指定的节点到AVL树中
@@ -454,7 +444,7 @@ private:
 				else if (root->left_->right_ == node_insert) root = _LRRotation_(root);
 			}
 
-		} 
+		}
 		// ==============================================================================
 		// 将 node 插入到 右子树 的情况
 		else if (node_insert->key_ > root->key_)
@@ -551,7 +541,7 @@ private:
 						   /  \
 						  5   null  <<---- p_parents_of_node_insert
 						 /
-					   3	<----node_insert			
+					   3	<----node_insert
 				*/
 				if (p_parents_of_node_insert == p_parents_of_node_insert->p_->left)
 				{
@@ -616,5 +606,92 @@ private:
 	}
 
 	// 删除指定的节点到 AVL树中
-	void _remove_(AVLNode* root, T key_remove);
+	void _remove_(AVLNode* root, T key_remove)
+	{
+		if (nullptr == root) return;
+
+		// 待删除节点是根结点的左节点
+		if (key_remove < root->key_)
+		{
+			root->left_ = _remove_(root->left_, key_remove);
+
+			// 删除节点后若AVL树失去平衡，则进行相应的调节
+			if (2 == _heightDifference_(root->left_, root->right_))
+			{
+				// 因为删除节点是root的左树，所以删除完毕后root右侧要高。所以要调整root->right_
+				AVLNode* right_node = root->right_;
+
+				if (_height_(right_node->left_) > _height_(right_node->right_)) root = _RLRotation_(root);
+				else root = _RRRotation_(root);
+			}
+		}
+
+		// 待删除节点是根结点的右节点
+		else if (key_remove > root->key_)
+		{
+			root->right_ = _remove_(root->right_, key_remove);
+
+			if (2 == _heightDifference_(root->left_, root->right_))
+			{
+				// 因为删除节点在root右侧，所以删除之后root左侧 要高 。要重新调整 root->left_;
+				AVLNode* left_node = root->left_;
+
+				if (_height_(left_node->left_) > _height_(left_node->right_)) root = _LLRotation_(root);
+				else root = _LRRotation_(root);
+			}
+		}
+
+		// root 为应删除的节点
+		else
+		{
+			// 如果root的左右孩子都不为空
+			if ((nullptr != root->left_) && (nullptr != root->right_))
+			{
+				if (_height_(root->left_) > _height_(root->right))
+				{
+					/* 如果删除节点的左树比右树高
+					** 1. 找到root左树中最大的节点
+					** 2. 将最大节点的值赋给 root （root的值被覆盖）
+					** 3.  删除最大节点
+					*/
+					AVLNode* max_node = _max_(root->left_);
+
+					root->key_ = max_node->key_;
+
+					root->left_ = _remove_(root->left, max_node->key_);
+#if 0
+					// 不能直接这么删除，因为删除完树可能失去平衡
+					delete max_node;
+					max_node = nullptr;
+#endif
+				}
+				else
+				{
+					/* 如果删除节点的右树比左树高
+					** 1. 找到root右树中最小的节点
+					** 2. 将最小节点的值赋给 root （root的值被覆盖）
+					** 3.  删除最小节点
+					*/
+					AVLNode* min_node = _min_(root->right_);
+
+					root->key_ = min_node->key_;
+
+					root->right_ = _remove_(root->right_, min_node->key_);
+				}
+
+			}
+			else
+			{
+				AVLNode* dele_node = root;
+
+				if (nullptr != root->left_)	root->left_->p_ = root->p_;
+				else root->right_->p_ = root->p_;
+
+				delete dele_node;
+				dele_node = nullptr;
+			}
+		}
+		return root;
+	}
+
 };
