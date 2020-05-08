@@ -10,10 +10,11 @@ private:
 	
 	struct AVLNode
 	{
-		AVLNode() : p_(nullptr), left_(nullptr), right_(nullptr) {}
-		AVLNode(T key) : key_ (key), p_(nullptr), left_(nullptr), right_(nullptr) {}
+		AVLNode() : p_(nullptr), height_(1), left_(nullptr), right_(nullptr) {}
+		AVLNode(T key) : key_ (key), height_(1), p_(nullptr), left_(nullptr), right_(nullptr) {}
 
 		T key_;
+		unsigned int height_;
 		AVLNode* p_;
 		AVLNode* left_;
 		AVLNode* right_;
@@ -22,6 +23,11 @@ private:
 	AVLNode* root_;
 
 public:
+
+	AVLTree()
+	{
+		this->root_ = new AVLNode;
+	}
 
 	// 前序遍历 AVL树
 	void preOrder()
@@ -136,9 +142,11 @@ public:
 	{
 		if (nullptr == this->root_) throw MyErrorInfo("The root of the AVL Tree is nullptr!");
 
+		cout << key_insert << " ";
+
 		AVLNode* node_insert = new AVLNode(key_insert);
 
-		_insert_(node_insert);
+		_insert_(this->root_, node_insert);
 	}
 
 	// 删除指定的节点到 AVL树中
@@ -276,55 +284,130 @@ private:
 
 
 
-					/*
-				==============LL===============
-							  |
-							 6 <---- p_parents_of_node_insert->p_
-						   /  \
-						  5   null  <<---- p_parents_of_node_insert
-						 /
-					   3	<----node_insert
-				*/
-	AVLNode* _LLRotation_(AVLNode* node);
+	/*
+	=============================LL==============================
+				  |																													|
+				 6 <---- root																								5						
+			   /  \																												  /	  \
+			  5   null							                                     ==>							    3      6
+			 /                                                   
+		   3	                                                  
+	*/
+	AVLNode* _LLRotation_(AVLNode* root)
+	{
+		if (nullptr == root) throw MyErrorInfo("root is nullptr in _LLRotation_");
+
+		AVLNode* t_root_right = root->left_;
+
+		root->left_ = t_root_right->right_;
+		t_root_right->right_->p_ = root;
+
+		AVLNode* t_root_p = root->p_;
+		root->p_ = t_root_right;
+		t_root_right->p_ = t_root_p;
+
+		t_root_right->right_ = root;
 
 
-					/*
-				==============RR==============
-							   |
-							  9 <---- p_parents_of_node_insert->p_
-						   /    \
-						null   10     <---- p_parents_of_node_insert
-								   \
-									11	 <----node_insert
-				*/
-	AVLNode* _RRRotation_(AVLNode* node);
+
+#if 0
+		AVLNode* t_root = root;
+
+		root->left_->right_ = root;
+		root->left_->right_->left_ = nullptr;
+		root->left_->right_->p_ = root->left_;
+		root->left_->p_ = root->p_;
+
+		t_root = root->left_;
+
+		return t_root;
+#endif
+
+		//root->left_->right_ = root;
+		//root->left_->p_ = root->p_;
+		//root->left_ = root->left_;
+		//root->left_ = nullptr;
+
+		//t_root = root->p_;
+	}
+
+	/*
+	=============================LR==============================
+				  |																	|
+				 9 <---- root							    				9 <---root
+			   /  \																   / \
+			  5   null                         ==>                        6                             ==>  _LLRotation_(root)
+			   \																/
+				6															   5
+	*/
+	AVLNode* _LRRotation_(AVLNode* root)
+	{
+		if (nullptr == root) throw MyErrorInfo("root is nullptr in _LRRotation_");
+
+		AVLNode* t_root_left = root->left_;
+
+		root->left_ = root->left_->right_;
+		root->left_->left_ = t_root_left;
+		root->left_->p_ = t_root_left->p_;
+		t_root_left->p_ = root;
+		t_root_left->right_ = nullptr;
+
+		return _LLRotation_(root);
+
+	}
 
 
-					/*
-					==============LR===============
-								  |
-								 9 <---- p_parents_of_node_insert->p_
-							   /  \
-							  5   null  <<---- p_parents_of_node_insert
-							   \
-								6	 <----node_insert
-					*/
-	AVLNode* _LRRotation_(AVLNode* node);
+	/*
+	=============================RR=============================
+				   |																	|
+				  9 <---- root											  10
+			   /    \															  /  \
+			null   10							==>						9    11
+					   \
+						11		
+	*/
+	AVLNode* _RRRotation_(AVLNode* root) 
+	{
+		if (nullptr == root) throw MyErrorInfo("root is nullptr in _RRRotation_");
 
+		AVLNode* t_root = root;
 
-					/*
-				==============RL===============
-							  |
-							 6 <---- p_parents_of_node_insert->p_
-						   /   \
-					   null     8   <---- p_parents_of_node_insert
-								 /
-							   7	<----node_insert
-				*/
-	AVLNode* _RLRotation_(AVLNode* node);
+		root->right_->left_ = root;
+		root->right_->left_->p_ = root->right_;
+		root->right_->left_->left_ = nullptr;
+		root->left_->p_ = root->p_;
+
+		t_root = root->right_;
+
+		return t_root;
+	}
+
+	/*
+	=============================RL==============================
+				  |														|
+				 6 <---- root								   6
+			   /   \												  / \
+		   null     8							==>                  7                ==>   _RRRotation_(AVLNode* root) 
+					 /													   \
+				   7														8
+	*/
+	AVLNode* _RLRotation_(AVLNode* root)
+	{
+		if (nullptr == root) throw MyErrorInfo("root is nullptr in _RLRotation_");
+
+		AVLNode* t_root_right = root->right_;
+
+		root->right_ = root->right_->left_;
+		root->right_->right_ = t_root_right;
+		root->right_->p_ = root;
+		t_root_right->p_ = t_root_right->left_;
+		t_root_right->left_ = nullptr;
+
+		return _RRRotation_(root);
+	}
 
 	// 插入指定的节点到AVL树中
-	void _insert_(AVLNode* node_insert)
+	AVLNode* _insert_(AVLNode* root, AVLNode* node_insert)
 	{
 		if (nullptr == node_insert) throw MyErrorInfo("node is nullptr in function _insert_!");
 
@@ -333,9 +416,85 @@ private:
 		if (false == s_init)
 		{
 			s_init = true;
+			// node_insert->height_ = 1;
 			this->root_ = node_insert;
-			return;
+			return this->root_;
 		}
+
+		if (nullptr == root) return node_insert;
+
+		// 将 node 插入到 左子树 的情况
+		if (node_insert->key_ < root->key_)
+		{
+			root->left_ = _insert_(root->left_, node_insert);
+
+			// 插入节点之后，若AVL树失去平衡，则进行相应的调节
+			if (2 == _heightDifference_(root->left_, root->right_))
+			{
+				/*
+				==============LL===============
+							  |
+							 6 <---- root
+						   /  \
+						  5   null  <<---- root->left_
+						 /
+					   3	<----node_insert (root->left_->left_)
+				*/
+				if (root->left_->left_ == node_insert) root = _LLRotation_(root);
+
+				/*
+				==============LR===============
+							  |
+							 9 <---- root
+						   /  \
+						  5   null  <<---- root->left_
+						   \
+							6	 <----node_insert (root->left_->left_)
+				*/
+				else if (root->left_->right_ == node_insert) root = _LRRotation_(root);
+			}
+
+		} 
+		// ==============================================================================
+		// 将 node 插入到 右子树 的情况
+		else if (node_insert->key_ > root->key_)
+		{
+			root->right_ = _insert_(root->right_, node_insert);
+
+			// 插入节点之后，若AVL树失去平衡，则进行相应的调节
+			if (2 == _heightDifference_(root->left_, root->right_))
+			{
+				/*
+				==============RL===============
+							  |
+							 6 <---- root
+						   /   \
+					   null     8   <---- root->right_
+								 /
+							   7	<----node_insert (root->right_->left_)
+				*/
+				if (root->right_->left_ == node_insert) root = _RLRotation_(root);
+
+				/*
+				==============RR==============
+							   |
+							  9 <---- root
+						   /    \
+						null   10     <---- root->right_
+								   \
+									11	 <----node_insert (root->right_->right_)
+				*/
+				else if (root->right_->right_ == node_insert) root = _RRRotation_(root);
+			}
+		}
+		else
+		{
+			cout << "The key " << node_insert->key_ << " already have!" << endl;
+		}
+
+		return root;
+
+#if 0
 
 		// 先找到应该插入哪个节点之下
 		AVLNode* pCurrent = root_;
@@ -453,7 +612,7 @@ private:
 				}
 			}
 		}
-
+#endif
 	}
 
 	// 删除指定的节点到 AVL树中

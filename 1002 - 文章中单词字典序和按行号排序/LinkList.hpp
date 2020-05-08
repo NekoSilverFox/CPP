@@ -37,6 +37,10 @@ template<typename T>
 class LinkList
 {
 	friend class BinarySearchTree;
+
+private:
+	LinkNode<T>* header_;
+
 public:
 	LinkList()
 	{
@@ -45,6 +49,27 @@ public:
 	}
 
 	void insert(T data)
+	{
+		_insert_(data);
+	}
+
+	void foreach() const
+	{
+		_foreach_();
+	}
+
+	void sort()
+	{
+		_sort_();
+	}
+
+	~LinkList()
+	{
+		_desgroy_();
+	}
+
+private:
+	void _insert_(T data)
 	{
 		if (nullptr == header_) throw MyErrorInfo("null_header_in_function_insert()");
 
@@ -70,7 +95,7 @@ public:
 		pCurrent->next_ = newNode;
 	}
 
-	void foreach() const
+	void _foreach_() const
 	{
 		if (nullptr == header_) throw MyErrorInfo("null_header_in_function_foreach()");
 
@@ -83,7 +108,7 @@ public:
 		cout << endl;
 	}
 
-	void sort()
+	void _sort_()
 	{
 		if (nullptr == header_ || nullptr == header_->next_) throw MyErrorInfo("null_header_in_function_sort()");
 
@@ -125,9 +150,9 @@ public:
 		}
 	}
 
-	~LinkList()
+	void _desgroy_()
 	{
-		if ( nullptr == header_ || nullptr == header_->next_)
+		if (nullptr == header_ || nullptr == header_->next_)
 		{
 			delete header_;
 			header_ = nullptr;
@@ -143,10 +168,7 @@ public:
 			pCurrent = pNext;
 			pNext = pNext->next_;
 		}
-
 		header_ = nullptr;
 	}
 
-private:
-	LinkNode<T>* header_;
 };

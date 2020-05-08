@@ -14,6 +14,9 @@ private:
 		StackNode* next_;
 	};
 
+	StackNode* header_;
+	unsigned int size_;
+
 public:
 	LinkStack()
 	{
@@ -32,8 +35,44 @@ public:
 		stack->size_ = this->size_;
 	}
 
-	
 	void push(const T& data)
+	{
+		_push_(data);
+	}
+	
+	T top() const
+	{
+		return _top_();
+	}
+
+	int size() const
+	{
+		return _size_();
+	}
+	
+	bool empty() const
+	{
+		return _empty_();
+	}
+	
+	void pop()
+	{
+		_pop_();
+	}
+
+	void clear() const
+	{
+		_clear_();
+	}
+	
+	void desgroy() const
+	{
+		_desgroy_();
+	}
+
+private:
+
+	void _push_(const T& data)
 	{
 		if (nullptr == this->header_) throw MyErrorInfo("data_nullptr");
 		StackNode* newNode = new StackNode;
@@ -43,28 +82,24 @@ public:
 		this->size_++;
 	}
 
-	
-	T top() const
+	T _top_() const
 	{
 		if (nullptr == this->header_ || 0 == this->size_) throw MyErrorInfo("null_stack");
 		return this->header_->next_->data_;
 	}
 
-	
-	int size() const
+	int _size_() const
 	{
 		if (nullptr == this->header_ || 0 == this->size_) return 0;
 		return this->size_;
 	}
 
-	
-	bool empty() const
+	bool _empty_() const
 	{
 		return this->size_;
 	}
 
-	
-	void pop()
+	void _pop_()
 	{
 		if (nullptr == this->header_ || 0 == this->size_) return;
 		StackNode* deleNode = this->header_->next_;
@@ -74,8 +109,7 @@ public:
 		this->size_--;
 	}
 
-	
-	void clear()
+	void _clear_()
 	{
 		if (nullptr == this->header_ || 0 == this->size_) return;
 		StackNode* pCurrent = this->header_->next_->next_;
@@ -92,8 +126,7 @@ public:
 		pRear = nullptr;
 	}
 
-	
-	void desgroy()
+	void _desgroy_()
 	{
 		if (nullptr == this->header_) return;
 		StackNode* pCurrent = this->header_->next_;
@@ -110,7 +143,4 @@ public:
 		pRear = nullptr;
 	}
 
-private:
-	StackNode* header_;
-	unsigned int size_;
 };

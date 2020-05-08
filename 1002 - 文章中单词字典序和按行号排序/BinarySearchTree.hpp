@@ -44,7 +44,7 @@ private:
 	/**************************************Struct - Node**************************************/
 	struct Node
 	{
-		Node() : p_(nullptr), left_(nullptr), right_(nullptr), info_(nullptr) {}
+		Node() : key_("null"), p_(nullptr), left_(nullptr), right_(nullptr), info_(nullptr) {}
 		Node(string key, WordInfo* info) : key_(key), info_(info), left_(nullptr), right_(nullptr), p_(nullptr) {}
 		Node(string key, WordInfo* info, Node* left, Node* right, Node* p) : key_(key), info_(info), left_(left), right_(right), p_(p) {}
 
@@ -69,16 +69,11 @@ public:
 	BinarySearchTree()
 	{
 		this->root_ = new Node;
-		root_->info_ = nullptr;
-		root_->key_ = "null";
-		root_->p_ = nullptr;
-		root_->left_ = nullptr;
-		root_->right_ = nullptr;
 	}
 
 	~BinarySearchTree()
 	{
-		freeSpaceBinaryTree(this->root_);
+		_freeSpaceBinaryTree_(this->root_);
 	}
 
 	void openFile(string file_name)
@@ -88,12 +83,12 @@ public:
 
 	void printTextWithRowNum()
 	{
-		addRowNum();
+		_addRowNum_();
 	}
 
 	void makeTree()
 	{
-		makeWordTree();
+		_makeWordTree_();
 	}
 
 	/*
@@ -114,7 +109,7 @@ public:
 			cout << endl;
 		}
 
-		foreachTreeLDRonScreen(this->root_, repetitive_word);
+		_inOrderOnScreen_(this->root_, repetitive_word);
 	}
 
 	/*
@@ -137,7 +132,7 @@ public:
 			ofs << endl;
 		}
 
-		foreachTreeLDROutputInFile(this->root_, ofs, repetitive_word);
+		_inOrderOutputInFile_(this->root_, ofs, repetitive_word);
 		cout << endl << "Successful output in ¡¾output.txt¡¿!" << endl;
 	}
 
@@ -146,7 +141,7 @@ public:
 	*/
 	void searchWord(string word_search)
 	{
-		Node* searchWord = searchWordInTree(word_search);
+		Node* searchWord = _searchWordInTree_(word_search);
 		if (nullptr == searchWord)
 		{
 			cout << endl
@@ -169,25 +164,35 @@ public:
 	*/
 	void deleteWord(string dele_word)
 	{
-		bool is_dele = deleteNodeBinarySearchTree(dele_word);
+		bool is_dele = _deleteNodeBinarySearchTree_(dele_word);
 		
 		cout << "======Delete Word======" << endl;
 		if (true == is_dele)
 		{
-			cout << endl <<  "\033[32m" << "Succeed delete word ¡¾" << dele_word << "¡¿!" << "\033[0m" << endl;
+			cout << endl 
+				<<  "\033[32m" 
+				<< "Succeed delete word ¡¾" << dele_word << "¡¿!" 
+				<< "\033[0m" 
+				<< endl;
 		}
 		else
 		{
-			cout << endl << "\033[31m" << "Delete fail, don't have word ¡¾" << dele_word << "¡¿!" << "\033[0m" << endl;
+			cout << endl 
+				<< "\033[31m" 
+				<< "Delete fail, don't have word ¡¾" << dele_word << "¡¿!" 
+				<< "\033[0m" 
+				<< endl;
 		}
 	}
+
+	// ===================================================================================
 
 private:
 
 	/*
 	** Insert one word into the binary search tree
 	*/
-	void insertNode(Node* nodeInsert, unsigned int count_word_text)
+	void _insertNode_(Node* nodeInsert, unsigned int count_word_text)
 	{
 		if (nullptr == root_ || nullptr == nodeInsert) throw MyErrorInfo("nullptr_root_or_nodeInsert_in_insertNode()");
 
@@ -238,7 +243,7 @@ private:
 	/*
 	** Insert all word into the binary search tree
 	*/
-	void makeWordTree()
+	void _makeWordTree_()
 	{
 		// read data(text)
 		ifstream ifs_word, ifs_row;
@@ -264,7 +269,7 @@ private:
 			{
 				continue;
 			}
-			clearAllSpace(temp_line);
+			_clearAllSpace_(temp_line);
 
 			while (!ifs_word.eof())
 			{
@@ -272,13 +277,13 @@ private:
 				col_word++;
 				count_word_text++;
 				row_length += temp_word.length();
-				changeCaseAndClearSign(temp_word);
+				_changeCaseAndClearSign_(temp_word);
 				pair<unsigned int, unsigned int> row_col_word = make_pair(row_word, col_word);
 
 				/*
 				** Insert to binary search tree
 				*/
-				if (!isHaveSameWord( temp_word, row_col_word)) // First determine if there are identical words in tree
+				if (!_isHaveSameWord_( temp_word, row_col_word)) // First determine if there are identical words in tree
 				{
 					WordInfo* newWordInfo = new WordInfo;
 					newWordInfo->header_.insert(row_col_word);
@@ -288,7 +293,7 @@ private:
 					Node* newNode = new Node;
 					newNode->key_ = temp_word;
 					newNode->info_ = newWordInfo;
-					insertNode(newNode, count_word_text);
+					_insertNode_(newNode, count_word_text);
 				}
 				if (temp_line.length() == row_length) // Broken line
 				{
@@ -300,7 +305,7 @@ private:
 		ifs_word.close();
 	}
 
-	void addRowNum()
+	void _addRowNum_()
 	{
 		/*
 		** read data(text)
@@ -324,7 +329,7 @@ private:
 			row_length = 0;
 			count_word_row = 0;
 			ofs << row_num++ << " - " << temp_line;
-			clearAllSpace(temp_line);
+			_clearAllSpace_(temp_line);
 			// row_length = temp_line.length();
 
 			/*
@@ -363,15 +368,15 @@ private:
 	/*
 	**  print on screen
 	*/
-	void foreachTreeLDRonScreen(Node* root, bool repetitive_word)
+	void _inOrderOnScreen_(Node* root, bool repetitive_word)
 	{
 		if (nullptr == root) return;
 
-		foreachTreeLDRonScreen(root->left_, repetitive_word);
+		_inOrderOnScreen_(root->left_, repetitive_word);
 
 		if (true == repetitive_word)
 		{
-			// ------------------------
+			// ------------------------print same word
 			if (1 == root->info_->count_same_word_)
 			{
 				cout.width(15); cout << root->key_;
@@ -406,17 +411,17 @@ private:
 			cout.width(10); cout << root->info_->length_word_;
 			cout << endl;
 		}
-		foreachTreeLDRonScreen(root->right_, repetitive_word);
+		_inOrderOnScreen_(root->right_, repetitive_word);
 	}
 
 	/*
 	**  output in file [output.txt]
 	*/
-	void foreachTreeLDROutputInFile(Node* root, ofstream& ofs, bool repetitive_word)
+	void _inOrderOutputInFile_(Node* root, ofstream& ofs, bool repetitive_word)
 	{
 		if (nullptr == root) return;
 
-		foreachTreeLDROutputInFile(root->left_, ofs, repetitive_word);
+		_inOrderOutputInFile_(root->left_, ofs, repetitive_word);
 
 		if (true == repetitive_word)
 		{
@@ -455,7 +460,7 @@ private:
 				<< setw(10) << root->info_->length_word_
 				<< endl;
 		}
-		foreachTreeLDROutputInFile(root->right_, ofs, repetitive_word);
+		_inOrderOutputInFile_(root->right_, ofs, repetitive_word);
 	}
 
 	/*
@@ -463,7 +468,7 @@ private:
 	** Change case " Student -> student"
 	** If have word : "Student's" change it to "student"
 	*/
-	void changeCaseAndClearSign(string& word)
+	void _changeCaseAndClearSign_(string& word)
 	{
 		if (word.empty()) throw MyErrorInfo("null_string_in_changeCaseAndClearSign(string& word)");
 		if (word.at(0) > 64 && word.at(0) < 91)
@@ -494,18 +499,19 @@ private:
 	/*
 	**  Creat element in stack
 	*/
-	BinTreeStackNode* CreatBinTreeStackNode(Node* node, bool flag)
+	BinTreeStackNode* _CreatBinTreeStackNode_(Node* node, bool flag)
 	{
 		BinTreeStackNode* newNode = new BinTreeStackNode;
+
 		newNode->root = node;
 		newNode->flag = false;
 		return newNode;
 	}
 
 	/*
-	**  Does the same word exist in the tree, if have change "header_.insert(pair)" in WordInfo
+	**  ¡¾Use Stack¡¿Does the same word exist in the tree, if have change "header_.insert(pair)" in WordInfo
 	*/
-	bool isHaveSameWord(string word, pair<unsigned int, unsigned int> row_col_word)
+	bool _isHaveSameWord_(string word, pair<unsigned int, unsigned int> row_col_word)
 	{
 		if (nullptr == root_) return false;
 
@@ -513,7 +519,7 @@ private:
 		LinkStack<BinTreeStackNode*> stack;
 
 		// first, make the root of the tree in the stack
-		stack.push(CreatBinTreeStackNode(root_, false));
+		stack.push(_CreatBinTreeStackNode_(root_, false));
 
 		while (stack.size() > 0)
 		{
@@ -535,8 +541,8 @@ private:
 			}
 			else {
 				// put the child of the node in the stack
-				stack.push(CreatBinTreeStackNode(node->root->right_, false));
-				stack.push(CreatBinTreeStackNode(node->root->left_, false));
+				stack.push(_CreatBinTreeStackNode_(node->root->right_, false));
+				stack.push(_CreatBinTreeStackNode_(node->root->left_, false));
 				node->flag = true;
 				stack.push(node);
 			}
@@ -544,49 +550,40 @@ private:
 		return false;
 	}
 
-	Node* searchWordInTree(string word_search)
+	Node* _searchWordInTree_(string word_search)
 	{
 		if (nullptr == root_) return nullptr;
 
-		// Make a Stack
-		LinkStack<BinTreeStackNode*> stack;
+		Node* pCurrent = this->root_;
 
-		// first, make the root of the tree in the stack
-		stack.push(CreatBinTreeStackNode(root_, false));
-
-		while (stack.size() > 0)
+		while (nullptr != pCurrent)
 		{
-			// Pop the element, which is on the top of the stack
-			BinTreeStackNode* node = (BinTreeStackNode*)stack.top();
-			stack.pop();
-
-			// if nullptr in stack ->continue
-			if (node->root == nullptr) continue;
-
-			if (node->flag == true)
+			if (word_search == pCurrent->key_)
 			{
-				if (word_search == node->root->key_)
-				{
-					return node->root;
-				}
+				return pCurrent;
 			}
-			else {
-				// put the child of the node in the stack
-				stack.push(CreatBinTreeStackNode(node->root->right_, false));
-				stack.push(CreatBinTreeStackNode(node->root->left_, false));
-				node->flag = true;
-				stack.push(node);
+
+			while (nullptr != pCurrent && word_search < pCurrent->key_)
+			{
+				pCurrent = pCurrent->left_;
+			}
+
+			while (nullptr != pCurrent && word_search > pCurrent->key_)
+			{
+				pCurrent = pCurrent->right_;
 			}
 		}
+
 		return nullptr;
 	}
 
 	/*
 	** Delete all the " "(space)
 	*/
-	string& clearAllSpace(string& str)
+	string& _clearAllSpace_(string& str)
 	{
 		int index = 0;
+
 		if (!str.empty())
 		{
 			while ((index = str.find(' ', index)) != string::npos)
@@ -597,13 +594,14 @@ private:
 		return str;
 	}
 
-	bool deleteNodeBinarySearchTree(string dele_key)
+	bool _deleteNodeBinarySearchTree_(string dele_key)
 	{
 		if (nullptr == root_) throw MyErrorInfo("nullptr_root_in_DeleteNodeBinarySearchTree(string key_del)");
 
 		// First of all, need to find the node, which need to delete
 		Node* pCurrent = root_;
 		Node* pParent = pCurrent;
+
 		while (true)
 		{
 			if (pCurrent->key_ > dele_key)
@@ -658,6 +656,7 @@ private:
 		if (pCurrent->left_ != nullptr && pCurrent->right_ == nullptr && pCurrent == pParent->left_)
 		{
 			Node* deleNode = pCurrent;
+
 			pParent->left_ = deleNode->right_;
 			delete deleNode;
 			deleNode = nullptr;
@@ -677,6 +676,7 @@ private:
 		else if (pCurrent->left_ == nullptr && pCurrent->right_ != nullptr && pCurrent == pParent->left_)
 		{
 			Node* deleNode = pCurrent;
+
 			pParent->left_ = pCurrent->right_;
 			delete deleNode;
 			deleNode = nullptr;
@@ -694,6 +694,7 @@ private:
 		else if (pCurrent->left_ != nullptr && pCurrent->right_ == nullptr && pCurrent == pParent->right_)
 		{
 			Node* deleNode = pCurrent;
+
 			pParent->right_ = deleNode->left_;
 			delete deleNode;
 			deleNode = nullptr;
@@ -711,6 +712,7 @@ private:
 		else if (pCurrent->left_ == nullptr && pCurrent->right_ != nullptr && pCurrent == pParent->right_)
 		{
 			Node* deleNode = pCurrent;
+
 			pParent->right_ = deleNode->right_;
 			delete deleNode;
 			deleNode = nullptr;
@@ -722,6 +724,7 @@ private:
 		else if (pCurrent->left_ != nullptr && pCurrent->right_ != nullptr)
 		{
 			Node* deleNode = pCurrent;
+
 			pCurrent = pCurrent->right_;
 
 			/*********************
@@ -779,11 +782,11 @@ private:
 	/*
 	** Delete all the nodes in tree
 	*/
-	void freeSpaceBinaryTree(Node* root)
+	void _freeSpaceBinaryTree_(Node* root)
 	{
 		if (nullptr == root) return;
-		freeSpaceBinaryTree(root->left_);
-		freeSpaceBinaryTree(root->right_);
+		_freeSpaceBinaryTree_(root->left_);
+		_freeSpaceBinaryTree_(root->right_);
 		delete root;
 	}
 
