@@ -162,6 +162,11 @@ void jianing::CompositeShape::removeShape(const size_t index)
 
 void jianing::CompositeShape::printShape()
 {
+  if (0 == size_)
+  {
+    throw std::domain_error("The array is empty!\n");
+  }
+
   rectangle_t shape_printing;
 
   for (size_t i = 0; i < size_; i++)
@@ -215,7 +220,7 @@ jianing::rectangle_t jianing::CompositeShape::getFrameRect() const
   double left = current_frame.pos.x - current_frame.width / 2.0;
   double right = current_frame.pos.x + current_frame.width / 2.0;
 
-  for (size_t i = 0; i < size_; ++i)
+  for (size_t i = 1; i < size_; ++i) //i start with 1 !!!
   {
     current_frame = (array_[i])->getFrameRect();
 
@@ -229,18 +234,18 @@ jianing::rectangle_t jianing::CompositeShape::getFrameRect() const
       bottom = current_frame.pos.y - current_frame.height / 2.0;
     }
 
-    if((current_frame.pos.x - current_frame.width / 2.0) < left)
+    if ((current_frame.pos.x - current_frame.width / 2.0) < left)
     {
       left = current_frame.pos.x - current_frame.width / 2.0;
     }
 
-    if((current_frame.pos.x + current_frame.width / 2.0) > right)
+    if ((current_frame.pos.x + current_frame.width / 2.0) > right)
     {
       right = current_frame.pos.x + current_frame.width / 2.0;
     }
   }
 
-  return {(right - left), (top - bottom), {(right - left) / 2.0 + left, (top - bottom) / 2.0 + bottom}};
+  return {(right - left), (top - bottom), {((right - left) / 2.0 + left), ((top - bottom) / 2.0 + bottom)}};
 }
 
 void jianing::CompositeShape::move(double x_move, double y_move)

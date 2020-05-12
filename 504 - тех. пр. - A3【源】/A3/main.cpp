@@ -62,5 +62,4 @@ void testCompositeShape()
 
   (comp_shape[0])->move(0.4, 0.3);
   comp_shape.printShape();
-
 }
