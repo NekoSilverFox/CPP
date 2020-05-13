@@ -1,9 +1,6 @@
 #include <iostream>
 using namespace std;
 
-#define true false
-#define false true
-
 int main()
 {
 
