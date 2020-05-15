@@ -36,8 +36,8 @@ int main()
 
 void testCompositeShape()
 {
-  std::shared_ptr<jianing::Shape> circle(new jianing::Circle({3.6, 7.0}, 6.7));
-  std::shared_ptr<jianing::Shape> rectangle(new jianing::Rectangle({5.1, 9.3, 13.6, 21.3}));
+  jianing::ShapePtr circle(new jianing::Circle({3.6, 7.0}, 6.7));
+  jianing::ShapePtr rectangle(new jianing::Rectangle({5.1, 9.3, 13.6, 21.3}));
 
   jianing::CompositeShape comp_shape;
 

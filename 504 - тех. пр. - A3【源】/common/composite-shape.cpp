@@ -6,12 +6,14 @@
 
 jianing::CompositeShape::CompositeShape() :
   size_(0),
-  array_(nullptr)
+  capacity_(3),
+  array_(new ShapePtr[3])
 {}
 
-jianing::CompositeShape::CompositeShape(const std::shared_ptr<Shape>& init_shape) :
+jianing::CompositeShape::CompositeShape(const ShapePtr& init_shape) :
   size_(1),
-  array_(new std::shared_ptr<Shape>[1])
+  capacity_(3),
+  array_(new ShapePtr[3])
 {
   if (nullptr == init_shape)
   {
@@ -23,13 +25,9 @@ jianing::CompositeShape::CompositeShape(const std::shared_ptr<Shape>& init_shape
 
 jianing::CompositeShape::CompositeShape(const jianing::CompositeShape& copied_object) :
   size_(copied_object.size_),
-  array_(new std::shared_ptr<Shape>[copied_object.size_])
+  capacity_(copied_object.capacity_),
+  array_(new ShapePtr[copied_object.capacity_])
 {
-  if (this->size_ != copied_object.size_)
-  {
-    throw std::invalid_argument("Copy object failed!\n");
-  }
-
   for (size_t i = 0; i < size_; ++i)
   {
     array_[i] = copied_object[i];
@@ -38,39 +36,32 @@ jianing::CompositeShape::CompositeShape(const jianing::CompositeShape& copied_ob
 
 jianing::CompositeShape::CompositeShape(jianing::CompositeShape&& moved_object) :
   size_(moved_object.size_),
+  capacity_(moved_object.capacity_),
   array_(std::move(moved_object.array_))
 {
-  if (this->size_ != moved_object.size_)
-  {
-    throw std::invalid_argument("Move object failed!\n");
-  }
-
   moved_object.size_ = 0;
-  moved_object.array_ = nullptr;
+  moved_object.capacity_ = 0;
+  moved_object.array_.reset();
 }
 
 jianing::CompositeShape::~CompositeShape()
 {
   size_ = 0;
-  array_ = nullptr;
+  capacity_ = 0;
+  array_.reset();
 }
 
-jianing::CompositeShape& jianing::CompositeShape::operator=(const jianing::CompositeShape& copied_object)
+jianing::CompositeShape& jianing::CompositeShape::operator=(jianing::CompositeShape&& copied_object)
 {
   if (this != &copied_object)
   {
     this->size_ = copied_object.size_;
-    std::unique_ptr<std::shared_ptr<Shape>[]> new_shape_for_copy(new std::shared_ptr<Shape>[size_]);
+    this->capacity_ = copied_object.capacity_;
+    this->array_ = std::move(copied_object.array_);
 
-    if (this->size_ != copied_object.size_)
-    {
-      throw std::invalid_argument("Copy object failed!\n");
-    }
-
-    for (size_t i = 0; i < size_; ++i)
-    {
-      new_shape_for_copy[i] = copied_object.array_[i];
-    }
+    copied_object.size_ = 0;
+    copied_object.capacity_ = 0;
+    copied_object.array_.reset();
   }
 
   return *this;
@@ -83,7 +74,7 @@ bool jianing::CompositeShape::operator==(const CompositeShape& comparison_object
     return false;
   }
 
-  for (size_t i = 0; i < size_; ++i)
+  for (size_t i = 0; i < capacity_; ++i)
   {
     if (this->array_[i] != comparison_object.array_[i])
     {
@@ -94,7 +85,7 @@ bool jianing::CompositeShape::operator==(const CompositeShape& comparison_object
   return true;
 }
 
-std::shared_ptr<jianing::Shape> jianing::CompositeShape::operator[](const size_t index) const
+jianing::ShapePtr jianing::CompositeShape::operator[](const size_t index) const
 {
   if (index >= size_)
   {
@@ -106,28 +97,62 @@ std::shared_ptr<jianing::Shape> jianing::CompositeShape::operator[](const size_t
   return array_[index];
 }
 
-void jianing::CompositeShape::pushShape(const std::shared_ptr<Shape>& shape_new)
+void jianing::CompositeShape::pushShape(const ShapePtr& shape_new)
 {
   if (nullptr == shape_new)
   {
     throw std::invalid_argument("Can not push shape which is null!\n");
   }
 
-  std::unique_ptr<std::shared_ptr<Shape>[]> array_new(new std::shared_ptr<Shape>[size_ + 1]);
-
-  for (size_t i = 0; i < size_; ++i)
+  if (size_ == capacity_)
   {
-    array_new[i] = array_[i];
+    reserve(2 * size_);
   }
 
-  array_new[size_] = shape_new;
+  array_[size_] = shape_new;
   ++size_;
-  array_ = std::move(array_new);
 }
 
 size_t jianing::CompositeShape::getSize() const
 {
   return size_;
+}
+
+size_t jianing::CompositeShape::getCapacity() const
+{
+  return capacity_;
+}
+
+void jianing::CompositeShape::reserve(const size_t new_capacity)
+{
+  if (this->capacity_ == new_capacity)
+  {
+    return;
+  }
+
+  std::unique_ptr<ShapePtr[]> array_new(new ShapePtr[new_capacity]);
+
+  if (this->capacity_ < new_capacity)
+  {
+    for (size_t i = 0; i < size_; ++i)
+    {
+      array_new[i] = this->array_[i];
+    }
+  }
+
+  // [this->capacity_ > new_capacity]
+  else
+  {
+    for (size_t i = 0; i < new_capacity; ++i)
+    {
+      array_new[i] = this->array_[i];
+    }
+
+    size_= new_capacity;
+  }
+
+  this->array_ = std::move(array_new);
+  this->capacity_ = new_capacity;
 }
 
 bool jianing::CompositeShape::empty() const
@@ -220,7 +245,7 @@ jianing::rectangle_t jianing::CompositeShape::getFrameRect() const
   double left = current_frame.pos.x - current_frame.width / 2.0;
   double right = current_frame.pos.x + current_frame.width / 2.0;
 
-  for (size_t i = 1; i < size_; ++i) //i start with 1 !!!
+  for (size_t i = 1; i < size_; ++i) //i start with 1
   {
     current_frame = (array_[i])->getFrameRect();
 
@@ -266,7 +291,7 @@ void jianing::CompositeShape::move(const point_t& point_new)
 
 void jianing::CompositeShape::scale(double coef)
 {
-  if (coef <= 0.0)
+  if (0.0 >= coef)
   {
     throw std::domain_error("Error: Coefficient can not be"
         + std::to_string(coef) + " ! Must be positive!\n");
