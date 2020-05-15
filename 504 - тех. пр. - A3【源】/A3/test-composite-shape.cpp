@@ -91,6 +91,11 @@ BOOST_AUTO_TEST_SUITE(InitializeShape)
       BOOST_REQUIRE_EQUAL(0.0, old_com_shape.getArea());
     }
 
+    BOOST_AUTO_TEST_CASE(InitializeShape_OnWrongValue_ThrowError)
+    {
+      BOOST_CHECK_THROW(jianing::ShapePtr circle(new jianing::Circle({1.1, 2.2}, -3.3)), std::domain_error);
+    }
+
 BOOST_AUTO_TEST_SUITE_END()
 
 // =====================test initialization shape(FrameRect)=====================

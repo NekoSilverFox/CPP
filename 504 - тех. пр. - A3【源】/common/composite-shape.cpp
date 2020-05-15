@@ -7,13 +7,13 @@
 jianing::CompositeShape::CompositeShape() :
   size_(0),
   capacity_(3),
-  array_(new ShapePtr[3])
+  array_(new ShapePtr[3]())
 {}
 
 jianing::CompositeShape::CompositeShape(const ShapePtr& init_shape) :
   size_(1),
   capacity_(3),
-  array_(new ShapePtr[3])
+  array_(new ShapePtr[3]())
 {
   if (nullptr == init_shape)
   {
@@ -26,7 +26,7 @@ jianing::CompositeShape::CompositeShape(const ShapePtr& init_shape) :
 jianing::CompositeShape::CompositeShape(const jianing::CompositeShape& copied_object) :
   size_(copied_object.size_),
   capacity_(copied_object.capacity_),
-  array_(new ShapePtr[copied_object.capacity_])
+  array_(new ShapePtr[copied_object.capacity_]())
 {
   for (size_t i = 0; i < size_; ++i)
   {
@@ -130,7 +130,7 @@ void jianing::CompositeShape::reserve(const size_t new_capacity)
     return;
   }
 
-  std::unique_ptr<ShapePtr[]> array_new(new ShapePtr[new_capacity]);
+  std::unique_ptr<ShapePtr[]> array_new(new ShapePtr[new_capacity]());
 
   if (this->capacity_ < new_capacity)
   {
@@ -148,7 +148,7 @@ void jianing::CompositeShape::reserve(const size_t new_capacity)
       array_new[i] = this->array_[i];
     }
 
-    size_= new_capacity;
+    this->size_= new_capacity;
   }
 
   this->array_ = std::move(array_new);
