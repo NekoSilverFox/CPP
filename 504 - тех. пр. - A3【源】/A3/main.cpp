@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "shape.hpp"
 #include "circle.hpp"
 #include "rectangle.hpp"
@@ -36,8 +37,12 @@ int main()
 
 void testCompositeShape()
 {
-  jianing::ShapePtr circle(new jianing::Circle({3.6, 7.0}, 6.7));
-  jianing::ShapePtr rectangle(new jianing::Rectangle({5.1, 9.3, 13.6, 21.3}));
+  jianing::point_t center_cirle {1.1, 2.2};
+  double r_cirle = 3.3;
+  jianing::CirclePtr circle = std::make_shared<jianing::Circle>(center_cirle, r_cirle);
+
+  jianing::rectangle_t center_width_height_rec {5.1, 9.3, 13.6, 21.3};
+  jianing::RectanglePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
 
   jianing::CompositeShape comp_shape;
 

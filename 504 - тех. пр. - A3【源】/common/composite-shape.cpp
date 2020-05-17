@@ -7,30 +7,30 @@
 jianing::CompositeShape::CompositeShape() :
   size_(0),
   capacity_(3),
-  array_(new ShapePtr[3]())
+  array_(allocator_shape_ptr.allocate(3))
 {}
 
 jianing::CompositeShape::CompositeShape(const ShapePtr& init_shape) :
   size_(1),
   capacity_(3),
-  array_(new ShapePtr[3]())
+  array_(allocator_shape_ptr.allocate(3))
 {
   if (nullptr == init_shape)
   {
     throw std::invalid_argument("init_shape can not be null!\n");
   }
 
-  array_[0] = init_shape;
+  allocator_shape_ptr.construct(&array_[0], ShapePtr(init_shape));
 }
 
 jianing::CompositeShape::CompositeShape(const jianing::CompositeShape& copied_object) :
   size_(copied_object.size_),
   capacity_(copied_object.capacity_),
-  array_(new ShapePtr[copied_object.capacity_]())
+  array_(allocator_shape_ptr.allocate(capacity_))
 {
   for (size_t i = 0; i < size_; ++i)
   {
-    array_[i] = copied_object[i];
+    allocator_shape_ptr.construct(&array_[i], ShapePtr(copied_object.array_[i]));
   }
 }
 
@@ -41,14 +41,20 @@ jianing::CompositeShape::CompositeShape(jianing::CompositeShape&& moved_object) 
 {
   moved_object.size_ = 0;
   moved_object.capacity_ = 0;
-  moved_object.array_.reset();
+  moved_object.~CompositeShape();
 }
 
 jianing::CompositeShape::~CompositeShape()
 {
+  // Before using "deallocate", the user must use "destroy" for each object created on this memory
+  for (size_t i = 0; i < size_; ++i)
+  {
+    allocator_shape_ptr.destroy(&array_[i]);
+  }
+
+  allocator_shape_ptr.deallocate(array_, capacity_);
   size_ = 0;
   capacity_ = 0;
-  array_.reset();
 }
 
 jianing::CompositeShape& jianing::CompositeShape::operator=(jianing::CompositeShape&& copied_object)
@@ -61,7 +67,7 @@ jianing::CompositeShape& jianing::CompositeShape::operator=(jianing::CompositeSh
 
     copied_object.size_ = 0;
     copied_object.capacity_ = 0;
-    copied_object.array_.reset();
+    copied_object.~CompositeShape();
   }
 
   return *this;
@@ -74,7 +80,7 @@ bool jianing::CompositeShape::operator==(const CompositeShape& comparison_object
     return false;
   }
 
-  for (size_t i = 0; i < capacity_; ++i)
+  for (size_t i = 0; i < size_; ++i)
   {
     if (this->array_[i] != comparison_object.array_[i])
     {
@@ -109,7 +115,7 @@ void jianing::CompositeShape::pushShape(const ShapePtr& shape_new)
     reserve(2 * size_);
   }
 
-  array_[size_] = shape_new;
+  allocator_shape_ptr.construct(&array_[size_], ShapePtr(shape_new));
   ++size_;
 }
 
@@ -130,13 +136,13 @@ void jianing::CompositeShape::reserve(const size_t new_capacity)
     return;
   }
 
-  std::unique_ptr<ShapePtr[]> array_new(new ShapePtr[new_capacity]());
+  ShapePtr* array_new(allocator_shape_ptr.allocate(new_capacity));
 
   if (this->capacity_ < new_capacity)
   {
     for (size_t i = 0; i < size_; ++i)
     {
-      array_new[i] = this->array_[i];
+      allocator_shape_ptr.construct(&array_new[i], ShapePtr(this->array_[i]));
     }
   }
 
@@ -145,13 +151,19 @@ void jianing::CompositeShape::reserve(const size_t new_capacity)
   {
     for (size_t i = 0; i < new_capacity; ++i)
     {
-      array_new[i] = this->array_[i];
+      allocator_shape_ptr.construct(&array_new[i], ShapePtr(this->array_[i]));
     }
 
     this->size_= new_capacity;
   }
 
-  this->array_ = std::move(array_new);
+  for (size_t i = 0; i < size_; ++i)
+  {
+    allocator_shape_ptr.destroy(&array_[i]);
+  }
+  allocator_shape_ptr.deallocate(array_, size_);
+
+  this->array_ = array_new;
   this->capacity_ = new_capacity;
 }
 
@@ -198,7 +210,7 @@ void jianing::CompositeShape::printShape()
   {
     shape_printing = (array_[i])->getFrameRect();
 
-    std::cout << "Shape No." << i + 1 <<"\n"
+    std::cout << "------ Shape No." << i + 1 <<" ------\n"
         << "Center: (" << shape_printing.pos.x << ", " << shape_printing.pos.y << ")\n"
         << "Width: " << shape_printing.width << "\n"
         << "Height: " << shape_printing.height << "\n"
@@ -207,12 +219,13 @@ void jianing::CompositeShape::printShape()
 
   shape_printing = getFrameRect();
 
-  std::cout << "------Mixed shape------\n"
+  std::cout << "------ Mixed shape ------\n"
       << "Size: " << this->getSize() << "\n"
       << "Center: (" << shape_printing.pos.x << ", " << shape_printing.pos.y << ")\n"
       << "Width: " << shape_printing.width << "\n"
       << "Height: " << shape_printing.height << "\n"
-      << "Area: " << this->getArea() << "\n\n";
+      << "Area: " << this->getArea() << "\n"
+      << "==========================\n\n";
 }
 
 jianing::point_t jianing::CompositeShape::getCenter() const

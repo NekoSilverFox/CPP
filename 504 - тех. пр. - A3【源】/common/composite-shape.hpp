@@ -7,8 +7,6 @@
 namespace jianing
 {
 
-  using ShapePtr = std::shared_ptr<Shape>;
-
   class CompositeShape : public Shape
   {
   public:
@@ -39,10 +37,13 @@ namespace jianing
     void scale(double coef) override;
 
   private:
+    std::allocator<ShapePtr> allocator_shape_ptr;
     size_t size_;
     size_t capacity_;
-    std::unique_ptr<ShapePtr[]> array_;
+    ShapePtr* array_;
   };
+
+  using ComShapePtr = std::shared_ptr<CompositeShape>;
 
 }
 

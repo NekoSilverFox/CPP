@@ -32,6 +32,8 @@ namespace jianing
     double r_circle_;
   };
 
+  using CirclePtr = std::shared_ptr<Circle>;
+
 }
 
 #endif // !CIRCLE_HPP

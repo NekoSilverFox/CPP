@@ -1,6 +1,8 @@
 #ifndef SHAPE_HPP
 #define SHAPE_HPP
 
+#include <memory>
+
 namespace jianing
 {
 
@@ -24,6 +26,8 @@ namespace jianing
 
     virtual void scale(double coef) = 0;
   };
+
+    using ShapePtr = std::shared_ptr<Shape>;
 
 }
 

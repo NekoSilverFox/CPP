@@ -26,7 +26,7 @@ int main()
     printCircleInfo(circle);
 
     std::cout << "Scale circle (x2.0):\n";
-    circle.scale(2);
+    circle.scale(2.0);
     printCircleInfo(circle);
   }
   catch (const std::domain_error& exc)
@@ -53,7 +53,7 @@ int main()
   printRectangleInfo(rectangle);
 
   std::cout << "Scale rectangle (x2.0):\n";
-  rectangle.scale(2);
+  rectangle.scale(2.0);
   printRectangleInfo(rectangle);
   }
   catch (const std::domain_error& exc)
