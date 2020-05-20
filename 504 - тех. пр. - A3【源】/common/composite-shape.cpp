@@ -1,6 +1,5 @@
 #include "composite-shape.hpp"
 #include <iostream>
-#include <algorithm>
 #include <exception>
 #include <memory>
 #include "base-types.hpp"
@@ -21,7 +20,7 @@ jianing::CompositeShape::CompositeShape(const ShapePtr& init_shape) :
     throw std::invalid_argument("init_shape can not be null!\n");
   }
 
-  allocator_shape_ptr.construct(&array_[0], init_shape);
+  allocator_shape_ptr.construct(&array_[0], ShapePtr(init_shape));
 }
 
 jianing::CompositeShape::CompositeShape(const jianing::CompositeShape& copied_object) :
@@ -31,7 +30,7 @@ jianing::CompositeShape::CompositeShape(const jianing::CompositeShape& copied_ob
 {
   for (size_t i = 0; i < size_; ++i)
   {
-    allocator_shape_ptr.construct(&array_[i], copied_object.array_[i]);
+    allocator_shape_ptr.construct(&array_[i], ShapePtr(copied_object.array_[i]));
   }
 }
 
@@ -116,7 +115,7 @@ void jianing::CompositeShape::pushShape(const ShapePtr& shape_new)
     reserve(2 * size_);
   }
 
-  allocator_shape_ptr.construct(&array_[size_], shape_new);
+  allocator_shape_ptr.construct(&array_[size_], ShapePtr(shape_new));
   ++size_;
 }
 
@@ -143,7 +142,7 @@ void jianing::CompositeShape::reserve(const size_t new_capacity)
   {
     for (size_t i = 0; i < size_; ++i)
     {
-      allocator_shape_ptr.construct(&array_new[i], this->array_[i]);
+      allocator_shape_ptr.construct(&array_new[i], ShapePtr(this->array_[i]));
     }
   }
 
@@ -152,7 +151,7 @@ void jianing::CompositeShape::reserve(const size_t new_capacity)
   {
     for (size_t i = 0; i < new_capacity; ++i)
     {
-      allocator_shape_ptr.construct(&array_new[i], this->array_[i]);
+      allocator_shape_ptr.construct(&array_new[i], ShapePtr(this->array_[i]));
     }
 
     this->size_= new_capacity;
