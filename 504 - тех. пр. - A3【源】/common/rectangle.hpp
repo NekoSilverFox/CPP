@@ -32,8 +32,6 @@ namespace jianing
     rectangle_t rectangle_;
   };
 
-  using RectanglePtr = std::shared_ptr<Rectangle>;
-
 }
 
 #endif

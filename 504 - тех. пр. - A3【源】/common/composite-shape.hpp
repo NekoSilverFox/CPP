@@ -17,7 +17,6 @@ namespace jianing
     ~CompositeShape();
 
     CompositeShape& operator=(CompositeShape&& copied_object);
-    bool operator==(const CompositeShape& comparison_object);
     ShapePtr operator[](const size_t index) const;
 
     void pushShape(const ShapePtr& shape_new);
@@ -42,8 +41,6 @@ namespace jianing
     size_t capacity_;
     ShapePtr* array_;
   };
-
-  using ComShapePtr = std::shared_ptr<CompositeShape>;
 
 }
 

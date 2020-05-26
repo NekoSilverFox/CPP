@@ -17,19 +17,30 @@ int main()
   {
     std::cerr << "Catch error[domain_error] and the error message is：\n"
         << exc.what();
-    return 1;
+    return -1;
   }
   catch (const std::invalid_argument& exc)
   {
     std::cerr << "Catch error[invalid_argument] and the error message is：\n"
         << exc.what();
-    return 1;
+    return -2;
   }
   catch (const std::out_of_range& exc)
   {
     std::cerr << "Catch error[out_of_range] and the error message is：\n"
         << exc.what();
-    return 1;
+    return -3;
+  }
+  catch (const std::runtime_error& exc)
+  {
+    std::cerr << "Catch error[runtime_error] and the error message is：\n"
+        << exc.what();
+    return -4;
+  }
+  catch (...)
+  {
+    std::cerr << "Something going wrong in the program!\n";
+    return -5;
   }
 
   return 0;
@@ -39,10 +50,10 @@ void testCompositeShape()
 {
   jianing::point_t center_cirle {1.1, 2.2};
   double r_cirle = 3.3;
-  jianing::CirclePtr circle = std::make_shared<jianing::Circle>(center_cirle, r_cirle);
+  jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center_cirle, r_cirle);
 
   jianing::rectangle_t center_width_height_rec {5.1, 9.3, 13.6, 21.3};
-  jianing::RectanglePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
+  jianing::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
 
   jianing::CompositeShape comp_shape;
 
