@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\CPP\03.6 - 0到100内的素数\Debug\03.6 - 0到100内的素数.exe
+C:\Users\mi\Desktop\CPP\03.6 - 0到100内的素数\Debug\03.6 - 0到100内的素数.pdb
