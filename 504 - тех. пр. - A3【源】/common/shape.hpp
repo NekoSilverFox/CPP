@@ -12,6 +12,8 @@ namespace jianing
   class Shape
   {
   public:
+    using ShapePtr = std::shared_ptr<Shape>;
+
     virtual ~Shape() = default;
 
     virtual point_t getCenter() const = 0;
@@ -26,8 +28,6 @@ namespace jianing
 
     virtual void scale(double coef) = 0;
   };
-
-    using ShapePtr = std::shared_ptr<Shape>;
 
 }
 

@@ -11,7 +11,6 @@ namespace jianing
   {
   public:
     CompositeShape();
-    CompositeShape(const ShapePtr& init_shape);
     CompositeShape(const CompositeShape& copied_object);
     CompositeShape(CompositeShape&& moved_object);
     ~CompositeShape();

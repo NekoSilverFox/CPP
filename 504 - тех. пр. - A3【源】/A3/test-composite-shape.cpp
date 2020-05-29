@@ -31,9 +31,10 @@ BOOST_AUTO_TEST_SUITE(InitializeShape)
       // init
       jianing::point_t center = {1.1, 2.2};
       double r_cirle = 3.3;
-      jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+      jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
-      jianing::CompositeShape com_shape(circle);
+      jianing::CompositeShape com_shape;
+      com_shape.pushShape(circle);
 
       BOOST_REQUIRE_EQUAL(1, com_shape.getSize());
       BOOST_REQUIRE_EQUAL(3, com_shape.getCapacity());
@@ -48,9 +49,11 @@ BOOST_AUTO_TEST_SUITE(InitializeShape)
     {
       jianing::point_t center = {1.1, 2.2};
       double r_cirle = 3.3;
-      jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+      jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
-      jianing::CompositeShape old_com_shape(circle);
+      jianing::CompositeShape old_com_shape;
+
+      old_com_shape.pushShape(circle);
 
       jianing::CompositeShape new_com_shape = old_com_shape;
 
@@ -90,9 +93,10 @@ BOOST_AUTO_TEST_SUITE(TestFrameRectWhenInitializeShape)
   {
     jianing::point_t center = {1.1, 2.2};
     double r_cirle = 3.3;
-    jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+    jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
-    jianing::CompositeShape com_shape(circle);
+    jianing::CompositeShape com_shape;
+    com_shape.pushShape(circle);
 
     BOOST_REQUIRE_CLOSE(1.1, com_shape.getFrameRect().pos.x, accuracy);
     BOOST_REQUIRE_CLOSE(2.2, com_shape.getFrameRect().pos.y, accuracy);
@@ -104,9 +108,10 @@ BOOST_AUTO_TEST_SUITE(TestFrameRectWhenInitializeShape)
   {
     jianing::point_t center = {1.1, 2.2};
     double r_cirle = 3.3;
-    jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+    jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
-    jianing::CompositeShape old_com_shape(circle);
+    jianing::CompositeShape old_com_shape;
+    old_com_shape.pushShape(circle);
 
     jianing::CompositeShape new_com_shape = old_com_shape;
 
@@ -130,7 +135,7 @@ BOOST_AUTO_TEST_SUITE(TestpushShape)
     {
       jianing::point_t center = {1.1, 2.2};
       double r_cirle = 3.3;
-      jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+      jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
       jianing::CompositeShape com_shape;
 
@@ -160,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(TestFrameRectAfterpushShape)
     {
       jianing::point_t center = {1.1, 2.2};
       double r_cirle = 3.3;
-      jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+      jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
       jianing::CompositeShape com_shape;
 
@@ -184,13 +189,13 @@ BOOST_AUTO_TEST_SUITE(TestRemoveShape)
       // push first shape
       jianing::point_t center = {1.2, 2.2};
       double r_cirle = 3.2;
-      jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+      jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
       com_shape.pushShape(circle);
 
       // push second shape
       jianing::rectangle_t center_width_height_rec = {5.1, 9.3, 13.6, 21.3};
-      jianing::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
+      jianing::Shape::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
 
       com_shape.pushShape(rectangle);
 
@@ -222,7 +227,7 @@ BOOST_AUTO_TEST_SUITE(TestRemoveShape)
       // push one shape
       jianing::point_t center = {4.5, 7.7};
       double r_cirle = 8.9;
-      jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+      jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
       com_shape.pushShape(circle);
 
@@ -241,7 +246,7 @@ BOOST_AUTO_TEST_SUITE(TestFrameRectAfterPushAndRemoveShape)
     // push first shape
     jianing::point_t center = {1.0, 2.0};
     double r_cirle = 1.0;
-    jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+    jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
 
     com_shape.pushShape(circle);
 
@@ -252,7 +257,7 @@ BOOST_AUTO_TEST_SUITE(TestFrameRectAfterPushAndRemoveShape)
 
     // push second shape
     jianing::rectangle_t center_width_height_rec = {1.0, 2.0, 0.5, 1.0};
-    jianing::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
+    jianing::Shape::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
 
     com_shape.pushShape(rectangle);
 
@@ -292,7 +297,7 @@ BOOST_AUTO_TEST_SUITE(TestSizeAndCapacity)
 
     // push one shape
     jianing::rectangle_t first_center_width_height_rec = {3.3, 2.2, 3.5, 1.4};
-    jianing::ShapePtr first_rectangle = std::make_shared<jianing::Rectangle>(first_center_width_height_rec);
+    jianing::Shape::ShapePtr first_rectangle = std::make_shared<jianing::Rectangle>(first_center_width_height_rec);
 
     com_shape.pushShape(first_rectangle);
 
@@ -314,4 +319,5 @@ BOOST_AUTO_TEST_SUITE(TestSizeAndCapacity)
     BOOST_CHECK_EQUAL(1.4, com_shape.getCenter().y);
     BOOST_CHECK_CLOSE(3.3 * 2.2, com_shape.getArea(), accuracy);
   }
+
 BOOST_AUTO_TEST_SUITE_END()

@@ -50,10 +50,10 @@ void testCompositeShape()
 {
   jianing::point_t center_cirle {1.1, 2.2};
   double r_cirle = 3.3;
-  jianing::ShapePtr circle = std::make_shared<jianing::Circle>(center_cirle, r_cirle);
+  jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center_cirle, r_cirle);
 
   jianing::rectangle_t center_width_height_rec {5.1, 9.3, 13.6, 21.3};
-  jianing::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
+  jianing::Shape::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
 
   jianing::CompositeShape comp_shape;
 
@@ -73,9 +73,9 @@ void testCompositeShape()
   comp_shape.removeShape(0);
   comp_shape.printShape();
 
-  (comp_shape[0])->move({6.6, 7.7});
+  comp_shape[0]->move({6.6, 7.7});
   comp_shape.printShape();
 
-  (comp_shape[0])->move(0.4, 0.3);
+  comp_shape[0]->move(0.4, 0.3);
   comp_shape.printShape();
 }
