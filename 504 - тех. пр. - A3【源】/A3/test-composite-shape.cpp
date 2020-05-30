@@ -19,9 +19,9 @@ BOOST_AUTO_TEST_SUITE(InitializeShape)
       BOOST_REQUIRE_EQUAL(true, com_shape.empty());
       BOOST_REQUIRE_EQUAL(0.0, com_shape.getArea());
 
-      BOOST_REQUIRE_THROW(com_shape.getCenter().x, std::out_of_range);
-      BOOST_REQUIRE_THROW(com_shape.getCenter().y, std::out_of_range);
-      BOOST_REQUIRE_THROW(com_shape.removeShape(0), std::out_of_range);
+      BOOST_REQUIRE_THROW(com_shape.getCenter().x, std::logic_error);
+      BOOST_REQUIRE_THROW(com_shape.getCenter().y, std::logic_error);
+      BOOST_REQUIRE_THROW(com_shape.removeShape(0), std::logic_error);
       BOOST_REQUIRE_THROW(com_shape.printShape(), std::domain_error);
       BOOST_REQUIRE_THROW(com_shape.scale(0), std::domain_error);
     }
@@ -83,10 +83,10 @@ BOOST_AUTO_TEST_SUITE(TestFrameRectWhenInitializeShape)
   {
     jianing::CompositeShape com_shape;
 
-    BOOST_REQUIRE_THROW(com_shape.getFrameRect().pos.x, std::out_of_range);
-    BOOST_REQUIRE_THROW(com_shape.getFrameRect().pos.y, std::out_of_range);
-    BOOST_REQUIRE_THROW(com_shape.getFrameRect().width, std::out_of_range);
-    BOOST_REQUIRE_THROW(com_shape.getFrameRect().height, std::out_of_range);
+    BOOST_REQUIRE_THROW(com_shape.getFrameRect().pos.x, std::logic_error);
+    BOOST_REQUIRE_THROW(com_shape.getFrameRect().pos.y, std::logic_error);
+    BOOST_REQUIRE_THROW(com_shape.getFrameRect().width, std::logic_error);
+    BOOST_REQUIRE_THROW(com_shape.getFrameRect().height, std::logic_error);
   }
 
   BOOST_AUTO_TEST_CASE(TestFrameRectWhenInitializeShape_DefaultParameterConstructor_NoError)
@@ -214,8 +214,8 @@ BOOST_AUTO_TEST_SUITE(TestRemoveShape)
       BOOST_CHECK_EQUAL(0, com_shape.getSize());
       BOOST_CHECK_EQUAL(0.0, com_shape.getArea());
 
-      BOOST_CHECK_THROW(com_shape.getCenter().x, std::out_of_range);
-      BOOST_CHECK_THROW(com_shape.getCenter().y, std::out_of_range);
+      BOOST_CHECK_THROW(com_shape.getCenter().x, std::logic_error);
+      BOOST_CHECK_THROW(com_shape.getCenter().y, std::logic_error);
     }
 
     BOOST_AUTO_TEST_CASE(TestRemoveShape_RemoveShapeWhenArrayEmpty_ThrowError)
@@ -277,10 +277,10 @@ BOOST_AUTO_TEST_SUITE(TestFrameRectAfterPushAndRemoveShape)
     //remove second shape
     com_shape.removeShape(0);
 
-    BOOST_CHECK_THROW(com_shape.getFrameRect().pos.x, std::out_of_range);
-    BOOST_CHECK_THROW(com_shape.getFrameRect().pos.y, std::out_of_range);
-    BOOST_CHECK_THROW(com_shape.getFrameRect().width, std::out_of_range);
-    BOOST_CHECK_THROW(com_shape.getFrameRect().height, std::out_of_range);
+    BOOST_CHECK_THROW(com_shape.getFrameRect().pos.x, std::logic_error);
+    BOOST_CHECK_THROW(com_shape.getFrameRect().pos.y, std::logic_error);
+    BOOST_CHECK_THROW(com_shape.getFrameRect().width, std::logic_error);
+    BOOST_CHECK_THROW(com_shape.getFrameRect().height, std::logic_error);
   }
 
 BOOST_AUTO_TEST_SUITE_END()

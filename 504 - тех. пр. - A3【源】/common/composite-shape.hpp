@@ -15,7 +15,8 @@ namespace jianing
     CompositeShape(CompositeShape&& moved_object);
     ~CompositeShape();
 
-    CompositeShape& operator=(CompositeShape&& copied_object);
+    CompositeShape& operator=(CompositeShape&& moved_object);
+    CompositeShape& operator=(const CompositeShape& copied_object);
     ShapePtr operator[](const size_t index) const;
 
     void pushShape(const ShapePtr& shape_new);
