@@ -17,30 +17,30 @@ int main()
   {
     std::cerr << "Catch error[domain_error] and the error message is：\n"
         << exc.what();
-    return -1;
+    return 255;
   }
   catch (const std::invalid_argument& exc)
   {
     std::cerr << "Catch error[invalid_argument] and the error message is：\n"
         << exc.what();
-    return -2;
+    return 1;
   }
   catch (const std::out_of_range& exc)
   {
     std::cerr << "Catch error[out_of_range] and the error message is：\n"
         << exc.what();
-    return -3;
+    return 128;
   }
   catch (const std::runtime_error& exc)
   {
     std::cerr << "Catch error[runtime_error] and the error message is：\n"
         << exc.what();
-    return -4;
+    return 126;
   }
   catch (...)
   {
     std::cerr << "Something going wrong in the program!\n";
-    return -5;
+    return 127;
   }
 
   return 0;

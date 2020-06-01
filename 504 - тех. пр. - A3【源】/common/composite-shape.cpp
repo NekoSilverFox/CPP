@@ -4,11 +4,12 @@
 #include <exception>
 #include <memory>
 #include "base-types.hpp"
+const size_t InitCapacity = 3;
 
 jianing::CompositeShape::CompositeShape() :
   size_(0),
-  capacity_(3),
-  array_(allocator_shape_ptr.allocate(3))
+  capacity_(InitCapacity),
+  array_(allocator_shape_ptr.allocate(InitCapacity))
 {}
 
 jianing::CompositeShape::CompositeShape(const jianing::CompositeShape& copied_object) :
@@ -27,11 +28,6 @@ jianing::CompositeShape::CompositeShape(jianing::CompositeShape&& moved_object) 
   capacity_(moved_object.capacity_),
   array_(moved_object.array_)
 {
-  for (size_t i = 0; i < size_; ++i)
-  {
-    allocator_shape_ptr.construct(&array_[i], moved_object[i]);
-  }
-
   moved_object.size_ = 0;
   moved_object.capacity_ = 0;
   moved_object.array_ = nullptr;
@@ -57,9 +53,9 @@ jianing::CompositeShape& jianing::CompositeShape::operator=(jianing::CompositeSh
     }
     allocator_shape_ptr.deallocate(array_, capacity_);
 
-    this->size_ = moved_object.size_;
-    this->capacity_ = moved_object.capacity_;
-    this->array_ = moved_object.array_;
+    size_ = moved_object.size_;
+    capacity_ = moved_object.capacity_;
+    array_ = moved_object.array_;
 
     moved_object.size_ = 0;
     moved_object.capacity_ = 0;
@@ -79,8 +75,9 @@ jianing::CompositeShape& jianing::CompositeShape::operator=(const jianing::Compo
     }
     allocator_shape_ptr.deallocate(array_, capacity_);
 
-    this->size_ = copied_object.size_;
-    this->capacity_ = copied_object.capacity_;
+    size_ = copied_object.size_;
+    capacity_ = copied_object.capacity_;
+    array_ = allocator_shape_ptr.allocate(capacity_);
 
     for (size_t i = 0; i < size_; ++i)
     {
@@ -105,7 +102,7 @@ jianing::Shape::ShapePtr jianing::CompositeShape::operator[](const size_t index)
 
 void jianing::CompositeShape::pushShape(const ShapePtr& shape_new)
 {
-  if (nullptr == shape_new)
+  if (shape_new == nullptr)
   {
     throw std::invalid_argument("Can not push shape which is null!\n");
   }
@@ -131,26 +128,26 @@ size_t jianing::CompositeShape::getCapacity() const
 
 void jianing::CompositeShape::reserve(const size_t new_capacity)
 {
-  if (this->capacity_ == new_capacity)
+  if (capacity_ == new_capacity)
   {
     return;
   }
 
   ShapePtr* array_new(allocator_shape_ptr.allocate(new_capacity));
 
-  if ((this->capacity_ < new_capacity) || (size_ < new_capacity))
+  if ((capacity_ < new_capacity) || (size_ < new_capacity)) // size_ > new_capacity > capacity_
   {
     for (size_t i = 0; i < size_; ++i)
     {
-      allocator_shape_ptr.construct(&array_new[i], this->array_[i]);
+      allocator_shape_ptr.construct(&array_new[i], array_[i]);
     }
   }
   else
   {
-    // new_capacity < size_ < this->capacity_
+    // new_capacity < size_ < capacity_
     for (size_t i = 0; i < new_capacity; ++i)
     {
-      allocator_shape_ptr.construct(&array_new[i], this->array_[i]);
+      allocator_shape_ptr.construct(&array_new[i], array_[i]);
     }
 
     size_= new_capacity;
@@ -162,18 +159,18 @@ void jianing::CompositeShape::reserve(const size_t new_capacity)
   }
   allocator_shape_ptr.deallocate(array_, capacity_);
 
-  this->array_ = array_new;
-  this->capacity_ = new_capacity;
+  array_ = array_new;
+  capacity_ = new_capacity;
 }
 
 bool jianing::CompositeShape::empty() const
 {
-  return 0 == size_;
+  return size_ == 0;
 }
 
 void jianing::CompositeShape::removeShape(const size_t index)
 {
-  if (0 == size_)
+  if (size_ == 0)
   {
     throw std::out_of_range("Dynamic array is emply");
   }
@@ -190,13 +187,13 @@ void jianing::CompositeShape::removeShape(const size_t index)
     array_[i] = array_[i + 1];
   }
 
-  array_[size_ - 1] = nullptr;
+  array_[size_ - 1].reset();
   --size_;
 }
 
 void jianing::CompositeShape::printShape()
 {
-  if (0 == size_)
+  if (size_ == 0)
   {
     throw std::domain_error("The array is empty!\n");
   }
@@ -217,11 +214,11 @@ void jianing::CompositeShape::printShape()
   shape_printing = getFrameRect();
 
   std::cout << "------ Mixed shape ------\n"
-      << "Size: " << this->getSize() << "\n"
+      << "Size: " << getSize() << "\n"
       << "Center: (" << shape_printing.pos.x << ", " << shape_printing.pos.y << ")\n"
       << "Width: " << shape_printing.width << "\n"
       << "Height: " << shape_printing.height << "\n"
-      << "Area: " << this->getArea() << "\n"
+      << "Area: " << getArea() << "\n"
       << "==========================\n\n";
 }
 
@@ -244,7 +241,7 @@ double jianing::CompositeShape::getArea() const
 
 jianing::rectangle_t jianing::CompositeShape::getFrameRect() const
 {
-  if (0 == size_)
+  if (size_ == 0)
   {
     throw std::logic_error("Dynamic array is emply");
   }
@@ -265,7 +262,12 @@ jianing::rectangle_t jianing::CompositeShape::getFrameRect() const
     }
   }
 
-  if ((0.0 == current_frame.width) || (0.0 == current_frame.height))
+  if (index == size_)
+  {
+    throw std::logic_error("Dynamic array is emply");
+  }
+
+  if ((current_frame.width == 0.0) || (current_frame.height == 0.0))
   {
     throw std::logic_error("Empty composite shape doesn't have a rectangle frame");
   }
@@ -321,17 +323,27 @@ void jianing::CompositeShape::scale(double coef)
         + std::to_string(coef) + " ! Must be positive!\n");
   }
 
-  if (1 == coef)
+  if (coef == 1.0)
   {
     return;
   }
 
   const point_t center = getCenter();
+  point_t current_shape_center = {0.0, 0.0};
   double new_x = 0.0;
   double new_y = 0.0;
 
   for (size_t i = 0; i < size_; ++i)
   {
+    try
+    {
+      current_shape_center = array_[i]->getFrameRect().pos;
+    }
+    catch (const std::logic_error& error)
+    {
+      continue;
+    }
+
     new_x = center.x + coef * (array_[i]->getCenter().x - center.x);
     new_y = center.y + coef * (array_[i]->getCenter().y - center.y);
 

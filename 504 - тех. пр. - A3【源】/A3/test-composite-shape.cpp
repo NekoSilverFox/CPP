@@ -321,3 +321,82 @@ BOOST_AUTO_TEST_SUITE(TestSizeAndCapacity)
   }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+// =====================Test scale shape=====================
+BOOST_AUTO_TEST_SUITE(TestSacle)
+
+  BOOST_AUTO_TEST_CASE(TestSacle_OnCorrectValue_NoError)
+  {
+  jianing::CompositeShape com_shape;
+
+  // push first shape
+  jianing::point_t center = {1.0, 1.0};
+  double r_cirle = 1.0;
+  jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+
+  com_shape.pushShape(circle);
+
+  // push second shape
+  jianing::rectangle_t center_width_height_rec = {2.0, 4.0, 2.0, 2.0};
+  jianing::Shape::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
+
+  com_shape.pushShape(rectangle);
+
+  BOOST_CHECK_CLOSE((2.0 + 1.0) / 2.0, com_shape.getFrameRect().pos.x, accuracy);
+  BOOST_CHECK_CLOSE((2.0 + 2.0) / 2.0, com_shape.getFrameRect().pos.y, accuracy);
+  BOOST_CHECK_CLOSE(1.0 + 2.0, com_shape.getFrameRect().width, accuracy);
+  BOOST_CHECK_CLOSE(4.0, com_shape.getFrameRect().height, accuracy);
+
+  //remove first shape
+  com_shape.scale(2.0);
+
+  BOOST_CHECK_CLOSE((-1.5 + 4.5) / 2.0, com_shape.getFrameRect().pos.x, accuracy);
+  BOOST_CHECK_CLOSE((-1.5 + 6.0) / 2.0, com_shape.getFrameRect().pos.y, accuracy);
+  BOOST_CHECK_CLOSE(1.5 + 4.5, com_shape.getFrameRect().width, accuracy);
+  BOOST_CHECK_CLOSE(2.25 + 6.25, com_shape.getFrameRect().height, accuracy);
+  }
+
+  BOOST_AUTO_TEST_CASE(TestSacle_OnValueOne_ShapeNoChange)
+  {
+    jianing::CompositeShape com_shape;
+
+    // push first shape
+    jianing::point_t center = {1.0, 2.0};
+    double r_cirle = 1.0;
+    jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+
+    com_shape.pushShape(circle);
+
+    BOOST_CHECK_CLOSE(1.0, com_shape.getFrameRect().pos.x, accuracy);
+    BOOST_CHECK_CLOSE(2.0, com_shape.getFrameRect().pos.y, accuracy);
+    BOOST_CHECK_CLOSE(1.0 + 1.0, com_shape.getFrameRect().width, accuracy);
+    BOOST_CHECK_CLOSE(1.0 + 1.0, com_shape.getFrameRect().height, accuracy);
+
+    // push second shape
+    jianing::rectangle_t center_width_height_rec = {1.0, 2.0, 0.5, 1.0};
+    jianing::Shape::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
+
+    com_shape.pushShape(rectangle);
+
+    com_shape.scale(1.0);
+
+    BOOST_CHECK_CLOSE((1.0 + 1.0) / 2, com_shape.getFrameRect().pos.x, accuracy);
+    BOOST_CHECK_CLOSE((1.0 + 2.0) / 2, com_shape.getFrameRect().pos.y, accuracy);
+    BOOST_CHECK_CLOSE(1.0 + 1.0, com_shape.getFrameRect().width, accuracy);
+    BOOST_CHECK_CLOSE(1.0 + 2.0, com_shape.getFrameRect().height, accuracy);
+  }
+
+  BOOST_AUTO_TEST_CASE(TestSacle_OnWrongValue_ThrowError)
+  {
+    jianing::CompositeShape com_shape;
+
+    jianing::point_t center = {2.5, 3.5};
+    double r_cirle = 3.0;
+    jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center, r_cirle);
+
+    com_shape.pushShape(circle);
+
+    BOOST_CHECK_THROW(com_shape.scale(-2.3), std::domain_error);
+  }
+
+BOOST_AUTO_TEST_SUITE_END()
