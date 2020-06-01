@@ -28,8 +28,12 @@ namespace jianing
 
     void scale(double coef) override;
 
+    void rotate(double angle) override;
+
   private:
     rectangle_t rectangle_;
+
+    double angle_;
   };
 
 }

@@ -26,6 +26,8 @@ namespace jianing
 
     void scale(double coef) override;
 
+    void rotate(double) override; // 新增
+
   private:
     point_t point_circle_;
 

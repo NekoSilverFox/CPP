@@ -27,6 +27,8 @@ namespace jianing
     virtual void move(const point_t& point_new) = 0;
 
     virtual void scale(double coef) = 0;
+
+    virtual void rotate(double angle) = 0; // 新增
   };
 
 }

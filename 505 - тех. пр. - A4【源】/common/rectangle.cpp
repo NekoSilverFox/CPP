@@ -1,9 +1,11 @@
 #include "rectangle.hpp"
+#include <cmath>
 #include <stdexcept>
 #include "base-types.hpp"
 
 jianing::Rectangle::Rectangle(const rectangle_t& rectangle) :
-  rectangle_(rectangle)
+  rectangle_(rectangle),
+  angle_(0.0)
 {
   if (rectangle.width <= 0.0)
   {
@@ -40,7 +42,10 @@ double jianing::Rectangle::getArea() const
 
 jianing::rectangle_t jianing::Rectangle::getFrameRect() const
 {
-  return rectangle_;
+  double width = rectangle_.width * std::fabs(cos(M_PI * angle_ / 180)) + rectangle_.height * std::fabs(sin(M_PI * angle_ / 180));
+  double height = rectangle_.height * std::fabs(cos(M_PI * angle_ / 180)) + rectangle_.width * std::fabs(sin(M_PI * angle_ / 180));
+
+  return {width, height, rectangle_.pos};
 }
 
 void jianing::Rectangle::move(double x_move, double y_move)
@@ -63,4 +68,14 @@ void jianing::Rectangle::scale(double coef)
   }
   rectangle_.width *= coef;
   rectangle_.height *= coef;
+}
+
+void jianing::Rectangle::rotate(double angle)
+{
+  this->angle_ += angle;
+
+  if (angle_ < 0)
+  {
+    angle_ = 360 + fmod(angle_, 360);
+  }
 }

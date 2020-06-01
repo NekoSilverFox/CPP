@@ -34,6 +34,7 @@ namespace jianing
     void move(double x_move, double y_move) override;
     void move(const point_t& point_new) override;
     void scale(double coef) override;
+    void rotate(double angle) override;
 
   private:
     std::allocator<ShapePtr> allocator_shape_ptr;

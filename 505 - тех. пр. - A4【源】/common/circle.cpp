@@ -3,16 +3,6 @@
 #include <stdexcept>
 #include "base-types.hpp"
 
-double jianing::Circle::getRadius() const
-{
-  return r_circle_;
-}
-
-jianing::point_t jianing::Circle::getCenter() const
-{
-  return point_circle_;
-}
-
 jianing::Circle::Circle(const point_t& point, double r_circle) :
   point_circle_(point),
   r_circle_(r_circle)
@@ -23,6 +13,17 @@ jianing::Circle::Circle(const point_t& point, double r_circle) :
         + std::to_string(r_circle) + " ! Must be positive!\n");
   }
 }
+
+double jianing::Circle::getRadius() const
+{
+  return r_circle_;
+}
+
+jianing::point_t jianing::Circle::getCenter() const
+{
+  return point_circle_;
+}
+
 
 double jianing::Circle::getArea() const
 {
@@ -54,3 +55,6 @@ void jianing::Circle::scale(double coef)
   }
   r_circle_ *= coef;
 }
+
+void jianing::Circle::rotate(double)
+{}

@@ -1,6 +1,7 @@
 #include "composite-shape.hpp"
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 #include <exception>
 #include <memory>
 #include "base-types.hpp"
@@ -347,5 +348,38 @@ void jianing::CompositeShape::scale(double coef)
 
     array_[i]->move({new_x, new_y});
     array_[i]->scale(coef);
+  }
+}
+
+void jianing::CompositeShape::rotate(double angle)
+{
+  if (fmod(angle, 360) == 0)
+  {
+    return;
+  }
+
+  const double cos = std::cos(2 * M_PI * angle / 360);
+  const double sin = std::sin(2 * M_PI * angle / 360);
+  const point_t centre_rotation = getFrameRect().pos;
+  point_t current_shape_center = {0.0, 0.0};
+  double dx = 0.0;
+  double dy = 0.0;
+
+  for (size_t i = 0; i < size_; ++i)
+  {
+    try
+    {
+      current_shape_center = array_[i]->getFrameRect().pos;
+    }
+    catch (const std::logic_error& error)
+    {
+      continue;
+    }
+
+    dx = (current_shape_center.x - centre_rotation.x) * cos - (current_shape_center.y - centre_rotation.y) * sin;
+    dy = (current_shape_center.x - centre_rotation.x) * sin + (current_shape_center.y - centre_rotation.y) * cos;
+
+    array_[i]->move({centre_rotation.x + dx, centre_rotation.y + dy});
+    array_[i]->rotate(angle);
   }
 }
