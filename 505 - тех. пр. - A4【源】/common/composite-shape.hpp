@@ -25,7 +25,8 @@ namespace jianing
     void reserve(const size_t new_capacity);
     bool empty() const;
     void removeShape(const size_t index);
-    void printShape();
+    void printShape() override;
+    void printFrameRect() const override;
 
     point_t getCenter() const override;
     double getArea() const override;

@@ -1,4 +1,5 @@
 #include "layer.hpp"
+#include <iostream>
 #include <algorithm>
 #include <exception>
 #include <memory>
@@ -97,7 +98,7 @@ jianing::Shape::ShapePtr jianing::Layer::operator[](const size_t index) const
   return array_[index];
 }
 
-void jianing::Layer::addShape(const ShapePtr& shape_new)
+void jianing::Layer::addShape(const jianing::Shape::ShapePtr& shape_new)
 {
   if (nullptr == shape_new)
   {
@@ -113,6 +114,18 @@ void jianing::Layer::addShape(const ShapePtr& shape_new)
   ++size_;
 }
 
+jianing::Shape::ShapePtr jianing::Layer::getShape(size_t index) const
+{
+  if (index >= size_)
+  {
+      throw std::out_of_range("Index can not be"
+          + std::to_string(index) + " ! Must smaller than"
+          + std::to_string(size_) + " !\n");
+  }
+
+  return array_[index];
+}
+
 size_t jianing::Layer::getSize() const
 {
   return size_;
@@ -125,7 +138,7 @@ bool jianing::Layer::empty() const
 
 void jianing::Layer::reserve(const size_t new_capacity)
 {
-  ShapePtr* new_array = allocator_shape_ptr.allocate(new_capacity);
+  jianing::Shape::ShapePtr* new_array = allocator_shape_ptr.allocate(new_capacity);
 
   for (size_t i = 0; i < size_; ++i)
   {
@@ -141,4 +154,3 @@ void jianing::Layer::reserve(const size_t new_capacity)
   array_ = new_array;
   capacity_ = new_capacity;
 }
-

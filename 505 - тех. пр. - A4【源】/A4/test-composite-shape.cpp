@@ -351,9 +351,9 @@ BOOST_AUTO_TEST_SUITE(TestSacle)
   com_shape.scale(2.0);
 
   BOOST_CHECK_CLOSE((-1.5 + 4.5) / 2.0, com_shape.getFrameRect().pos.x, accuracy);
-  BOOST_CHECK_CLOSE((-1.5 + 6.0) / 2.0, com_shape.getFrameRect().pos.y, accuracy);
+  BOOST_CHECK_CLOSE((-1.5 + 5.5) / 2.0, com_shape.getFrameRect().pos.y, accuracy);
   BOOST_CHECK_CLOSE(1.5 + 4.5, com_shape.getFrameRect().width, accuracy);
-  BOOST_CHECK_CLOSE(2.25 + 6.25, com_shape.getFrameRect().height, accuracy);
+  BOOST_CHECK_CLOSE(2.5 + 5.5, com_shape.getFrameRect().height, accuracy);
   }
 
   BOOST_AUTO_TEST_CASE(TestSacle_OnValueOne_ShapeNoChange)
@@ -397,6 +397,72 @@ BOOST_AUTO_TEST_SUITE(TestSacle)
     com_shape.pushShape(circle);
 
     BOOST_CHECK_THROW(com_shape.scale(-2.3), std::domain_error);
+  }
+
+BOOST_AUTO_TEST_SUITE_END()
+
+// =====================test rotate composize shape=====================
+BOOST_AUTO_TEST_SUITE(TestSacleComposizeShape)
+
+  BOOST_AUTO_TEST_CASE(TestSacleComposizeShape_InPositiveDirection_CorrectWigthHeightXYAfterRotate)
+  {
+  jianing::CompositeShape com_shape;
+
+  // push first shape
+  jianing::point_t circle_center = {1.0, 1.0};
+  double r_cirle = 2.0;
+  jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(circle_center, r_cirle);
+
+  com_shape.pushShape(circle);
+
+  // push second shape
+  jianing::rectangle_t center_width_height_rec = {2.0, 4.0, 2.0, 2.0};
+  jianing::Shape::ShapePtr rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
+
+  com_shape.pushShape(rectangle);
+
+  jianing::point_t center_rotation = com_shape.getCenter();
+  const double area = com_shape.getArea();
+
+  //remove first shape
+  com_shape.rotate(30);
+
+  const double cos = std::cos(2 * M_PI * 30 / 360);
+  const double sin = std::sin(2 * M_PI * 30 / 360);
+
+  // test cirle
+  const double dx_circle = (circle_center.x - center_rotation.x) * cos - (circle_center.y - center_rotation.y) * sin;
+  const double dy_ciecle = (circle_center.x - center_rotation.x) * sin + (circle_center.y - center_rotation.y) * cos;
+
+  BOOST_CHECK_CLOSE(center_rotation.x + dx_circle, com_shape[0]->getFrameRect().pos.x, accuracy);
+  BOOST_CHECK_CLOSE(center_rotation.y + dy_ciecle, com_shape[0]->getFrameRect().pos.y, accuracy);
+  BOOST_CHECK_CLOSE(r_cirle * 2.0, com_shape[0]->getFrameRect().width, accuracy);
+  BOOST_CHECK_CLOSE(r_cirle * 2.0, com_shape[0]->getFrameRect().height, accuracy);
+  BOOST_CHECK_CLOSE(M_PI * r_cirle * r_cirle, com_shape[0]->getArea(), accuracy);
+
+  // test rectangle
+  const double dx_rectangle = (center_width_height_rec.pos.x - center_rotation.x) * cos - (center_width_height_rec.pos.y - center_rotation.y) * sin;
+  const double dy_rectangle = (center_width_height_rec.pos.x - center_rotation.x) * sin + (center_width_height_rec.pos.y - center_rotation.y) * cos;
+  const double width_rectange = center_width_height_rec.width * std::fabs(cos) + center_width_height_rec.height * std::fabs(sin);
+  const double height_rectange = center_width_height_rec.height * std::fabs(cos) + center_width_height_rec.width * std::fabs(sin);
+
+  BOOST_CHECK_CLOSE(center_rotation.x + dx_rectangle, com_shape[1]->getFrameRect().pos.x, accuracy);
+  BOOST_CHECK_CLOSE(center_rotation.y + dy_rectangle, com_shape[1]->getFrameRect().pos.y, accuracy);
+  BOOST_CHECK_CLOSE(width_rectange, com_shape[1]->getFrameRect().width, accuracy);
+  BOOST_CHECK_CLOSE(height_rectange, com_shape[1]->getFrameRect().height, accuracy);
+  BOOST_CHECK_CLOSE(center_width_height_rec.width * center_width_height_rec.height, com_shape[1]->getArea(), accuracy);
+
+  // test all the composize shape
+  const double top = com_shape[1]->getFrameRect().pos.y + com_shape[1]->getFrameRect().height / 2.0;
+  const double bottom = com_shape[0]->getFrameRect().pos.y - com_shape[0]->getFrameRect().height / 2.0;
+  const double left = com_shape[0]->getFrameRect().pos.x - com_shape[0]->getFrameRect().width / 2.0;
+  const double right = com_shape[1]->getFrameRect().pos.x + com_shape[1]->getFrameRect().width / 2.0;
+
+  BOOST_CHECK_CLOSE((right - left) / 2.0 + left, com_shape.getFrameRect().pos.x, accuracy);
+  BOOST_CHECK_CLOSE((top - bottom) / 2.0 + bottom, com_shape.getFrameRect().pos.y, accuracy);
+  BOOST_CHECK_CLOSE(right - left, com_shape.getFrameRect().width, accuracy);
+  BOOST_CHECK_CLOSE(top - bottom, com_shape.getFrameRect().height, accuracy);
+  BOOST_CHECK_CLOSE(area, com_shape.getArea(), accuracy);
   }
 
 BOOST_AUTO_TEST_SUITE_END()

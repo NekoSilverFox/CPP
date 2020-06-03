@@ -22,6 +22,10 @@ namespace jianing
 
     rectangle_t getFrameRect() const override;
 
+    void printShape() override;
+
+    void printFrameRect() const override;
+
     void move(double x_move, double y_move) override;
 
     void move(const point_t& point_new) override;
@@ -34,6 +38,7 @@ namespace jianing
     rectangle_t rectangle_;
 
     double angle_;
+
   };
 
 }

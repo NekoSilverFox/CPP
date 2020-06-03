@@ -7,7 +7,8 @@
 
 namespace jianing
 {
-  class Layer : public Shape
+
+  class Layer
   {
     friend class Maxtrix;
 
@@ -19,19 +20,20 @@ namespace jianing
 
     Layer& operator=(const Layer& copied_object);
     Layer& operator=(Layer&& moved_object);
-    ShapePtr operator[](const size_t index) const;
+    jianing::Shape::ShapePtr operator[](const size_t index) const;
 
-    void addShape(const ShapePtr& shape_new);
+    void addShape(const jianing::Shape::ShapePtr& shape_new);
+    jianing::Shape::ShapePtr getShape(size_t index) const;
     size_t getSize() const;
     bool empty() const;
 
   private:
     void reserve(const size_t new_capacity);
 
-    std::allocator<ShapePtr> allocator_shape_ptr;
+    std::allocator<jianing::Shape::ShapePtr> allocator_shape_ptr;
     size_t size_; // number of the shapes
     size_t capacity_;
-    ShapePtr* array_;
+    jianing::Shape::ShapePtr* array_;
   };
 
 }

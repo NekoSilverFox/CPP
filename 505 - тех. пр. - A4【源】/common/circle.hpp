@@ -20,13 +20,17 @@ namespace jianing
 
     rectangle_t getFrameRect() const override;
 
+    void printShape() override;
+
+    void printFrameRect() const override;
+
     void move(double x_move, double y_move) override;
 
     void move(const point_t& point_new) override;
 
     void scale(double coef) override;
 
-    void rotate(double) override; // 新增
+    void rotate(double) override;
 
   private:
     point_t point_circle_;

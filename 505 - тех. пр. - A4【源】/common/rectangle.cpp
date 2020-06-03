@@ -1,11 +1,13 @@
 #include "rectangle.hpp"
+#include <iostream>
 #include <cmath>
 #include <stdexcept>
 #include "base-types.hpp"
+const double INITANGLE = 0.0;
 
 jianing::Rectangle::Rectangle(const rectangle_t& rectangle) :
   rectangle_(rectangle),
-  angle_(0.0)
+  angle_(INITANGLE)
 {
   if (rectangle.width <= 0.0)
   {
@@ -46,6 +48,25 @@ jianing::rectangle_t jianing::Rectangle::getFrameRect() const
   double height = rectangle_.height * std::fabs(cos(M_PI * angle_ / 180)) + rectangle_.width * std::fabs(sin(M_PI * angle_ / 180));
 
   return {width, height, rectangle_.pos};
+}
+
+void jianing::Rectangle::printShape()
+{
+  std::cout << "------Rectangle------\n"
+      << "Center: (" << rectangle_.pos.x << ", " << rectangle_.pos.y << ")\n"
+      << "Width: " << rectangle_.width << "\n"
+      << "Height: " << rectangle_.height << "\n"
+      << "Area: " << getArea() << "\n"
+      << "-------------------" << "\n\n";
+}
+
+void jianing::Rectangle::printFrameRect() const
+{
+  std::cout << "------ Frame rect of rectangle------\n"
+      << "Center: (" << getFrameRect().pos.x << ", " << getFrameRect().pos.y << ")\n"
+      << "Width: " << getFrameRect().width << "\n"
+      << "Height: " << getFrameRect().height << "\n"
+      << "-------------------\n\n";
 }
 
 void jianing::Rectangle::move(double x_move, double y_move)

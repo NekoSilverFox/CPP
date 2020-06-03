@@ -9,7 +9,7 @@ namespace jianing
 {
   class Layer;
 
-  class Maxtrix : public Shape
+  class Maxtrix
   {
   public:
     using LayerPtr = std::shared_ptr<Layer>;
@@ -23,12 +23,12 @@ namespace jianing
     Maxtrix& operator=(Maxtrix&& moved_object);
     LayerPtr operator[](const size_t index_layer) const;
 
-    void addShape(const ShapePtr& shape_new);
-    bool isOverlap(const LayerPtr& layer,const ShapePtr& shape) const;
+    void addShape(const jianing::Shape::ShapePtr& shape_new);
+    bool isOverlap(const LayerPtr& layer,const jianing::Shape::ShapePtr& shape) const;
     size_t getNumberLayer() const;
-    void addNewLayer();
 
   private:
+    void addNewLayer();
     void reserve(const size_t new_capacity);
 
     std::allocator<LayerPtr> allocator_layer_ptr;

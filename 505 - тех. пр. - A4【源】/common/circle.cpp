@@ -1,4 +1,5 @@
 #include "circle.hpp"
+#include <iostream>
 #include <cmath>
 #include <stdexcept>
 #include "base-types.hpp"
@@ -33,6 +34,24 @@ double jianing::Circle::getArea() const
 jianing::rectangle_t jianing::Circle::getFrameRect() const
 {
   return {2 * r_circle_, 2 * r_circle_, point_circle_};
+}
+
+void jianing::Circle::printShape()
+{
+  std::cout << "------Circle------\n"
+      << "Center: (" << point_circle_.x << ", " << point_circle_.y << ")\n"
+      << "Radius: " << r_circle_ << "\n"
+      << "Area: " << getArea() << "\n"
+      << "-------------------" << "\n\n";
+}
+
+void jianing::Circle::printFrameRect() const
+{
+  std::cout << "------ Frame rect of circle------\n"
+      << "Center: (" << getFrameRect().pos.x << ", " << getFrameRect().pos.y << ")\n"
+      << "Width: " << getFrameRect().width << "\n"
+      << "Height: " << getFrameRect().height << "\n"
+      << "-------------------\n\n";
 }
 
 void jianing::Circle::move(double x_move, double y_move)
