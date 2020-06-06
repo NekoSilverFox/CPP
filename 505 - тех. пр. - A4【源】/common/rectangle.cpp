@@ -22,6 +22,23 @@ jianing::Rectangle::Rectangle(const rectangle_t& rectangle) :
   }
 }
 
+jianing::Rectangle::Rectangle(const rectangle_t& rectangle, double angle) :
+  rectangle_(rectangle),
+  angle_(angle)
+{
+  if (rectangle.width <= 0.0)
+  {
+    throw std::domain_error("Error: Width can not be "
+        + std::to_string(rectangle.width) + " ! Must be positive!\n");
+  }
+
+  if (rectangle.height <= 0.0)
+  {
+    throw std::domain_error("Error: Height can not be "
+        + std::to_string(rectangle.height) + " ! Must be positive!\n");
+  }
+}
+
 double jianing::Rectangle::getWidth() const
 {
   return rectangle_.width;
@@ -93,7 +110,7 @@ void jianing::Rectangle::scale(double coef)
 
 void jianing::Rectangle::rotate(double angle)
 {
-  this->angle_ += angle;
+  angle_ += angle;
 
   if (angle_ < 0)
   {

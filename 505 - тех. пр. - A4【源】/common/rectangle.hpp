@@ -10,7 +10,9 @@ namespace jianing
   class Rectangle : public Shape
   {
   public:
-    Rectangle(const rectangle_t& rec);
+    Rectangle(const rectangle_t& rectangle);
+
+    Rectangle(const rectangle_t& rectangle, double angle);
 
     double getWidth() const;
 

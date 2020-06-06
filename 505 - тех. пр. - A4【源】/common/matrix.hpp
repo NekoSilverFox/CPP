@@ -23,18 +23,17 @@ namespace jianing
     Maxtrix& operator=(Maxtrix&& moved_object);
     LayerPtr operator[](const size_t index_layer) const;
 
-    void addShape(const jianing::Shape::ShapePtr& shape_new);
-    bool isOverlap(const LayerPtr& layer,const jianing::Shape::ShapePtr& shape) const;
-    size_t getNumberLayer() const;
+    void addShape(const Shape::ShapePtr& shape_new);
+    size_t getRowNumber() const;
+    size_t getColumnsNumber(size_t row_index) const;
+    Shape::ShapePtr getShape(size_t row_index, size_t col_index) const;
+    bool isOverlap(const LayerPtr& layer,const Shape::ShapePtr& shape) const;
 
   private:
     void addNewLayer();
-    void reserve(const size_t new_capacity);
 
-    std::allocator<LayerPtr> allocator_layer_ptr;
-    size_t size_; // number of the layers
-    size_t capacity_;
-    LayerPtr* layer_array_;
+    size_t row_; // number of the layers
+    std::unique_ptr<LayerPtr[]> layer_array_;
   };
 
 }

@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_SUITE(InitializeLayer)
       BOOST_REQUIRE_EQUAL(true, layer.empty());
     }
 
-    BOOST_AUTO_TEST_CASE(InitializeShape_TestCopyConstructor_NoError)
+    BOOST_AUTO_TEST_CASE(InitializeLayer_TestCopyConstructor_NoError)
     {
       jianing::point_t center = {1.1, 2.2};
       double r_cirle = 3.3;
@@ -49,8 +49,8 @@ BOOST_AUTO_TEST_SUITE(InitializeLayer)
 BOOST_AUTO_TEST_SUITE_END()
 
 // =====================test add shape in layer=====================
-BOOST_AUTO_TEST_SUITE(AddShape)
-    BOOST_AUTO_TEST_CASE(TestAddShape_AddCorrectShape_NoError)
+BOOST_AUTO_TEST_SUITE(AddShapeinLayer)
+    BOOST_AUTO_TEST_CASE(AddShapeinLayer_AddCorrectShape_NoError)
     {
       jianing::point_t center = {1.1, 2.2};
       double r_cirle = 3.3;
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(AddShape)
       BOOST_CHECK_CLOSE(M_PI * 3.3 * 3.3, layer[0]->getArea(), accuracy);
     }
 
-    BOOST_AUTO_TEST_CASE(TestpushShape_AddNullptr_ThrowError)
+    BOOST_AUTO_TEST_CASE(AddShapeinLayer_AddNullptr_ThrowError)
     {
       jianing::Layer layer;
 
@@ -77,8 +77,8 @@ BOOST_AUTO_TEST_SUITE(AddShape)
 BOOST_AUTO_TEST_SUITE_END()
 
 // =====================test get shape in layer=====================
-BOOST_AUTO_TEST_SUITE(GetShape)
-    BOOST_AUTO_TEST_CASE(GetShape_GetFirstShape_NoError)
+BOOST_AUTO_TEST_SUITE(GetShapeinLayer)
+    BOOST_AUTO_TEST_CASE(GetShapeinLayer_GetFirstShape_NoError)
     {
       jianing::point_t center = {1.1, 2.2};
       double r_cirle = 3.3;

@@ -86,6 +86,7 @@ jianing::Layer& jianing::Layer::operator=(jianing::Layer&& moved_object)
 
   return *this;
 }
+
 jianing::Shape::ShapePtr jianing::Layer::operator[](const size_t index) const
 {
   if (index >= size_)
@@ -100,7 +101,7 @@ jianing::Shape::ShapePtr jianing::Layer::operator[](const size_t index) const
 
 void jianing::Layer::addShape(const jianing::Shape::ShapePtr& shape_new)
 {
-  if (nullptr == shape_new)
+  if (shape_new == nullptr)
   {
     throw std::invalid_argument("Can not add shape which is null!\n");
   }

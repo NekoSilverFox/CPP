@@ -50,41 +50,44 @@ int main()
 
 void testMatrix()
 {
-  jianing::Maxtrix maxtrix;
+  jianing::Maxtrix matrix;
 
   // Shape No.1 - On layer No.1
   jianing::point_t center_cirle = {1.0, 1.0};
   double r_cirle = 2.0;
   jianing::Shape::ShapePtr circle = std::make_shared<jianing::Circle>(center_cirle, r_cirle);
 
-  std::cout << "aaa";
-  maxtrix.addShape(circle);
-
+  matrix.addShape(circle);
 
   // Shape No.2 - On layer No.2
   jianing::rectangle_t center_width_height_rec = {2.0, 4.0, 2.0, 2.0};
   jianing::Shape::ShapePtr first_rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
 
-  maxtrix.addShape(first_rectangle);
+  matrix.addShape(first_rectangle);
 
 
   // Shape No.3 - On layer No.1
   center_width_height_rec = {1.0, 1.0, 6.0, 1.0};
   jianing::Shape::ShapePtr sec_rectangle = std::make_shared<jianing::Rectangle>(center_width_height_rec);
 
-  maxtrix.addShape(sec_rectangle);
+  matrix.addShape(sec_rectangle);
 
 
 
-  std::cout << "The number of the layer is: " << maxtrix.getNumberLayer() << "\n";
+  std::cout << "The number of the layer is: " << matrix.getRowNumber() << "\n";
 
-  for (size_t i = 0; i < maxtrix.getNumberLayer(); ++i)
+  for (size_t i = 0; i < matrix.getRowNumber(); ++i)
   {
-    std::cout << "Layer No." << i + 1 << ", Size: " << maxtrix[i]->getSize() << "\n";
+    std::cout << "Layer No." << i + 1 << ", Size: " << matrix[i]->getSize() << "\n";
   }
 
-  maxtrix[0]->getShape(0)->printShape();
-  maxtrix[1]->getShape(0)->printShape();
-  maxtrix[0]->getShape(1)->printShape();
+  matrix.getShape(0, 0)->printShape();
+  matrix.getShape(1, 0)->printShape();
+  matrix.getShape(0, 1)->printShape();
 
+  matrix.getShape(0, 0)->rotate(27);
+  matrix.getShape(0, 0)->printShape();
+
+  matrix.getShape(1, 0)->rotate(60);
+  matrix.getShape(1, 0)->printShape();
 }

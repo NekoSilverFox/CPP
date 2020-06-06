@@ -20,20 +20,20 @@ namespace jianing
 
     Layer& operator=(const Layer& copied_object);
     Layer& operator=(Layer&& moved_object);
-    jianing::Shape::ShapePtr operator[](const size_t index) const;
+    Shape::ShapePtr operator[](const size_t index) const;
 
-    void addShape(const jianing::Shape::ShapePtr& shape_new);
-    jianing::Shape::ShapePtr getShape(size_t index) const;
+    void addShape(const Shape::ShapePtr& shape_new);
+    Shape::ShapePtr getShape(size_t index) const;
     size_t getSize() const;
     bool empty() const;
 
   private:
     void reserve(const size_t new_capacity);
 
-    std::allocator<jianing::Shape::ShapePtr> allocator_shape_ptr;
-    size_t size_; // number of the shapes
+    std::allocator<Shape::ShapePtr> allocator_shape_ptr;
+    size_t size_; // (columns) number of the shapes
     size_t capacity_;
-    jianing::Shape::ShapePtr* array_;
+    Shape::ShapePtr* array_;
   };
 
 }
