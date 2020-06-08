@@ -8,14 +8,15 @@ using namespace std;
 
 int main()
 {
+	int cost;
 	int n;
-	int arr[15] = { 0 };
-	int cost = INFINITY;
+	int arr[305] = { 0 };
 
 	cin >> n;
 
-	for (int i = 1; i < 14; i++)
+	for (int i = 1; i < n + 1; i++)
 	{
+		cost = 99999999;
 		if (i - 1 >= 0) cost = std::min(cost, arr[i - 1] + 1);
 		if (i - 5 >= 0) cost = std::min(cost, arr[i - 5] + 1);
 		if (i - 11 >= 0) cost = std::min(cost, arr[i - 11] + 1);
