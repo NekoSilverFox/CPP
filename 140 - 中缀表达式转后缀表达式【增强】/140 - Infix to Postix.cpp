@@ -29,7 +29,7 @@ bool isNumber(const char ch)
 	return (ch >= '0' && ch <= '9');
 }
 
-// Is the '(' 
+// Is the '('
 bool isLeft(const char ch)
 {
 	return ch == '(';
