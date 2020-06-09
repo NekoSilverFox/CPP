@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\CPP\251 - 动态规划 - 硬币问题自适应解决\Debug\251 - 动态规划 - 硬币问题自适应解决.exe
+C:\Users\mi\Desktop\CPP\251 - 动态规划 - 硬币问题自适应解决\Debug\251 - 动态规划 - 硬币问题自适应解决.pdb
