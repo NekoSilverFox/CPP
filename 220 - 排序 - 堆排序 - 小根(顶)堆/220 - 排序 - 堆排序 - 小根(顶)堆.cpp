@@ -1,39 +1,70 @@
 #include <iostream>
 using namespace std;
 
-
-/*
-** 已知arr[] 中记录的关键字除arr[s]之外均满足堆的定义，本函数调整arr[s]的关键字，使R[s...m]成为一个小根堆
-*/
-void HeapAdjust(int arr[], int s, int m)
+void printArray(int arr[], const int length)
 {
-	int rc = arr[s];
-
-	for (int i = 2 * s; i <= m; i *= 2) // 沿key较小的孩子节点向下筛选
+	for (int i = 0; i < length; i++)
 	{
-		if ((i < m) && arr[i] > arr[i + 1]) i++;
+		cout << arr[i] << " ";
+	}
 
+	cout << endl;
+}
+
+void indexSwap(int arr[], int left, int right)
+{
+	int temp = arr[left];
+	arr[left] = arr[right];
+	arr[right] = temp;
+}
+
+void heapAdjust(int arr[], int index, int length)
+{
+	int i_max = index;
+	int i_lchild = index * 2 + 1;
+	int i_rchild = i_lchild + 1;
+
+	if ((i_lchild < length) && (arr[i_lchild] < arr[i_max]))
+	{
+		i_max = i_lchild;
+	}
+
+	if ((i_rchild < length) && (arr[i_rchild] < arr[i_max]))
+	{
+		i_max = i_rchild;
+	}
+
+	if (i_max != index)
+	{
+		indexSwap(arr, index, i_max);
+		heapAdjust(arr, i_max, length);
 	}
 }
 
-
-#if 0
-void heapAdjust(int arr[], int arr_length)
+void heapSort(int arr[], int length)
 {
-	int* arr_heap = new int[arr_length + 1];
-
-	arr_heap[0] = 0;
-
-	for (int i = 1; i < arr_length + 1; i++)
+	// 初始化堆：
+	for (int i = length / 2 - 1; i >= 0; i--)
 	{
-		arr_heap[i] = arr[i - 1];
+		heapAdjust(arr, i, length);
 	}
 
-
+	// 堆排序
+	for (int i = length - 1; i >= 0; i--)
+	{
+		indexSwap(arr, 0, i);
+		heapAdjust(arr, 0, i);
+	}
 }
-#endif
 
 int main()
 {
+	int arr[9] = { 7,4,7,2,5,1,8,0,6 };
+	const int length = sizeof(arr) / sizeof(arr[0]);
 
+	printArray(arr, length);
+
+	heapSort(arr, length);
+
+	printArray(arr, length);
 }
