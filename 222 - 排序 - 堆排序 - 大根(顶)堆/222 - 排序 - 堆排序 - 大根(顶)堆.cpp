@@ -29,12 +29,12 @@ void heapAdjust(int arr[], int index, int length)
 	int i_lchild = index * 2 + 1;
 	int i_rchild = i_lchild + 1;
 
-	if ((i_lchild < length) && (arr[i_lchild] < arr[i_max]))
+	if ((i_lchild < length) && (arr[i_lchild] > arr[i_max]))
 	{
 		i_max = i_lchild;
 	}
 
-	if ((i_rchild < length) && (arr[i_rchild] < arr[i_max]))
+	if ((i_rchild < length) && (arr[i_rchild] > arr[i_max]))
 	{
 		i_max = i_rchild;
 	}
