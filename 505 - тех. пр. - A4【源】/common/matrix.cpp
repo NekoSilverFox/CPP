@@ -65,7 +65,7 @@ jianing::Maxtrix& jianing::Maxtrix::operator=(jianing::Maxtrix&& moved_object)
   return *this;
 }
 
-jianing::Maxtrix::LayerPtr jianing::Maxtrix::operator[](const size_t index_layer) const
+jianing::Layer& jianing::Maxtrix::operator[](const size_t index_layer) const
 {
   if (index_layer >= row_)
   {
@@ -74,7 +74,7 @@ jianing::Maxtrix::LayerPtr jianing::Maxtrix::operator[](const size_t index_layer
         + std::to_string(row_) + " !\n");
   }
 
-  return layer_array_[index_layer];
+  return *layer_array_[index_layer];
 }
 
 void jianing::Maxtrix::addShape(const jianing::Shape::ShapePtr& shape_new)
@@ -86,7 +86,7 @@ void jianing::Maxtrix::addShape(const jianing::Shape::ShapePtr& shape_new)
 
   for (size_t i = 0; i < row_; ++i)
   {
-    if (isOverlap(layer_array_[i], shape_new) == false)
+    if (layer_array_[i]->isOverlap(shape_new) == false)
     {
       layer_array_[i]->addShape(shape_new);
 
@@ -116,88 +116,6 @@ size_t jianing::Maxtrix::getColumnsNumber(size_t row_index) const
   return layer_array_[row_index]->getSize();
 }
 
-jianing::Shape::ShapePtr jianing::Maxtrix::getShape(size_t row_index, size_t col_index) const
-{
-  if (row_index >= row_)
-  {
-    throw std::out_of_range("Index row can not be"
-        + std::to_string(row_index) + " ! Must smaller than"
-        + std::to_string(row_) + " !\n");
-  }
-
-  if (col_index >= layer_array_[row_index]->getSize())
-  {
-    throw std::out_of_range("Index col can not be"
-        + std::to_string(col_index) + " ! Must smaller than"
-        + std::to_string(layer_array_[row_index]->getSize()) + " !\n");
-  }
-
-  return layer_array_[row_index]->getShape(col_index);
-}
-
-// Determine whether the given shape intersects the shape in the current layer
-bool jianing::Maxtrix::isOverlap(const LayerPtr& layer,const jianing::Shape::ShapePtr& shape) const
-{
-  if (layer == nullptr)
-  {
-    throw std::invalid_argument("The layer is null!\n");
-  }
-
-  if (shape == nullptr)
-  {
-    throw std::invalid_argument("The shape is null!\n");
-  }
-
-  double top_current = 0.0;
-  double bottom_current = 0.0;
-  double left_current = 0.0;
-  double right_current = 0.0;
-  const double top_judgment = shape->getFrameRect().pos.x + shape->getFrameRect().height / 2.0;
-  const double bottom_judgment = shape->getFrameRect().pos.y - shape->getFrameRect().height / 2.0;
-  const double left_judgment = shape->getFrameRect().pos.x - shape->getFrameRect().width / 2.0;
-  const double right_judgment = shape->getFrameRect().pos.x + shape->getFrameRect().width / 2.0;
-  rectangle_t current_layer_frame = {0.0, 0.0, 0.0, 0.0};
-  bool overlap = false;
-
-  for (size_t i = 0; i < layer->size_; ++i)
-  {
-    try
-    {
-      current_layer_frame = layer->array_[i]->getFrameRect();
-    }
-    catch (const std::logic_error& error)
-    {
-      continue;
-    }
-
-    top_current = current_layer_frame.pos.y + current_layer_frame.height / 2.0;
-    bottom_current = current_layer_frame.pos.y - current_layer_frame.height / 2.0;
-    left_current = current_layer_frame.pos.x - current_layer_frame.width / 2.0;
-    right_current = current_layer_frame.pos.x + current_layer_frame.width / 2.0;
-
-    if (((top_judgment > top_current) || (bottom_judgment < bottom_current)) && ((left_judgment < left_current) || (right_judgment > right_current)))
-    {
-      continue;
-    }
-    else if (((left_judgment < left_current) || (right_judgment > right_current)) && ((top_judgment > top_current) || (bottom_judgment < bottom_current)))
-    {
-      continue;
-    }
-    // one small shape inside other big shape
-    else if ((top_judgment <= top_current) && (bottom_judgment >= bottom_current) && (left_judgment >= left_current) && (right_judgment <= right_current))
-    {
-      overlap = true;
-    }
-    else
-    {
-      overlap = true;
-      break;
-    }
-  }
-
-  return overlap;
-}
-
 void jianing::Maxtrix::addNewLayer()
 {
   ++row_;
@@ -211,4 +129,16 @@ void jianing::Maxtrix::addNewLayer()
 
   layer_array_ = std::move(new_layer_array);
   new_layer_array.reset();
+}
+
+jianing::Maxtrix::LayerPtr jianing::Maxtrix::getLayerPtr(const size_t index_layer) const
+{
+  if (index_layer >= row_)
+  {
+    throw std::out_of_range("Index can not be"
+        + std::to_string(index_layer) + " ! Must smaller than"
+        + std::to_string(row_) + " !\n");
+  }
+
+  return layer_array_[index_layer];
 }

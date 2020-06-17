@@ -1,6 +1,7 @@
 #include "layer.hpp"
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 #include <exception>
 #include <memory>
 #include "base-types.hpp"
@@ -91,9 +92,9 @@ jianing::Shape::ShapePtr jianing::Layer::operator[](const size_t index) const
 {
   if (index >= size_)
   {
-      throw std::out_of_range("Index can not be"
-          + std::to_string(index) + " ! Must smaller than"
-          + std::to_string(size_) + " !\n");
+    throw std::out_of_range("Index can not be"
+        + std::to_string(index) + " ! Must smaller than"
+        + std::to_string(size_) + " !\n");
   }
 
   return array_[index];
@@ -115,16 +116,36 @@ void jianing::Layer::addShape(const jianing::Shape::ShapePtr& shape_new)
   ++size_;
 }
 
-jianing::Shape::ShapePtr jianing::Layer::getShape(size_t index) const
+// Determine whether the given shape intersects the shape in the current layer
+bool jianing::Layer::isOverlap(const Shape::ShapePtr& shape)
 {
-  if (index >= size_)
+  if (shape == nullptr)
   {
-      throw std::out_of_range("Index can not be"
-          + std::to_string(index) + " ! Must smaller than"
-          + std::to_string(size_) + " !\n");
+    throw std::invalid_argument("The shape is null!\n");
   }
 
-  return array_[index];
+  rectangle_t current_rec = {0.0, 0.0, 0.0, 0.0};
+  const rectangle_t judgment_rec = shape->getFrameRect();
+
+  for (size_t i = 0; i < size_; ++i)
+  {
+    try
+    {
+      current_rec = array_[i]->getFrameRect();
+    }
+    catch (const std::logic_error& error)
+    {
+      continue;
+    }
+
+    if ((abs(current_rec.pos.x - judgment_rec.pos.x) < ((current_rec.width + judgment_rec.width) / 2.0))
+        && (abs(current_rec.pos.y - judgment_rec.pos.y) < ((current_rec.height + judgment_rec.height) / 2.0)))
+    {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 size_t jianing::Layer::getSize() const

@@ -21,13 +21,15 @@ namespace jianing
 
     Maxtrix& operator=(const Maxtrix& copied_object);
     Maxtrix& operator=(Maxtrix&& moved_object);
-    LayerPtr operator[](const size_t index_layer) const;
+    Layer& operator[](const size_t index_layer) const;
 
     void addShape(const Shape::ShapePtr& shape_new);
     size_t getRowNumber() const;
     size_t getColumnsNumber(size_t row_index) const;
+    LayerPtr getLayerPtr(const size_t index_layer) const;
+
     Shape::ShapePtr getShape(size_t row_index, size_t col_index) const;
-    bool isOverlap(const LayerPtr& layer,const Shape::ShapePtr& shape) const;
+
 
   private:
     void addNewLayer();

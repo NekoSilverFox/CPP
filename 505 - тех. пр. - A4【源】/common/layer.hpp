@@ -10,8 +10,6 @@ namespace jianing
 
   class Layer
   {
-    friend class Maxtrix;
-
   public:
     Layer();
     Layer(const Layer& copied_object);
@@ -23,7 +21,7 @@ namespace jianing
     Shape::ShapePtr operator[](const size_t index) const;
 
     void addShape(const Shape::ShapePtr& shape_new);
-    Shape::ShapePtr getShape(size_t index) const;
+    bool isOverlap(const Shape::ShapePtr& shape);
     size_t getSize() const;
     bool empty() const;
 

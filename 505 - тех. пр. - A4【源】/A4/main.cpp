@@ -78,16 +78,16 @@ void testMatrix()
 
   for (size_t i = 0; i < matrix.getRowNumber(); ++i)
   {
-    std::cout << "Layer No." << i + 1 << ", Size: " << matrix[i]->getSize() << "\n";
+    std::cout << "Layer No." << i + 1 << ", Size: " << matrix[i].getSize() << "\n";
   }
 
-  matrix.getShape(0, 0)->printShape();
-  matrix.getShape(1, 0)->printShape();
-  matrix.getShape(0, 1)->printShape();
+  matrix[0][0]->printShape();
+  matrix[1][0]->printShape();
+  matrix[0][1]->printShape();
 
-  matrix.getShape(0, 0)->rotate(27);
-  matrix.getShape(0, 0)->printShape();
+  matrix[0][0]->rotate(27);
+  matrix[0][0]->printShape();
 
-  matrix.getShape(1, 0)->rotate(60);
-  matrix.getShape(1, 0)->printShape();
+  matrix[0][0]->rotate(60);
+  matrix[0][0]->printShape();
 }
