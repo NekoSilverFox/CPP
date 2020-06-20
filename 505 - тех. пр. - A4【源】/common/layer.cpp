@@ -126,6 +126,10 @@ bool jianing::Layer::isOverlap(const Shape::ShapePtr& shape)
 
   rectangle_t current_rec = {0.0, 0.0, 0.0, 0.0};
   const rectangle_t judgment_rec = shape->getFrameRect();
+  double difference_x = 0.0;
+  double difference_y = 0.0;
+  double min_range_x = 0.0;
+  double min_range_y = 0.0;
 
   for (size_t i = 0; i < size_; ++i)
   {
@@ -138,8 +142,12 @@ bool jianing::Layer::isOverlap(const Shape::ShapePtr& shape)
       continue;
     }
 
-    if ((abs(current_rec.pos.x - judgment_rec.pos.x) < ((current_rec.width + judgment_rec.width) / 2.0))
-        && (abs(current_rec.pos.y - judgment_rec.pos.y) < ((current_rec.height + judgment_rec.height) / 2.0)))
+    difference_x = std::abs(current_rec.pos.x - judgment_rec.pos.x);
+    difference_y = std::abs(current_rec.pos.y - judgment_rec.pos.y);
+    min_range_x = (current_rec.width + judgment_rec.width) / 2.0;
+    min_range_y = (current_rec.height + judgment_rec.height) / 2.0;
+
+    if ((difference_x < min_range_x) && (difference_y < min_range_y))
     {
       return true;
     }
