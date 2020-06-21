@@ -6,6 +6,9 @@
 #include "shape.hpp"
 #include "base-types.hpp"
 
+const size_t INITROW = 0;
+const size_t INITCOLUMU = 0;
+
 jianing::Matrix::Layer::Layer(jianing::Shape::ShapePtr* shape, size_t size) :
   size_(size),
   layer_(shape)
@@ -46,9 +49,9 @@ const jianing::Shape::ShapePtr& jianing::Matrix::Layer::operator[](size_t index)
 }
 
 jianing::Matrix::Matrix() :
-  rows_(0),
-  columns_(0),
-  matrix_(std::make_unique<Shape::ShapePtrArr>(0))
+  rows_(INITROW),
+  columns_(INITCOLUMU),
+  matrix_(std::make_unique<Shape::ShapePtrArr>(INITROW * INITCOLUMU))
 {}
 
 jianing::Matrix::Matrix(const Matrix& copied_object) :
@@ -187,7 +190,7 @@ void jianing::Matrix::addNewRow()
 
   for (size_t i = 0; i < columns_ * rows_; ++i)
   {
-    if (!matrix_[i])
+    if (matrix_[i])
     {
       new_matrix[i] = matrix_[i];
     }
