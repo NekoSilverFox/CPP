@@ -27,7 +27,7 @@ namespace jianing
     Matrix();
     Matrix(const Matrix& copied_object);
     Matrix(Matrix&& moved_object);
-    ~Matrix();
+    ~Matrix() = default;
 
     Matrix& operator=(const Matrix& copied_object);
     Matrix& operator=(Matrix&& moved_object);

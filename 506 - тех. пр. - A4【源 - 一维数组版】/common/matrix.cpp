@@ -13,7 +13,7 @@ jianing::Matrix::Layer::Layer(jianing::Shape::ShapePtr* shape, size_t size) :
 
 jianing::Shape::ShapePtr& jianing::Matrix::Layer::operator[](size_t index)
 {
-  if (layer_ == nullptr)
+  if (!layer_)
   {
     throw std::domain_error("The current layer is empty!");
   }
@@ -30,7 +30,7 @@ jianing::Shape::ShapePtr& jianing::Matrix::Layer::operator[](size_t index)
 
 const jianing::Shape::ShapePtr& jianing::Matrix::Layer::operator[](size_t index) const
 {
-  if (layer_ == nullptr)
+  if (!layer_)
   {
     throw std::domain_error("The current layer is empty!");
   }
@@ -56,7 +56,7 @@ jianing::Matrix::Matrix(const Matrix& copied_object) :
   columns_(copied_object.columns_),
   matrix_(std::make_unique<Shape::ShapePtrArr>(copied_object.rows_ * copied_object.columns_))
 {
-  if ((copied_object.rows_ == 0) || (copied_object.columns_ == 0))
+  if (!copied_object.matrix_)
   {
     throw std::invalid_argument("The matrix for copy constructor can not be empty!");
   }
@@ -77,13 +77,6 @@ jianing::Matrix::Matrix(Matrix&& moved_object) :
 {
   moved_object.rows_ = 0;
   moved_object.columns_ = 0;
-}
-
-jianing::Matrix::~Matrix()
-{
-  rows_ = 0;
-  columns_ = 0;
-  matrix_.reset();
 }
 
 jianing::Matrix& jianing::Matrix::operator=(const jianing::Matrix& copied_object)
@@ -125,7 +118,7 @@ jianing::Matrix& jianing::Matrix::operator=(jianing::Matrix&& moved_object)
 
 jianing::Matrix::Layer jianing::Matrix::operator[](const size_t index)
 {
-  if (matrix_ == nullptr)
+  if (!matrix_)
   {
     throw std::domain_error("The matrix is empty!");
   }
@@ -137,12 +130,12 @@ jianing::Matrix::Layer jianing::Matrix::operator[](const size_t index)
         + std::to_string(rows_) + " !\n");
   }
 
-  return jianing::Matrix::Layer{&matrix_[index * columns_], columns_};
+  return Layer(&matrix_[index * columns_], columns_);
 }
 
 const jianing::Matrix::Layer jianing::Matrix::operator[](size_t index) const
 {
-  if (matrix_ == nullptr)
+  if (!matrix_)
   {
     throw std::domain_error("The matrix is empty!");
   }
@@ -154,7 +147,7 @@ const jianing::Matrix::Layer jianing::Matrix::operator[](size_t index) const
         + std::to_string(rows_) + " !\n");
   }
 
-  return jianing::Matrix::Layer{&matrix_[index * columns_], columns_};
+  return Layer(&matrix_[index * columns_], columns_);
 }
 
 size_t jianing::Matrix::getRowSize() const
@@ -194,7 +187,7 @@ void jianing::Matrix::addNewRow()
 
   for (size_t i = 0; i < columns_ * rows_; ++i)
   {
-    if (matrix_[i] != nullptr)
+    if (!matrix_[i])
     {
       new_matrix[i] = matrix_[i];
     }
@@ -225,12 +218,12 @@ void jianing::Matrix::addNewCol()
 
 void jianing::Matrix::addShape(const jianing::Shape::ShapePtr& shape_new)
 {
-  if (matrix_ == nullptr)
+  if (!matrix_)
   {
     throw std::domain_error("The matrix is empty!");
   }
 
-  if (shape_new == nullptr)
+  if (!shape_new)
   {
     throw std::domain_error("The shape is empty, which is for insert!");
   }
@@ -251,4 +244,3 @@ void jianing::Matrix::addShape(const jianing::Shape::ShapePtr& shape_new)
 
   matrix_[row * columns_ + col] = shape_new;
 }
-
