@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\CPP\00.3 - 宏测试\Debug\00.3 - 宏测试.exe
+C:\Users\mi\Desktop\CPP\00.3 - 宏测试\Debug\00.3 - 宏测试.pdb

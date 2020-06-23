@@ -1,0 +1,77 @@
+image: 'alexeymartynov/cxx-test:0.4.1'
+stages:
+  - sanity
+  - build
+  - test
+
+before_script:
+  - echo "Using test case timeout $TIMEOUT sec"
+
+author:
+  stage: sanity
+  script:
+    - '"$TEST_DIR"/validate-student.sh'
+  only:
+    - merge_requests
+    - branches
+    - master
+
+branch:
+  stage: sanity
+  script:
+    - '"$TEST_DIR"/validate-branch.sh'
+  only:
+    - merge_requests
+    - branches
+    - master
+
+content:
+  stage: sanity
+  script:
+    - '"$TEST_DIR"/validate-files.sh'
+  only:
+    - merge_requests
+    - branches
+    - master
+
+build:
+  stage: build
+  script:
+    - '"$TEST_DIR"/build.sh'
+  only:
+    - merge_requests
+    - branches
+    - master
+  artifacts:
+    paths:
+      - out
+    expire_in: 1 year
+
+unit:
+  stage: test
+  script:
+    - 'if test -d out ; then find out -type f -exec touch {} + ; fi'
+    - '"$TEST_DIR"/unit-tests.sh'
+  only:
+    - merge_requests
+    - branches
+    - master
+  dependencies:
+    - build
+
+acceptance:
+  stage: test
+  script:
+    - 'if test -d out ; then find out -type f -exec touch {} + ; fi'
+    - '"$TEST_DIR"/acceptance-tests.sh'
+  only:
+    - merge_requests
+    - branches
+    - master
+  dependencies:
+    - build
+  artifacts:
+    paths:
+      - out/*/*/acceptance.*
+    expire_in: 1 year
+    when: always
