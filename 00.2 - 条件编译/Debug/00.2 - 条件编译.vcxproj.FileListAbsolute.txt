@@ -1,2 +1,0 @@
-C:\Users\mi\Desktop\CPP\00.2 - 条件编译\Debug\00.2 - 条件编译.exe
-C:\Users\mi\Desktop\CPP\00.2 - 条件编译\Debug\00.2 - 条件编译.pdb

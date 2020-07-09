@@ -1,3 +1,0 @@
-﻿  122 - 使用系统标准异常.cpp
-C:\Users\mi\Desktop\CPP\122 - 使用系统标准异常\122 - 使用系统标准异常.cpp(18,1): error C2512:  “std::out_of_range”: 没有合适的默认构造函数可用
-C:\Users\mi\Desktop\CPP\122 - 使用系统标准异常\122 - 使用系统标准异常.cpp(18,1): message :  无构造函数可以接受源类型，或构造函数重载决策不明确

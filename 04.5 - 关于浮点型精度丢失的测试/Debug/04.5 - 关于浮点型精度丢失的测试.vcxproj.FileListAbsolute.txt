@@ -1,2 +1,0 @@
-C:\Users\mi\Desktop\CPP\04.5 - 关于浮点型精度丢失的测试\Debug\04.5 - 关于浮点型精度丢失的测试.exe
-C:\Users\mi\Desktop\CPP\04.5 - 关于浮点型精度丢失的测试\Debug\04.5 - 关于浮点型精度丢失的测试.pdb

@@ -1,3 +1,0 @@
-﻿  源1.cpp
-源1.obj : error LNK2005: "int __cdecl fun_static(void)" (?fun_static@@YAHXZ) 已经在 源.obj 中定义
-C:\Users\mi\Desktop\C\◆自学练习◆\18 - static静态函数\Debug\18 - static静态函数.exe : fatal error LNK1169: 找到一个或多个多重定义的符号

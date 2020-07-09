@@ -1,2 +1,0 @@
-C:\Users\mi\Desktop\CPP\11.5 - 随机数抽奖器\Debug\11.5 - 随机数抽奖器.exe
-C:\Users\mi\Desktop\CPP\11.5 - 随机数抽奖器\Debug\11.5 - 随机数抽奖器.pdb

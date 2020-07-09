@@ -1,2 +1,0 @@
-﻿  129 - 管理虚方法：override和final.cpp
-C:\Users\mi\Desktop\CPP\129 - 管理虚方法：override和final\129 - 管理虚方法：override和final.cpp(23,8): error C3668:  “Driv1::speak”: 包含重写说明符“override”的方法没有重写任何基类方法

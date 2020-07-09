@@ -1,2 +1,0 @@
-C:\Users\mi\Desktop\CPP\250 - 动态规划 - 简单硬币问题\Debug\250 - 动态规划 - 简单硬币问题.exe
-C:\Users\mi\Desktop\CPP\250 - 动态规划 - 简单硬币问题\Debug\250 - 动态规划 - 简单硬币问题.pdb

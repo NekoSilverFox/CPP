@@ -1,5 +1,0 @@
-﻿  万能指针.cpp
-C:\Users\mi\Desktop\C\◆自学练习◆\27 - 万能指针\万能指针.cpp(25,14): warning C4244:  “=”: 从“double”转换到“int”，可能丢失数据
-C:\Users\mi\Desktop\C\◆自学练习◆\27 - 万能指针\万能指针.cpp(63,5): error C2100:  非法的间接寻址
-C:\Users\mi\Desktop\C\◆自学练习◆\27 - 万能指针\万能指针.cpp(63,9): error C2440:  “=”: 无法从“int”转换为“void *”
-C:\Users\mi\Desktop\C\◆自学练习◆\27 - 万能指针\万能指针.cpp(63,7): message :  从整型强制转换为指针类型要求 reinterpret_cast、C 样式强制转换或函数样式强制转换

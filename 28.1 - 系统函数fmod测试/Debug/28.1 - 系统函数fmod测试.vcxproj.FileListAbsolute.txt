@@ -1,2 +1,0 @@
-C:\Users\mi\Desktop\CPP\28.1 - 系统函数fmod测试\Debug\28.1 - 系统函数fmod测试.exe
-C:\Users\mi\Desktop\CPP\28.1 - 系统函数fmod测试\Debug\28.1 - 系统函数fmod测试.pdb
