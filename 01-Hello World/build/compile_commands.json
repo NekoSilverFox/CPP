@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/mi/Desktop/CPP/01-Hello World/build",
+  "command": "E:\\mingw64\\bin\\g++.exe    -g   -std=gnu++11 -o CMakeFiles\\01_Hello_World.dir\\main.cpp.obj -c \"C:\\Users\\mi\\Desktop\\CPP\\01-Hello World\\main.cpp\"",
+  "file": "C:/Users/mi/Desktop/CPP/01-Hello World/main.cpp"
+}
+]

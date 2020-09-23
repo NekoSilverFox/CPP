@@ -1,0 +1,3 @@
+C:/Users/mi/Desktop/CPP/01-Hello World/build/CMakeFiles/01_Hello_World.dir
+C:/Users/mi/Desktop/CPP/01-Hello World/build/CMakeFiles/edit_cache.dir
+C:/Users/mi/Desktop/CPP/01-Hello World/build/CMakeFiles/rebuild_cache.dir
