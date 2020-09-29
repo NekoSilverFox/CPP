@@ -1,33 +1,24 @@
-#include <vector>
 #include "statement.hpp"
 
 void subject3()
 {
   std::vector<int> vec;
-  int num = NULL;
+  int num = 1;
 
   /*
   ** input number into the vector
   */
-  while (true)
+  while (std::cin >> num)
   {
-    std::cin >> num;
-
-    if (num == 0)
-    {
-      break;
-    }
-
     vec.push_back(num);
   }
-  vec.push_back(0);
 
   /*
   ** check
   */
   if (!std::cin.eof() && std::cin.fail())
   {
-    throw std::invalid_argument("ERROR! Wrong input, because type must be integer!\n");
+    throw std::invalid_argument("ERROR! Input type must be integer!\n");
   }
 
   if (vec.empty())
@@ -37,7 +28,7 @@ void subject3()
 
   if (vec.back() != 0)
   {
-    throw std::invalid_argument("ERROR! Wrong input - expected zero before end of the input!\n");
+    throw std::invalid_argument("ERROR! Input should end with zero!");
   }
   else
   {
@@ -56,7 +47,7 @@ void subject3()
       if (*iter % 2 == 0)
       {
         iter = vec.erase(iter);
-        continue;
+        --iter;
       }
     }
   }
@@ -69,7 +60,7 @@ void subject3()
         ++iter;
         iter = vec.insert(iter, 3, 1);
         iter += 3; // x x x 3 1 1 @ x x (+3)
-        continue;
+        --iter;
       }
     }
   }

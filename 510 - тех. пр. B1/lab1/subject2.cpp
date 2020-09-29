@@ -1,7 +1,6 @@
+#include "statement.hpp"
 #include <fstream>
 #include <memory>
-#include <vector>
-#include "statement.hpp"
 
 void subject2(const char* filename)
 {
@@ -9,7 +8,7 @@ void subject2(const char* filename)
 
   if (input_file.good() == 0)
   {
-    throw std::invalid_argument("Unrecognized file name!\n");
+    throw std::invalid_argument("ERROR! Unrecognized file name!\n");
   }
 
   size_t size = 0;
@@ -29,7 +28,7 @@ void subject2(const char* filename)
 
       if (!contents)
       {
-        throw std::runtime_error("Memory allocation is abnormal!\n");
+        throw std::runtime_error("ERROR! Memory allocation is abnormal!\n");
       }
     }
   }
@@ -38,7 +37,7 @@ void subject2(const char* filename)
 
   if (input_file.is_open())
   {
-    throw std::ios_base::failure("File closing failed!\n");
+    throw std::ios_base::failure("ERROR! Can not close file!\n");
   }
 
   std::vector<char> vec(&contents[0], &contents[size]);

@@ -1,7 +1,3 @@
-#include <iostream>
-#include <cstring>
-#include <vector>
-#include <forward_list>
 #include "statement.hpp"
 
 void subject1(const char* sort_type)
@@ -22,7 +18,7 @@ void subject1(const char* sort_type)
   */
   if (!std::cin.eof() && std::cin.fail())
   {
-    throw std::invalid_argument("Data import is abnormal!\n");
+    throw std::invalid_argument("ERROR! Data import is abnormal!\n");
   }
 
   /*
@@ -40,18 +36,18 @@ void subject1(const char* sort_type)
   }
   else
   {
-    throw std::invalid_argument("Unknown sort type!\n");
+    throw std::invalid_argument("ERROR! Unknown sort type!\n");
   }
 
   std::vector<int> vec_sec = vec_first;
   std::forward_list<int> list(vec_first.begin(), vec_first.end());
 
-  jianing::bubbleSort<jianing::bracketAccess, std::vector<int>>(vec_first, comp_method);
-  jianing::printData<std::vector<int>>(vec_first);
+  jianing::bubbleSort<jianing::bracketAccess, std::vector<int> >(vec_first, comp_method);
+  jianing::printData<std::vector<int> >(vec_first);
 
-  jianing::bubbleSort<jianing::atAccess, std::vector<int>>(vec_sec, comp_method);
-  jianing::printData<std::vector<int>>(vec_sec);
+  jianing::bubbleSort<jianing::atAccess, std::vector<int> >(vec_sec, comp_method);
+  jianing::printData<std::vector<int> >(vec_sec);
 
-  jianing::bubbleSort<jianing::iteratorAccess, std::forward_list<int>>(list, comp_method);
-  jianing::printData<std::forward_list<int>>(list);
+  jianing::bubbleSort<jianing::iteratorAccess, std::forward_list<int> >(list, comp_method);
+  jianing::printData<std::forward_list<int> >(list);
 }

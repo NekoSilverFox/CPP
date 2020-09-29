@@ -1,23 +1,73 @@
-#include <iostream>
 #include "statement.hpp"
+#include <stdexcept>
 
-using namespace std;
-
-int main(int argv, char* args[])
+int main(int args, char* argv[])
 {
-  if ((argv <= 1) || (argv >= 5))
+  if ((args <= 1) || (args >= 5))
   {
-    std::cerr << "Wrong number of parameters\n";
+    std::cerr << "ERROR! Wrong number of parameters!\n";
     return 1;
   }
 
-  switch (*args[1])
+  try
   {
-    case '1':
-      if (1)
-      {
+    switch (*argv[1])
+    {
+      case '1':
+        if (args == 3)
+        {
+          subject1(argv[2]);
+        }
+        else
+        {
+          throw std::invalid_argument("ERROR! Unrecognized parameter in case 1!");
+        }
+      break;
 
-      }
+      case '2':
+        if(args == 3)
+        {
+          subject2(argv[2]);
+        }
+        else
+        {
+          throw std::invalid_argument("ERROR! Unrecognized parameter in case 2!");
+        }
+      break;
+
+      case '3':
+        if (args == 2)
+        {
+          subject3();
+        }
+        else
+        {
+          throw std::invalid_argument("ERROR! Unrecognized parameter in case 3!");
+        }
+      break;
+
+      case '4':
+        if (args == 4)
+        {
+          subject4(argv[2], argv[3]);
+        }
+        else
+        {
+          throw std::invalid_argument("ERROR! Unrecognized parameter in case 4!");
+        }
+      break;
+
+    default:
+      throw std::invalid_argument("ERROR! Unrecognized parameter in case default!");
+      break;
+    }
   }
+
+  catch (std::exception const& ex)
+  {
+    std::cerr << ex.what() << "\n";
+    return EXIT_FAILURE;
+  }
+
   return 0;
 }
