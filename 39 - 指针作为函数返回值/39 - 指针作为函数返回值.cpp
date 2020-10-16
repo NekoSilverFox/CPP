@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 
 char* test01()
@@ -8,7 +8,7 @@ char* test01()
 	cout << arr << endl;
 	return arr;
 
-	char* arr = {"Hello world"}; // C++ ÖÐ²»¿ÉÒÔ
+	char* arr = {"Hello world"}; // C++ ä¸­ä¸å¯ä»¥
 }
 
 int main()
