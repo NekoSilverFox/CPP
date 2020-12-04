@@ -1,21 +1,21 @@
 #include<iostream>
 using namespace std;
 
-// Ê×ÏÈÒª°ÑËùĞèÒªµÄÊı¾İĞÅÏ¢½á¹¹¶¨ÒåÏÂÀ´
+// é¦–å…ˆè¦æŠŠæ‰€éœ€è¦çš„æ•°æ®ä¿¡æ¯ç»“æ„å®šä¹‰ä¸‹æ¥
 struct DynamicArray
 {
-	// Êı×é´¢´æÔªËØµÄ¿Õ¼äÊ×µØÖ·
+	// æ•°ç»„å‚¨å­˜å…ƒç´ çš„ç©ºé—´é¦–åœ°å€
 	void** addr;
 
-	// ´æ´¢Êı¾İµÄÄÚ´æÖĞ×î´óÄÜ¹»ÈİÄÉ¶àÉÙÔªËØ
+	// å­˜å‚¨æ•°æ®çš„å†…å­˜ä¸­æœ€å¤§èƒ½å¤Ÿå®¹çº³å¤šå°‘å…ƒç´ 
 	int capacity;
 
-	// µ±Ç°´æ´¢Êı¾İµÄÄÚ´æÖĞÓĞ¶àÉÙ¸öÔªËØ
+	// å½“å‰å­˜å‚¨æ•°æ®çš„å†…å­˜ä¸­æœ‰å¤šå°‘ä¸ªå…ƒç´ 
 	int size;
 };
 
 
-// ³õÊ¼»¯Êı×é
+// åˆå§‹åŒ–æ•°ç»„
 DynamicArray* Init_DynamicArray(int capacity)
 {
 	if (capacity <= 0)
@@ -37,7 +37,7 @@ DynamicArray* Init_DynamicArray(int capacity)
 }
 
 
-// ²åÈëÔªËØ
+// æ’å…¥å…ƒç´ 
 void Inset_DynamicArray(DynamicArray* arr, int pos, void* data)
 {
 	if (NULL == data || NULL == arr) { return; }
@@ -47,40 +47,40 @@ void Inset_DynamicArray(DynamicArray* arr, int pos, void* data)
 		pos = arr->size;
 	}
 
-	//ÅĞ¶Ï¿Õ¼äÊÇ·ñ×ã¹»
+	//åˆ¤æ–­ç©ºé—´æ˜¯å¦è¶³å¤Ÿ
 	if (arr->size >= arr->capacity)
 	{
 
-		//1. ÉêÇëÒ»¿é¸ü´óµÄÄÚ´æ¿Õ¼ä
-		int newcapacity = arr->capacity * 2; // ¿ÉÒÔÓÅ»¯
+		//1. ç”³è¯·ä¸€å—æ›´å¤§çš„å†…å­˜ç©ºé—´
+		int newcapacity = arr->capacity * 2; // å¯ä»¥ä¼˜åŒ–
 		void** newspace =new void*[newcapacity];
 
-		//2. ½«Ô­À´¿Õ¼äµÄÊı¾İ¿½±´µ½ĞÂ¿Õ¼ä
+		//2. å°†åŸæ¥ç©ºé—´çš„æ•°æ®æ‹·è´åˆ°æ–°ç©ºé—´
 		memcpy(newspace, arr->addr, sizeof(void*) * arr->capacity);
 
-		//3. ÊÍ·ÅÔ­À´¿Õ¼äµÄÄÚ´æ
+		//3. é‡Šæ”¾åŸæ¥ç©ºé—´çš„å†…å­˜
 		delete arr->addr;
 
-		//4. ¸üĞÂaddrÖ¸Ïò
+		//4. æ›´æ–°addræŒ‡å‘
 		arr->addr = newspace;
 		arr->capacity = newcapacity;
 	}
 
 
-	//ÒÆ¶¯ÔªËØ£¬¸øposÎ»ÖÃ¿Õ³öÎ»ÖÃÀ´
+	//ç§»åŠ¨å…ƒç´ ï¼Œç»™posä½ç½®ç©ºå‡ºä½ç½®æ¥
 	for (int i = arr->size - 1; i >= pos; --i)
 	{
 		arr->addr[i + 1] = arr->addr[i];
 	}
 
-	//½«ĞÂÔªËØ²åÈëµ½posÎ»ÖÃ
+	//å°†æ–°å…ƒç´ æ’å…¥åˆ°posä½ç½®
 	arr->addr[pos] = data;
 	arr->size++;
 }
 
 
-// ±éÀú 
-void Foreach_DynamicArray(DynamicArray* arr, void(*_callback)(void*)) // »Øµ÷º¯Êı
+// éå† 
+void Foreach_DynamicArray(DynamicArray* arr, void(*_callback)(void*)) // å›è°ƒå‡½æ•°
 {
 	if (NULL == arr || NULL == _callback) { return; }
 	for (int i = 0; i < arr->size; i++)
