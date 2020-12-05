@@ -209,7 +209,7 @@ STL六大部件（Components）：
 - 容器（Containers）
 - 分配器（Allocators） - 为容器分配内存
 - 算法（Algorithms）
-- 迭代器（Iterators）
+- 迭代器（Iterators） - 类似于一个泛化指针
 - 适配器（Adapters）
 - 仿函数（Functors）
 
@@ -246,3 +246,80 @@ int main()
 5. O(N^3)：立方时间（cubic time）
 6. O(2^N)：指数时间（exponential time）
 7. O(Nlog2N)：介于线性及二次方的中间行为模式
+
+## 2.3 容器的基本使用
+
+- **前闭后开 [ )**
+
+  `.begin()` 指向容器中的第一个元素
+
+  `.end()` 指向容器所有元素的下一个元素（不是容器的一部分）
+
+  ```cpp
+  Container<T> c;
+  ...
+  Container<T>::iterator it = c.begin();
+  for ( ; it < c.end(), ++it)
+  {
+      ...
+  }
+  ```
+
+- C++ 11 新的迭代方法
+
+  **range-based `for` statement**
+
+  ```cpp
+  for ( 声明 : 容器 )
+  {
+      ...
+  }
+  ```
+
+  ```cpp
+  for ( int i : { 21, 210, 100, 40, 56, 6 })
+  {
+      std::cout << i << endl;
+  }
+  ```
+
+  ```cpp
+  std::vector<double> vec;
+  ...
+  for (auto elem : vec) // 在这里 auto 自动适配为 std::vector<double>::iterator
+  {
+  	std::cout << elem << std::endl; 
+  }
+  
+  for (auto& elem : vec)
+  {
+      elem *= 3;
+  }
+  ```
+
+- C++11 `auto` 关键字
+
+  `auto` 为C++中的自动类型推导
+
+  例如**以往**的代码这么写：
+
+  ```cpp
+  list<string> c;
+  ...
+  list<string>::iterator it;
+  it = ::find(c.begin(), c.end(), target);
+  ```
+
+  **如今可以更改为**
+
+  ```cpp
+  list<string> c;
+  ...
+  // 自动适配为 list<string>::iterator it
+  auto it = ::find(c.begin(), c.end(), target);
+  ```
+
+  
+
+- 容器不一定是连续的空间
+
