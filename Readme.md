@@ -167,3 +167,82 @@ int main()
 }
 ```
 
+---
+
+# 二. C++标准库
+
+> 重要的网站：
+>
+> www.cplusplus.com
+>
+> www.en.cppreference.com/w/
+>
+> www.gcc.gnu.org
+
+## 2.1 前置知识
+
+Q: 什么是`泛型编程`？
+
+A: 所谓泛型编程，就是使用`template（模板）`为主要工具来编程，STL就是泛型编程最成功的作品
+
+
+
+Q：什么是STL
+
+A：STL - Standard Template Library - 标准模板库
+
+
+
+标准库以头文件的形式呈现，而不是编译好的，所以直接看到源代码
+
+- C++的标准库的头文件不带拓展名`.h`，例如 `#include <vector>`
+- 新的C文件也不带`.h`了，例如 `#include <cstdio>`
+- 新的头文件里的组件都被封装在了 `namespace std`
+  - `using namespace std`
+  - `using std::cout`
+-  旧的头文件中的组件**没有**封装在 `namespace std`
+
+
+
+STL六大部件（Components）：
+
+- 容器（Containers）
+- 分配器（Allocators） - 为容器分配内存
+- 算法（Algorithms）
+- 迭代器（Iterators）
+- 适配器（Adapters）
+- 仿函数（Functors）
+
+![image-20201205185708070](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201205185708070.png)
+
+实例程序：
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+
+int main()
+{
+	int arr[6] = { 21, 210, 100, 40, 56, 6 };
+    //    ↓container      ↓allocator
+    std::vector<int, allocator<int> > vec(arr, arr + 6);
+    
+    //           ↓algorithm     ↓iterator↓        ↓function adapter(negator)
+    std::cout << count_if(vec.begin(), vec.end(), not1(bind2nd(less<int>(), 40)));
+    //                                            function object↑
+    // 整个 not1(bind2nd(less<int>(), 40)) 是一个 谓词（predicate）
+    return 0;
+}
+```
+
+## 2.2 算法复杂度
+
+1. O(1) or O(N)：常数时间（constant time）
+2. O(N)：线性时间（linear time）
+3. O(log2N)：二次线性时间（sub-liner time）
+4. O(N^2)：平方时间（quadratic time）
+5. O(N^3)：立方时间（cubic time）
+6. O(2^N)：指数时间（exponential time）
+7. O(Nlog2N)：介于线性及二次方的中间行为模式
