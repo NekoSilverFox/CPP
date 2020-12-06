@@ -247,7 +247,9 @@ int main()
 6. O(2^N)：指数时间（exponential time）
 7. O(Nlog2N)：介于线性及二次方的中间行为模式
 
-## 2.3 容器的基本使用
+# 三. 容器
+
+## 3.1 容器的基本使用
 
 - **前闭后开 [ )**
 
@@ -323,3 +325,12 @@ int main()
 
 - 容器不一定是连续的空间
 
+## 3.2 容器的基本分类
+
+![ ](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201206151434712.png)
+
+- `map`和`set`的底层都是使用红黑树实现
+  - `map`中单个节点包含 `key`和`value`，之后使用`key`找`value`
+  - `set` 的`key`和`value`是不分的，是一个东西
+
+- `multiset`和`multimap`中的元素（`key`）可以重复
