@@ -11,6 +11,35 @@
     std::getline(std::cin, str, ',');	// 最后一个参数是终止字符，即读取到这个字符后结束
   ```
 
+- **`std::skipws`** 和 **`std::noskipws`**
+
+  定义于头文件 `<ios>`
+
+  启用或禁用有格式输入函数所做的跳过前导空白符**（默认启用）**。在输出上无效果。
+  
+  1) 如同用调用 `str.setf([std::ios_base::skipws] ` **启用**流 `str` 中的 `skipws` 标志
+  
+  2) 如同用调用 `str.unsetf([std::ios_base::skipws]` **禁用**流 `str` 中的 `skipws` 标志
+  
+  ```cpp
+  #include <iostream>
+  #include <sstream>
+  int main()
+  {
+      char c1, c2, c3;
+      std::istringstream("a b c") >> c1 >> c2 >> c3;
+      std::cout << "Default  behavior: c1 = " << c1 << " c2 = " << c2 << " c3 = " << c3 << '\n';
+    std::istringstream("a b c") >> std::noskipws >> c1 >> c2 >> c3;
+      std::cout << "noskipws behavior: c1 = " << c1 << " c2 = " << c2 << " c3 = " << c3 << '\n';
+  }
+  =================================================================
+  输出：
+  Default  behavior: c1 = a c2 = b c3 = c
+  noskipws behavior: c1 = a c2 =   c3 = b
+  ```
+  
+  
+  
 - **`std::ws`**
 
   剔除流中的**空字符、制表符**和**换行符**，直到匹配到非空字符
