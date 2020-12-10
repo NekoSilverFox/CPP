@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\Programma\CPP\1007 - 字符串写入文件\Debug\1007 - 字符串写入文件.exe
+C:\Users\mi\Desktop\Programma\CPP\1007 - 字符串写入文件\Debug\1007 - 字符串写入文件.pdb
