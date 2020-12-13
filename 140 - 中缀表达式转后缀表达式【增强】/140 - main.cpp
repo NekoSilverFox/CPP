@@ -3,7 +3,7 @@
 void CalTheFolma()
 {
 	LinkStack* stack = InIt_LinkStack();
-	string infix_formula("(a/b+(c-d+f)*(a+b-c)/(d-a))"); // 8+5*2*4-(6-2)*3*2^3
+	string infix_formula("§Ñ + b + §Ñ * §ã"); // 8+5*2*4-(6-2)*3*2^3
 	cout << "Infix  formula : " << infix_formula << endl << endl;
 
 	string postix_formula;

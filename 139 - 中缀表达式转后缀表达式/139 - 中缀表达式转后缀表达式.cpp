@@ -116,7 +116,7 @@ void OperatorOperate(LinkStack* stack, char* p) {
 
 int main() {
 
-	char* str = (char*)("8+5*2*4-(6-2)*3");  // 8+(3-1)*5
+	char* str = (char*)("§Ñ+b+§Ñ*§ã");  // 8+(3-1)*5
 	char* p = str;
 	cout << str << endl << endl;
 	//´´½¨Õ»
