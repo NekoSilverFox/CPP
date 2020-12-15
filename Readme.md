@@ -369,3 +369,107 @@ int main()
   - `set` 的`key`和`value`是不分的，是一个东西
 
 - `multiset`和`multimap`中的元素（`key`）可以重复
+
+### 3.2.1 array
+
+![image-20201215185545057](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201215185545057.png)
+
+头文件：`<array>`
+
+初始化：`array<类型, 数组大小> arr;`
+
+方法：
+
+- `arr.size()` 返回数组的大小
+- `arr.front() ` 第一个元素的内容
+- `arr.back()` 最后一个元素的内容
+- `arr.data()` 第一个元素的**地址**
+
+### 3.2.2 vector
+
+![image-20201215190852597](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201215190852597.png)
+
+描述：**一端**开口的容器
+
+头文件：`<vector>`
+
+初始化：`std::vector<类型> vec;`
+
+方法：
+
+- `vec.push_back()` 将元素从尾部放入
+- `vec.size()` 容器中真正的元素个数
+- `vec.capacity()` 容器的大小
+- `vec.front()` 返回容器中的第一个元素
+- `vec.back()` 返回容器中最后一个元素
+- `vec.data()` 容器的起始地址
+
+# 标准库算法
+
+头文件：`<algorithm>`
+
+功能：
+
+复杂度：
+
+定义：
+
+描述：
+
+返回值：
+
+## 查找
+
+### find
+
+头文件：`<algorithm>`
+
+功能：查找元素
+
+复杂度：
+
+定义：find(起始迭代器, 结束迭代器, 谓词)
+
+描述：对容器内的元素进行**线性**查找
+
+返回值：指向该元素的**迭代器**
+
+### bsearch
+
+头文件：`<algorithm>`
+
+功能：二分查找（C标准库）
+
+复杂度：
+
+定义：bseach(谓词，容器起始地址，容器大小，单位元素大小);
+
+描述：对容器内的元素进行**二分**查找，但是注意，**只能对有序容器进行查找**，所以说使用前要对容器进行排序
+
+返回值：指向该元素的**迭代器**
+
+## 排序
+
+### sort
+
+头文件：`<algorithm>`
+
+功能：对容器进行排序
+
+复杂度：*O(N·log(N))*
+
+定义：sort(起始迭代器, 结束迭代器)
+
+描述：默认进行升序排序
+
+返回值：
+
+# 其他函数
+
+## std::abort
+
+定义于头文件 `<cstdlib> ` - void abort();
+
+导致不正常程序终止，除非传递给 [std::signal](https://zh.cppreference.com/w/cpp/utility/program/signal) 的信号处理函数正在捕捉 [SIGABRT](https://zh.cppreference.com/w/cpp/utility/program/SIG_types) ，且该处理函数不返回。
+
+不调用拥有自动、线程局域 (C++11 起)和静态[存储期](https://zh.cppreference.com/w/cpp/language/storage_duration)的对象的析构函数。亦不调用以 [std::atexit()](https://zh.cppreference.com/w/cpp/utility/program/atexit) 和 [std::at_quick_exit](https://zh.cppreference.com/w/cpp/utility/program/at_quick_exit) (C++11 起) 注册的函数。是否关闭打开的资源，例如文件是实现定义的。返回给宿主环境指示不成功执行的实现定义状态。
