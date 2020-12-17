@@ -25,7 +25,7 @@
   
   1) 如同用调用 `str.setf([std::ios_base::skipws] ` **启用**流 `str` 中的 `skipws` 标志
   
-  2) 如同用调用 `str.unsetf([std::ios_base::skipws]` **禁用**流 `str` 中的 `skipws` 标志
+  2) 如同用调用 `str.unsetf([std::ios_base::skipws]` **禁用**流 `str` 中的 `skipws` 标志**(会对整个流生效知道使用 `std::skipws` 取消)**
   
   ```cpp
   #include <iostream>
@@ -466,7 +466,15 @@ int main()
 
 # 其他函数
 
-## std::abort
+## 程序终止
+
+1. [`std::_Exit` ](http://en.cppreference.com/w/cpp/utility/program/_Exit)导致正常程序终止，仅此而已。
+2. [`std::quick_exit` ](http://en.cppreference.com/w/cpp/utility/program/quick_exit)导致正常程序终止并调用[ `std::at_quick_exit` ](http://en.cppreference.com/w/cpp/utility/program/at_quick_exit)处理程序，不执行其他任何清除操作。
+3. [`std::exit` ](http://en.cppreference.com/w/cpp/utility/program/exit)导致正常程序终止，然后调用[ `std::atexit` ](http://en.cppreference.com/w/cpp/utility/program/atexit)处理程序。执行其他类型的清除，例如调用静态对象析构函数。
+4. [`std::abort` ](http://en.cppreference.com/w/cpp/utility/program/abort)导致程序异常终止，不执行任何清理。如果程序以非常非常意外的方式终止，则应调用此方法。它只会通知操作系统有关异常终止的任何信息。在这种情况下，某些系统会执行核心转储。
+5. [`std::terminate` ](http://en.cppreference.com/w/cpp/error/terminate)调用[ `std::terminate_handler` ](http://en.cppreference.com/w/cpp/error/terminate_handler)，默认情况下调用[ `std::abort` ](http://en.cppreference.com/w/cpp/utility/program/abort)。
+
+### std::abort
 
 定义于头文件 `<cstdlib> ` - void abort();
 
