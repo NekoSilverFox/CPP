@@ -48,7 +48,7 @@
   
 - **`std::ws`**
 
-  剔除流中的**空字符、制表符**和**换行符**，直到匹配到非空字符
+  剔除流中的**空字符、制表符**和**换行符**，直到匹配到非空字符，可使用 **`std::noskipws`** 将此禁用
 
   ```cpp
   int main()
@@ -220,13 +220,13 @@ Q: 什么是`泛型编程`？
 
 A: 所谓泛型编程，就是使用`template（模板）`为主要工具来编程，STL就是泛型编程最成功的作品
 
-
+---
 
 Q：什么是STL
 
 A：STL - Standard Template Library - 标准模板库
 
-
+---
 
 标准库以头文件的形式呈现，而不是编译好的，所以直接看到源代码
 
@@ -367,8 +367,8 @@ int main()
 - `map`和`set`的底层都是使用红黑树实现
   - `map`中单个节点包含 `key`和`value`，之后使用`key`找`value`
   - `set` 的`key`和`value`是不分的，是一个东西
-
 - `multiset`和`multimap`中的元素（`key`）可以重复
+- **所有的容器中，所有模板都有第二个参数 （vector<参数一，参数二>），第二个参数是一个`分配器`**。如果不填写第二个参数，则使用默认的分配器
 
 ### 3.2.1 array
 
@@ -389,7 +389,7 @@ int main()
 
 ![image-20201215190852597](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201215190852597.png)
 
-描述：**一端**开口的容器
+描述：**一端**开口的容器，会自动为容器提前分配空间（大约是1.5倍）。**容器的大小/容量始终大于或等于容器中元素的个数**。注意，这个容器“成长”的过程是缓慢的，因为要在另一个区域重新开辟一块内存，然后将当前内存中的**所有**元素一一拷贝过去
 
 头文件：`<vector>`
 
@@ -403,6 +403,118 @@ int main()
 - `vec.front()` 返回容器中的第一个元素
 - `vec.back()` 返回容器中最后一个元素
 - `vec.data()` 容器的起始地址
+
+### 3.2.3 list
+
+![image-20201218091054364](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218091054364.png)
+
+描述：双向链表
+
+头文件：`<list>`
+
+初始化：`list<类型> l;`
+
+方法：
+
+- `l.size()` 返回双向链表的大小
+- `l.max_size()` 返回双向链表的最大大小
+- `l.push_frount` 头插
+- `l.push_back` 尾插
+- `l.pop_frount` 移除首元素
+- `l.pop_back` 移除末元素
+- `l.front() ` 返回双向链表中第一个元素的内容
+- `l.back()` 返回双向链表中最后一个元素的内容
+- **`l.sort()` list 自己提供的排序算法**
+
+### 3.2.4 forward_list
+
+![image-20201218210703251](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218210703251.png)
+
+描述：单向链表
+
+头文件：`<forward_list>`
+
+初始化：`list<类型> f_l;`
+
+方法：
+
+- **无此方法：** *`f_l.size()`* 
+- `f_l.max_size()` 返回单向链表的最大大小
+- `l.push_frount` 头插
+- `f_l.pop_frount` 移除首元素
+- **无此方法：** *`l.push_back`*
+- `f_l.front() ` 返回双向链表中第一个元素的内容
+- **无此方法：** *`f_l.back()`* 
+- **`f_l.sort()` forward_list 自己提供的排序算法**
+
+### 3.2.5 slist
+
+`slist` 是GUN标准下的（非标准库）一个单向链表，功能完全和标准库中的forward_list完全一样
+
+### 3.2.6 deque
+
+描述：duque是一个**双向开口，可进可出**的容器。duque在内存中并不是连续的，连续只是一个假象。duque是有许多内存段中组合而成，**一个内存段称为一个 `buffer`** 。术语上称为：**分段连续**
+
+![image-20201218211839131](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218211839131.png)
+
+头文件：`<deque>`
+
+初始化：`std::deque<类型> deq;`
+
+方法：
+
+- `deq.size()` 目前deque容器的大小
+- `deq.max_size()` deque容器的最大大小
+- `deq.resize(N)` 初始化N个元素到deque中
+- `deq.at(N)` 返回第N个元素
+- `deq.frount()` 返回首元素
+- `deq.back()` 返回末元素
+- `deq.pop_frount()` 移除首元素
+- `deq.pop_back()` 移除末元素
+- deque 没有提供自己的 sort
+
+### 3.2.7 stack
+
+![image-20201218221718925](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218221718925.png)
+
+描述：stack是栈 - **先进后出**
+
+头文件：`<stack>`
+
+初始化：`std::stack<类型> s;`
+
+方法：
+
+- `s.size()` 返回栈的大小
+- `s.top()` 返回栈顶元素
+- `s.push()` 将元素推入栈中
+- `s.pop()` 将一个元素弹出栈
+
+### 3.2.8 queue
+
+![image-20201218222040350](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218222040350.png)
+
+描述：queue 是**队列**，先进先出
+
+头文件：`<queue>`
+
+初始化：`std::queue<类型> q;`
+
+- `q.size()` 返回队列的大小
+- `q.push()` 将元素推入栈中
+- `q.front()` 返回队手元素
+- `q.back()` 返回队尾元素
+- `q.pop()` 将一个元素弹出栈
+
+
+
+
+
+
+
+
+
+
 
 # 标准库算法
 
@@ -424,7 +536,7 @@ int main()
 
 头文件：`<algorithm>`
 
-功能：查找元素
+功能：查找元素，循序查找法
 
 复杂度：
 
