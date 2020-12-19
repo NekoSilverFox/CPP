@@ -367,8 +367,11 @@ int main()
 - `map`和`set`的底层都是使用红黑树实现
   - `map`中单个节点包含 `key`和`value`，之后使用`key`找`value`
   - `set` 的`key`和`value`是不分的，是一个东西
-- `multiset`和`multimap`中的元素（`key`）可以重复
+- 容器中带有**`multi`** 的代表元素可以重复**（multi - 代表多）**，比如：`multiset`和`multimap`中的元素（`key`）可以重复
+- 容器中带有**`unordered`** 的代表底部使用了**哈希表**
 - **所有的容器中，所有模板都有第二个参数 （vector<参数一，参数二>），第二个参数是一个`分配器`**。如果不填写第二个参数，则使用默认的分配器
+
+---
 
 ### 3.2.1 array
 
@@ -384,6 +387,8 @@ int main()
 - `arr.front() ` 第一个元素的内容
 - `arr.back()` 最后一个元素的内容
 - `arr.data()` 第一个元素的**地址**
+
+---
 
 ### 3.2.2 vector
 
@@ -403,6 +408,8 @@ int main()
 - `vec.front()` 返回容器中的第一个元素
 - `vec.back()` 返回容器中最后一个元素
 - `vec.data()` 容器的起始地址
+
+---
 
 ### 3.2.3 list
 
@@ -426,6 +433,8 @@ int main()
 - `l.back()` 返回双向链表中最后一个元素的内容
 - **`l.sort()` list 自己提供的排序算法**
 
+---
+
 ### 3.2.4 forward_list
 
 ![image-20201218210703251](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218210703251.png)
@@ -447,9 +456,13 @@ int main()
 - **无此方法：** *`f_l.back()`* 
 - **`f_l.sort()` forward_list 自己提供的排序算法**
 
+---
+
 ### 3.2.5 slist
 
 `slist` 是GUN标准下的（非标准库）一个单向链表，功能完全和标准库中的forward_list完全一样
+
+---
 
 ### 3.2.6 deque
 
@@ -473,11 +486,13 @@ int main()
 - `deq.pop_back()` 移除末元素
 - deque 没有提供自己的 sort
 
+---
+
 ### 3.2.7 stack
 
 ![image-20201218221718925](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218221718925.png)
 
-描述：stack是栈 - **先进后出**
+描述：stack是栈 - **先进后出**。因为容器的特性，所以不提供 `iterator` 的操作
 
 头文件：`<stack>`
 
@@ -490,15 +505,19 @@ int main()
 - `s.push()` 将元素推入栈中
 - `s.pop()` 将一个元素弹出栈
 
+---
+
 ### 3.2.8 queue
 
 ![image-20201218222040350](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201218222040350.png)
 
-描述：queue 是**队列**，先进先出
+描述：queue 是**队列**，**先进先出**。因为容器的特性，所以不提供 `iterator` 的操作
 
 头文件：`<queue>`
 
 初始化：`std::queue<类型> q;`
+
+方法：
 
 - `q.size()` 返回队列的大小
 - `q.push()` 将元素推入栈中
@@ -506,15 +525,187 @@ int main()
 - `q.back()` 返回队尾元素
 - `q.pop()` 将一个元素弹出栈
 
+---
 
+### 3.2.9 multiset
 
+![image-20201219173103348](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219173103348.png)
 
+描述：小型的关联数据库，以**红黑树（高度平衡树）**形成的底层结构。**允许出现重复元素**
 
+头文件：`<multiset>`
 
+初始化：`multiset<类型> mul_set;`
 
+方法：
 
+- `mul_set.insert()` 插入一个元素
+- `mul_set.size()` multiset 的大小
+- `mul_set.max_size()` multiset 能容纳的最多元素
+- `mul_set.find()` 查找一个元素，并返回一个迭代器
 
+---
 
+> set 和 map 的区别：
+>
+> set 容器的一个节点只能存储一个 **value**，
+>
+> map 可以的一个节点可以存储**一个 key 和一个 value，并通过 key 来查找 value**
+
+---
+
+### 3.2.10 multimap
+
+![image-20201219182902723](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219182902723.png)
+
+描述：底层是一个红黑树,**第一个参数是key，第二个参数是value**。multimap 不能使用 [] 做 insertion
+
+头文件：`<multimap>`
+
+**初始化：`multimap<key的类型，value的类型> mul_map;`**
+
+方法：
+
+- `mul_map.insert()` 插入一个元素
+- **`mul_map.insert(std::pair<key的类型，value的类型>(key值，value值))` 插入一个元素**
+- `mul_map.size()` multimap 的大小
+- `mul_map.max_size()` multimap 能容纳的最多元素
+- `mul_map.find()` 查找一个元素，并返回一个迭代器
+
+---
+
+### 3.2.11 unordered_multiset
+
+![image-20201219182923279](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219182923279.png)
+
+描述：是一个关联式容器，**底层是一个哈希表**
+
+头文件：`<unordered_multiset>`
+
+初始化：`unordered_multiset<类型> unor_mul_set;`
+
+方法：
+
+- `unor_mul_set.insert()` 插入一个元素
+- `unor_mul_set.size()` multiset 的大小
+- `unor_mul_set.max_size()` multiset 能容纳的最多元素
+- `unor_mul_set.bucker_count()` 因为底层是哈希表，所以此方法取得的是**当前哈希表中篮子的数量**，并且**篮子的数量一定比元素数量多**
+- `unor_mul_set.max_bucker_count()` 因为底层是哈希表，所以此方法取得的是**哈希表中篮子的最大数量**
+- `unor_mul_set.load_factor()` 载重因子
+- `unor_mul_set.max_load_factor()` 最大载重因子（一定是1）
+- `unor_mul_set.find()` 查找一个元素，并返回一个迭代器
+
+---
+
+### 3.2.12 unordered_multimap
+
+![image-20201219182934958](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219182934958.png)
+
+描述：是一个关联式容器，底层是一个哈希表。multimap 不能使用 [] 做 insertion
+
+头文件：`<unordered_multimap>`
+
+**初始化：`unordered_multimap<key的类型，value的类型> unord_mul_map;`**
+
+方法：
+
+- `unord_mul_map.insert()` 插入一个元素
+- **`unord_mul_map.insert(std::pair<key的类型，value的类型>(key值，value值))` 插入一个元素**
+- `unord_mul_map.size()` multiset 的大小
+- `unord_mul_map.max_size()` multiset 能容纳的最多元素
+- `unord_mul_map.find()` 查找一个元素，并返回一个迭代器
+
+---
+
+### 3.2.13 set
+
+![image-20201219185139673](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219185139673.png)
+
+描述：小型的关联数据库，以**红黑树（高度平衡树）**形成的底层结构。**不允许出现重复元素**
+
+头文件：`<set>`
+
+初始化：`set<类型> set;`
+
+方法：
+
+- `set.insert()` 插入一个元素
+- `set.size()` set 的大小
+- `set.max_size()` set 能容纳的最多元素
+- `set.find()` 查找一个元素，并返回一个迭代器
+
+---
+
+### 3.2.14 map
+
+![image-20201219185147583](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219185147583.png)
+
+描述：底层是一个红黑树，**key 不能重复，value 可以重复**
+
+头文件：`<map>`
+
+**初始化：`map<key的类型，value的类型> map;`**
+
+方法：
+
+- `map.insert()` 插入一个元素
+- **`map.insert(std::pair<key的类型，value的类型>(key值，value值))` 插入一个元素**
+- **`map[key] = value` 在 key 处插入一个 value ** 重点！！！！！
+- `map.size()` map 的大小
+- `map.max_size()` map 能容纳的最多元素
+- `mul_map.find()` 查找一个元素，并返回一个迭代器
+
+---
+
+### 3.2.16 unordered_set
+
+![image-20201219181928071](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219181928071.png)
+
+描述：**底层是哈希表支撑的 set 容器**
+
+头文件：`<unordered_set>`
+
+初始化：`unordered_set<类型> unord_set;`
+
+方法：
+
+- `unord_set.insert()` 插入一个元素
+- `unord_set.size()` set 的大小
+- `unord_set.max_size()` set 能容纳的最多元素
+- `unor_set.bucker_count()` 因为底层是哈希表，所以此方法取得的是**当前哈希表中篮子的数量**，并且**篮子的数量一定比元素数量多**
+- `unor_set.max_bucker_count()` 因为底层是哈希表，所以此方法取得的是**哈希表中篮子的最大数量**
+- `unor_set.load_factor()` 载重因子
+- `unor_set.max_load_factor()` 最大载重因子（一定是1）
+- `set.find()` 查找一个元素，并返回一个迭代器
+
+---
+
+### 3.2.15 unordered_map
+
+![image-20201219182440457](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219182440457.png)
+
+描述：**底层是哈希表支撑的 map 容器**
+
+头文件：`<unordered_map>`
+
+**初始化：`unordered_map<key的类型，value的类型> unord_map;`**
+
+方法：
+
+- `unord_map.insert()` 插入一个元素
+- **`unord_map.insert(std::pair<key的类型，value的类型>(key值，value值))` 插入一个元素**
+- **`unord_map[key] = value` 在 key 处插入一个 value ** 重点！！！！！
+- `unord_map.size()` map 的大小
+- `unord_map.max_size()` map 能容纳的最多元素
+- `unord_map.find()` 查找一个元素，并返回一个迭代器
+
+---
+
+# 四. 分配器 - allocator
+
+分配器支持了容器对内存的使用
+
+![image-20201219185923398](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219185923398.png)
 
 # 标准库算法
 
