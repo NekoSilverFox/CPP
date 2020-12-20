@@ -280,6 +280,56 @@ int main()
 6. O(2^N)：指数时间（exponential time）
 7. O(Nlog2N)：介于线性及二次方的中间行为模式
 
+## 2.3 OOP vs. GP
+
+### 2.3.1 OOP
+
+![image-20201220235225378](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201220235225378.png)
+
+`OOP` - Object-Oriented programming
+
+**OOP 企图将 数据(datas) 和 方法 (methods) 联系在一起**
+
+比如：
+
+`list` 容器将许多方法和保存的数据保存到了一起
+
+```cpp
+template<typename T>
+class list
+{
+public:
+    push_back(T data);
+    push_frount(T data);
+    ...
+    ...
+    sort();
+	// Q: 考虑一下为什么 list 提供了自己的 sort 方法，而不是像其他容器一样可以随意的使用标准库提供的 			::sort 方法？
+    // A: 因为 list 是一个双向链表，元素在内存上不是连续的，所以泛化指针不能随意的执行++、--等操作
+private:
+    T data_;
+}
+```
+
+---
+
+### 2.3.2 GP
+
+![image-20201220235418794](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201220235418794.png)
+
+`GP` - Generic Programming
+
+**GP 欲将  数据(datas) 和 方法 (methods) 分离**
+
+这么做的好处有：
+
+- **容器(Containers) **和 **算法(Algorithms)** 可以**分开设计，各尽其职**。然后**之间使用迭代器(Iterator)沟通/链接**
+- 算法(Algorithms) 通过 迭代器(Iterator) 确定操作范围，并通过 迭代器(Iterator) 取用容器(Containers) 中的元素
+
+比如：
+
+![image-20201221000016970](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221000016970.png)
+
 # 三. 容器
 
 ## 3.1 容器的基本使用
