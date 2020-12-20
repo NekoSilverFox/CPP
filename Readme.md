@@ -1,6 +1,4 @@
-
-
-# STL 使用
+# C++ 体系结构和内核分析
 
 [toc]
 
@@ -703,9 +701,78 @@ int main()
 
 # 四. 分配器 - allocator
 
+## 4.1 基本说明
+
 分配器支持了容器对内存的使用
 
 ![image-20201219185923398](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219185923398.png)
+
+![image-20201220204737370](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201220204737370.png)
+
+## 4.2 基本使用
+
+头文件 `<memory>` 里包含了 allocator
+
+但是如果使用 std::allocator 以外的 allocator，需要自行 `#include <ext\...>`
+
+注意：其他的分配器是在 **`__gnu_cxx::`** 下的
+
+比如：
+
+```cpp
+#include <ext\array_allocator.h>
+#include <ext\mt_allocator.h>
+#include <ext\debug_allocator.h>
+#include <ext\pool_allocator.h>		// 内存池
+#include <ext\bitmap_allocator.h>
+#include <ext\malloc_allocator.h>
+#include <ext\new_allocator.h>
+
+void test_list_with_special_allocator()
+{
+	list<std::string, allocator<std::string> > c1;
+    list<std::string, __gnu_cxx::malloc_allocator<std::string> > c2;
+    list<std::string, __gnu_cxx::new_allocator<std::string> > c3;
+    list<std::string, __gnu_cxx::__pool_allocator<std::string> > c4;
+    list<std::string, __gnu_cxx::__mt_allocator<std::string> > c5;
+    list<std::string, __gnu_cxx::bitmap_allocator<std::string> > c6;
+}
+```
+
+![image-20201220204913799](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201220204913799.png)
+
+**使用分配器分配并归还内存**
+
+```cpp
+int* p;		// 注意：p 是一个 int 类型的**指针**
+
+allocator<int> alloc1;
+p = alloc1.allocator(1);	// 1 代表申请一份内存
+alloc1.deallocator(p, 1);	// 1 代表归还一份内存, p 代表归还的对象是谁。
+							// 可以通过 new 和 delete 来理解
+
+__gnu_cxx::malloc_allocator<int> alloc2;
+p = alloc2.allocator(1);
+alloc2.deallocate(p, 1);
+
+__gnu_cxx::new_allocator<int> alloc3;
+p = alloc3.allocator(1);
+alloc3.allocator(p, 1);
+
+__gnu_cxx::__pool_allocator<int> alloc4;
+p = alloc4.allocator(1);
+alloc4.allocator(p, 1);
+
+__gnu_cxx::__mt_allocator<int> alloc5;
+p = alloc5.allocator(1);
+alloc5.allocator(p, 1);
+
+__gnu_cxx::bitmap_allocator<int> alloc6;
+p = alloc6.allocator(1);
+alloc6.allocator(p, 1);
+```
+
+
 
 # 标准库算法
 
