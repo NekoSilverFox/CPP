@@ -427,6 +427,10 @@ private:
 
 ---
 
+![image-20201221150122003](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221150122003.png)
+
+---
+
 ### 3.2.1 array
 
 ![image-20201215185545057](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201215185545057.png)
@@ -821,6 +825,10 @@ private:
 
 分配器支持了容器对内存的使用
 
+**所有内存的分配动作，最后都会涉及到 `malloc` 操作。然后 `malloc` 根据不同的操作系统来申请内存**
+
+---
+
 ![image-20201219185923398](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201219185923398.png)
 
 ![image-20201220204737370](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201220204737370.png)
@@ -888,7 +896,43 @@ p = alloc6.allocator(1);
 alloc6.allocator(p, 1);
 ```
 
+## 5.3 解析
 
+![image-20201221081026072](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221081026072.png)
+
+### 5.3.1 VC6 STL 对 allocator 的使用
+
+![image-20201221140244647](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221140244647.png)
+
+![image-20201221140403407](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221140403407.png)
+
+### 5.3.2 BC5 STL 对 allocator 的使用
+
+![image-20201221140519806](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221140519806.png)
+
+### 5.3.3 G2.9 对 allocator 的使用
+
+一下虽然实现了 allocator，但是没有包含在任何容器中。也不建议使用
+
+![image-20201221140707011](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221140707011.png)
+
+---
+
+以下是 G2.9 STL 中使用内存池对分配器(allocator)的实现，推荐使用。因为能节省大量在申请内存时不必要浪费的空间
+
+在 G2.9 STL 中称之为 **`alloc`**
+
+![image-20201221141106421](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221141106421.png)
+
+![image-20201221141139759](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221141139759.png)
+
+![image-20201221142010844](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221142010844.png)
+
+![image-20201221142043934](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221142043934.png)
+
+### 5.3.4 sizeof(迭代器)
+
+![image-20201221142238414](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221142238414.png)
 
 # 标准库算法
 
