@@ -330,6 +330,12 @@ private:
 
 ![image-20201221000016970](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221000016970.png)
 
+## 2.4 操作符重载
+
+以下操作符不能重载：`::`，`.`， `.*`，`?:`
+
+
+
 # 三. 容器
 
 ## 3.1 容器的基本使用
@@ -749,9 +755,69 @@ private:
 
 ---
 
-# 四. 分配器 - allocator
+# 四. 模板
 
-## 4.1 基本说明
+## 4.1 类模板
+
+![image-20201221034734013](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221034734013.png)
+
+## 4.2 函数模板
+
+![image-20201221034747579](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221034747579.png)
+
+**函数模板不需要使用 `<>` 告诉编译器使用的类型**，因为有自动类型推导。但是类模板不行，如果不提供模板参数，编译器无法确定类型
+
+## 4.3 成员模板
+
+后续补充
+
+![image-20201221050407143](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221050407143.png)
+
+## 4.4 模板的泛化与特化
+
+解释什么是泛化与特化：
+
+​	想象一下，在STL中是提供了模板，模板用于匹配参数类型。但是基础的数据类型中有 `int`，`float`，`double`，`char` 等类型，在模板自动匹配类型后如何对这些不同的类型进行操作和处理呢；其实在STL的内部已经把各种基础类型的功能或方法一一手动实现了（按各个类型最优的方式，时间或空间效率高），这些一一实现就称之为**模板的特化**。
+
+​	泛化 - 顾名思义，就指的是一个总体的大的分类。
+
+​	特化 - 就是对这个总的大的分类进行一一具体的实现
+
+​	比如：`猫` 是一个总称，对于会捉老鼠，喵喵叫的我们都可以称之为`猫`。这是一个大体的分类，所以称之为**`泛化`**；但是猫又分为橘猫、蓝猫、中华田园猫、俄罗斯无毛猫 等等，假如我现在要写文章介绍这各个品种的猫的特点和生活习性，那么，因为我们对这些猫各自的特点和生活习惯的描述具体到了某一品种，所以就称之为**`特化`**
+
+---
+
+![image-20201221050644237](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221050644237.png)
+
+关于特化和泛化写法的记忆：
+
+- 未特化的模板写法和平时一样
+- 对于特化的模板就像：把原本首行 `template<typename T>` 中的 `T` 拿出来了，放在了类名的后方(橘色方框的部分)，以表示对具体类型进行特化。所以说，原本的 `template<typename T>` 的 `<>` 为空了，变成了 `template<>` (黄色方框部分)
+
+---
+
+以下是STL库中的几种泛化和特化的实现：
+
+**其中 `__STL_TEMPLATE_NULL` 是一个 `#define`，其实就是 `template<>`**
+
+![image-20201221053125192](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221053125192.png)
+
+![image-20201221053155758](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221053155758.png)
+
+
+
+## 4.5 局部特化（偏特化）
+
+- 对于拥有**多个模板参数**的类或者函数可以进行**局部特化**，即对某一个模板参数进行特化
+- 对于拥有**一个模板参数**的类或者函数可以进行**局部特化**，即对模板参数的 *`<T*>` (指针类型)* 或者 *`<const T*>` (const指针)* 进行特化
+
+![image-20201221053827841](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221053827841.png)
+
+
+
+# 五. 分配器 - allocator
+
+## 5.1 基本说明
 
 分配器支持了容器对内存的使用
 
@@ -759,7 +825,7 @@ private:
 
 ![image-20201220204737370](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201220204737370.png)
 
-## 4.2 基本使用
+## 5.2 基本使用
 
 头文件 `<memory>` 里包含了 allocator
 
