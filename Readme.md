@@ -414,7 +414,7 @@ private:
 
 - 容器不一定是连续的空间
 
-## 3.2 容器的基本分类
+## 3.2 容器的基本使用
 
 ![ ](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201206151434712.png)
 
@@ -756,6 +756,64 @@ private:
 - `unord_map.size()` map 的大小
 - `unord_map.max_size()` map 能容纳的最多元素
 - `unord_map.find()` 查找一个元素，并返回一个迭代器
+
+## 3.3 容器原码分析
+
+### 3.3.1 array
+
+
+
+### 3.3.2 vector
+
+
+
+### 3.3.3 list
+
+<img src="C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201222095725501.png" alt="image-20201222095725501" style="zoom:80%;" />
+
+![image-20201222101632401](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201222101632401.png)
+
+![image-20201222103816861](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201222103816861.png)
+
+![image-20201222104710288](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201222104710288.png)
+
+![image-20201222104950584](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201222104950584.png)
+
+![image-20201222105056295](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201222105056295.png)
+
+### 3.3. 
+
+
+
+### 3.3.
+
+
+
+### 3.3.
+
+
+
+### 3.3.
+
+
+
+### 3.3.
+
+
+
+### 3.3.
+
+
+
+### 3.3.
+
+
+
+### 3.3.
+
+
+
+### 3.3.
 
 ---
 
