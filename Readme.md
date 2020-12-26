@@ -992,6 +992,17 @@ alloc6.allocator(p, 1);
 
 ![image-20201221142238414](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201221142238414.png)
 
+# 六. 萃取机 - trait
+
+
+
+![image-20201226201348707](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201226201348707.png)
+
+- `iterator_category` iterator 的类型
+- `difference_type` 两个 iterator 之间的距离
+- `value_type` iterator (迭代器)指向的那个东西的类型
+- 剩余的两种 `reference` 和 `pointer` 未在标准库中使用过
+
 # 标准库算法
 
 头文件：`<algorithm>`
