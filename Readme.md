@@ -1003,6 +1003,18 @@ alloc6.allocator(p, 1);
 - `value_type` iterator (迭代器)指向的那个东西的类型
 - 剩余的两种 `reference` 和 `pointer` 未在标准库中使用过
 
+![image-20201226202806858](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201226202806858.png)
+
+**指针是一种退化的Iterator，Iterator 是一种泛化的指针**
+
+![image-20201227190003769](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201227190003769.png)
+
+![image-20201227190019885](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201227190019885.png)
+
+![image-20201227190031977](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201227190031977.png)
+
+![image-20201227190044824](C:\Users\mi\AppData\Roaming\Typora\typora-user-images\image-20201227190044824.png)
+
 # 标准库算法
 
 头文件：`<algorithm>`
