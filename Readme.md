@@ -246,7 +246,7 @@ STL六大部件（Components）：
 - 适配器（Adapters）
 - 仿函数（Functors）
 
-![image-20201205185708070](.\images\image-20201205185708070.png)
+![image-20201205185708070](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201205185708070.png)
 
 实例程序：
 
@@ -284,7 +284,7 @@ int main()
 
 ### 2.3.1 OOP
 
-![image-20201220235225378](.\images\image-20201220235225378.png)
+![image-20201220235225378](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201220235225378.png)
 
 `OOP` - Object-Oriented programming
 
@@ -315,7 +315,7 @@ private:
 
 ### 2.3.2 GP
 
-![image-20201220235418794](.\images\image-20201220235418794.png)
+![image-20201220235418794](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201220235418794.png)
 
 `GP` - Generic Programming
 
@@ -328,7 +328,7 @@ private:
 
 比如：
 
-![image-20201221000016970](.\images\image-20201221000016970.png)
+![image-20201221000016970](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221000016970.png)
 
 ## 2.4 操作符重载
 
@@ -416,7 +416,7 @@ private:
 
 ## 3.2 容器的基本使用
 
-![ ](.\images\image-20201206151434712.png)
+![ ](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201206151434712.png)
 
 - `map`和`set`的底层都是使用红黑树实现
   - `map`中单个节点包含 `key`和`value`，之后使用`key`找`value`
@@ -427,13 +427,13 @@ private:
 
 ---
 
-![image-20201221150122003](.\images\image-20201221150122003.png)
+![image-20201221150122003](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221150122003.png)
 
 ---
 
 ### 3.2.1 array
 
-![image-20201215185545057](.\images\image-20201215185545057.png)
+![image-20201215185545057](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201215185545057.png)
 
 头文件：`<array>`
 
@@ -450,7 +450,7 @@ private:
 
 ### 3.2.2 vector
 
-![image-20201215190852597](.\images\image-20201215190852597.png)
+![image-20201215190852597](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201215190852597.png)
 
 描述：**一端**开口的容器，会自动为容器提前分配空间（大约是1.5倍）。**容器的大小/容量始终大于或等于容器中元素的个数**。注意，这个容器“成长”的过程是缓慢的，因为要在另一个区域重新开辟一块内存，然后将当前内存中的**所有**元素一一拷贝过去
 
@@ -471,7 +471,7 @@ private:
 
 ### 3.2.3 list
 
-![image-20201218091054364](.\images\image-20201218091054364.png)
+![image-20201218091054364](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201218091054364.png)
 
 描述：双向链表
 
@@ -495,7 +495,7 @@ private:
 
 ### 3.2.4 forward_list
 
-![image-20201218210703251](.\images\image-20201218210703251.png)
+![image-20201218210703251](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201218210703251.png)
 
 描述：单向链表
 
@@ -526,7 +526,7 @@ private:
 
 描述：duque是一个**双向开口，可进可出**的容器。duque在内存中并不是连续的，连续只是一个假象。duque是有许多内存段中组合而成，**一个内存段称为一个 `buffer`** 。术语上称为：**分段连续**
 
-![image-20201218211839131](.\images\image-20201218211839131.png)
+![image-20201218211839131](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201218211839131.png)
 
 头文件：`<deque>`
 
@@ -548,7 +548,7 @@ private:
 
 ### 3.2.7 stack
 
-![image-20201218221718925](.\images\image-20201218221718925.png)
+![image-20201218221718925](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201218221718925.png)
 
 描述：stack是栈 - **先进后出**。因为容器的特性，所以不提供 `iterator` 的操作
 
@@ -567,7 +567,7 @@ private:
 
 ### 3.2.8 queue
 
-![image-20201218222040350](.\images\image-20201218222040350.png)
+![image-20201218222040350](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201218222040350.png)
 
 描述：queue 是**队列**，**先进先出**。因为容器的特性，所以不提供 `iterator` 的操作
 
@@ -587,7 +587,7 @@ private:
 
 ### 3.2.9 multiset
 
-![image-20201219173103348](.\images\image-20201219173103348.png)
+![image-20201219173103348](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219173103348.png)
 
 描述：小型的关联数据库，以**红黑树（高度平衡树）**形成的底层结构。**允许出现重复元素**
 
@@ -614,7 +614,7 @@ private:
 
 ### 3.2.10 multimap
 
-![image-20201219182902723](.\images\image-20201219182902723.png)
+![image-20201219182902723](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219182902723.png)
 
 描述：底层是一个红黑树,**第一个参数是key，第二个参数是value**。multimap 不能使用 [] 做 insertion
 
@@ -634,7 +634,7 @@ private:
 
 ### 3.2.11 unordered_multiset
 
-![image-20201219182923279](.\images\image-20201219182923279.png)
+![image-20201219182923279](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219182923279.png)
 
 描述：是一个关联式容器，**底层是一个哈希表**
 
@@ -657,7 +657,7 @@ private:
 
 ### 3.2.12 unordered_multimap
 
-![image-20201219182934958](.\images\image-20201219182934958.png)
+![image-20201219182934958](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219182934958.png)
 
 描述：是一个关联式容器，底层是一个哈希表。multimap 不能使用 [] 做 insertion
 
@@ -677,7 +677,7 @@ private:
 
 ### 3.2.13 set
 
-![image-20201219185139673](.\images\image-20201219185139673.png)
+![image-20201219185139673](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219185139673.png)
 
 描述：小型的关联数据库，以**红黑树（高度平衡树）**形成的底层结构。**不允许出现重复元素**
 
@@ -696,7 +696,7 @@ private:
 
 ### 3.2.14 map
 
-![image-20201219185147583](.\images\image-20201219185147583.png)
+![image-20201219185147583](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219185147583.png)
 
 描述：底层是一个红黑树，**key 不能重复，value 可以重复**
 
@@ -717,7 +717,7 @@ private:
 
 ### 3.2.16 unordered_set
 
-![image-20201219181928071](.\images\image-20201219181928071.png)
+![image-20201219181928071](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219181928071.png)
 
 描述：**底层是哈希表支撑的 set 容器**
 
@@ -740,7 +740,7 @@ private:
 
 ### 3.2.15 unordered_map
 
-![image-20201219182440457](.\images\image-20201219182440457.png)
+![image-20201219182440457](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219182440457.png)
 
 描述：**底层是哈希表支撑的 map 容器**
 
@@ -769,17 +769,17 @@ private:
 
 ### 3.3.3 list
 
-<img src=".\images\image-20201222095725501.png" alt="image-20201222095725501" style="zoom:80%;" />
+<img src="https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201222095725501.png" alt="image-20201222095725501" style="zoom:80%;" />
 
-![image-20201222101632401](.\images\image-20201222101632401.png)
+![image-20201222101632401](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201222101632401.png)
 
-![image-20201222103816861](.\images\image-20201222103816861.png)
+![image-20201222103816861](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201222103816861.png)
 
-![image-20201222104710288](.\images\image-20201222104710288.png)
+![image-20201222104710288](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201222104710288.png)
 
-![image-20201222104950584](.\images\image-20201222104950584.png)
+![image-20201222104950584](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201222104950584.png)
 
-![image-20201222105056295](.\images\image-20201222105056295.png)
+![image-20201222105056295](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201222105056295.png)
 
 ### 3.3. 
 
@@ -821,11 +821,11 @@ private:
 
 ## 4.1 类模板
 
-![image-20201221034734013](.\images\image-20201221034734013.png)
+![image-20201221034734013](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221034734013.png)
 
 ## 4.2 函数模板
 
-![image-20201221034747579](.\images\image-20201221034747579.png)
+![image-20201221034747579](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221034747579.png)
 
 **函数模板不需要使用 `<>` 告诉编译器使用的类型**，因为有自动类型推导。但是类模板不行，如果不提供模板参数，编译器无法确定类型
 
@@ -833,7 +833,7 @@ private:
 
 后续补充
 
-![image-20201221050407143](.\images\image-20201221050407143.png)
+![image-20201221050407143](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221050407143.png)
 
 ## 4.4 模板的泛化与特化
 
@@ -849,7 +849,7 @@ private:
 
 ---
 
-![image-20201221050644237](.\images\image-20201221050644237.png)
+![image-20201221050644237](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221050644237.png)
 
 关于特化和泛化写法的记忆：
 
@@ -862,9 +862,9 @@ private:
 
 **其中 `__STL_TEMPLATE_NULL` 是一个 `#define`，其实就是 `template<>`**
 
-![image-20201221053125192](.\images\image-20201221053125192.png)
+![image-20201221053125192](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221053125192.png)
 
-![image-20201221053155758](.\images\image-20201221053155758.png)
+![image-20201221053155758](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221053155758.png)
 
 
 
@@ -873,7 +873,7 @@ private:
 - 对于拥有**多个模板参数**的类或者函数可以进行**局部特化**，即对某一个模板参数进行特化
 - 对于拥有**一个模板参数**的类或者函数可以进行**局部特化**，即对模板参数的 *`<T*>` (指针类型)* 或者 *`<const T*>` (const指针)* 进行特化
 
-![image-20201221053827841](.\images\image-20201221053827841.png)
+![image-20201221053827841](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221053827841.png)
 
 
 
@@ -887,9 +887,9 @@ private:
 
 ---
 
-![image-20201219185923398](.\images\image-20201219185923398.png)
+![image-20201219185923398](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201219185923398.png)
 
-![image-20201220204737370](.\images\image-20201220204737370.png)
+![image-20201220204737370](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201220204737370.png)
 
 ## 5.2 基本使用
 
@@ -921,7 +921,7 @@ void test_list_with_special_allocator()
 }
 ```
 
-![image-20201220204913799](.\images\image-20201220204913799.png)
+![image-20201220204913799](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201220204913799.png)
 
 **使用分配器分配并归还内存**
 
@@ -956,23 +956,23 @@ alloc6.allocator(p, 1);
 
 ## 5.3 解析
 
-![image-20201221081026072](.\images\image-20201221081026072.png)
+![image-20201221081026072](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221081026072.png)
 
 ### 5.3.1 VC6 STL 对 allocator 的使用
 
-![image-20201221140244647](.\images\image-20201221140244647.png)
+![image-20201221140244647](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221140244647.png)
 
-![image-20201221140403407](.\images\image-20201221140403407.png)
+![image-20201221140403407](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221140403407.png)
 
 ### 5.3.2 BC5 STL 对 allocator 的使用
 
-![image-20201221140519806](.\images\image-20201221140519806.png)
+![image-20201221140519806](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221140519806.png)
 
 ### 5.3.3 G2.9 对 allocator 的使用
 
 一下虽然实现了 allocator，但是没有包含在任何容器中。也不建议使用
 
-![image-20201221140707011](.\images\image-20201221140707011.png)
+![image-20201221140707011](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221140707011.png)
 
 ---
 
@@ -980,40 +980,40 @@ alloc6.allocator(p, 1);
 
 在 G2.9 STL 中称之为 **`alloc`**
 
-![image-20201221141106421](.\images\image-20201221141106421.png)
+![image-20201221141106421](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221141106421.png)
 
-![image-20201221141139759](.\images\image-20201221141139759.png)
+![image-20201221141139759](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221141139759.png)
 
-![image-20201221142010844](.\images\image-20201221142010844.png)
+![image-20201221142010844](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221142010844.png)
 
-![image-20201221142043934](.\images\image-20201221142043934.png)
+![image-20201221142043934](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221142043934.png)
 
 ### 5.3.4 sizeof(迭代器)
 
-![image-20201221142238414](.\images\image-20201221142238414.png)
+![image-20201221142238414](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201221142238414.png)
 
 # 六. 萃取机 - trait
 
 
 
-![image-20201226201348707](.\images\image-20201226201348707.png)
+![image-20201226201348707](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201226201348707.png)
 
 - `iterator_category` iterator 的类型
 - `difference_type` 两个 iterator 之间的距离
 - `value_type` iterator (迭代器)指向的那个东西的类型
 - 剩余的两种 `reference` 和 `pointer` 未在标准库中使用过
 
-![image-20201226202806858](.\images\image-20201226202806858.png)
+![image-20201226202806858](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201226202806858.png)
 
 **指针是一种退化的Iterator，Iterator 是一种泛化的指针**
 
-![image-20201227190003769](.\images\image-20201227190003769.png)
+![image-20201227190003769](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201227190003769.png)
 
-![image-20201227190019885](.\images\image-20201227190019885.png)
+![image-20201227190019885](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201227190019885.png)
 
-![image-20201227190031977](.\images\image-20201227190031977.png)
+![image-20201227190031977](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201227190031977.png)
 
-![image-20201227190044824](.\images\image-20201227190044824.png)
+![image-20201227190044824](https://github.com/NekoSilverFox/CPP/blob/master/images/image-20201227190044824.png)
 
 # 标准库算法
 
