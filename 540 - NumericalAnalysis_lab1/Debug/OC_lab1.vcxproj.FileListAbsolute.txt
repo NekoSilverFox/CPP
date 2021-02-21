@@ -1,0 +1,4 @@
+C:\Users\mi\Desktop\Programma\CPP\520 - OC_lab1\OC_lab1\Debug\NumericalAnalysis_lab1.exe
+C:\Users\mi\Desktop\Programma\CPP\520 - OC_lab1\OC_lab1\Debug\NumericalAnalysis_lab1.pdb
+C:\Users\mi\Desktop\Programma\CPP\540 - NumericalAnalysis_lab1\Debug\NumericalAnalysis_lab1.exe
+C:\Users\mi\Desktop\Programma\CPP\540 - NumericalAnalysis_lab1\Debug\NumericalAnalysis_lab1.pdb
