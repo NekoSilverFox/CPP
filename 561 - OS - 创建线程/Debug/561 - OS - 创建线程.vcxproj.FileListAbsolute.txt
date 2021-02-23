@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\Programma\CPP\561 - OS - 创建线程\Debug\561 - OS - 创建线程.exe
+C:\Users\mi\Desktop\Programma\CPP\561 - OS - 创建线程\Debug\561 - OS - 创建线程.pdb
