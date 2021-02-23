@@ -8,6 +8,7 @@ using namespace std;
 void main()
 {
     system("chcp 65001 && cls");
+    std::cout << "фываыфвфв";
     DeleteFile("Result.bmp");
 
     string sFileName;

@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\Programma\CPP\543 - NumericalAnalysis_lab3\Debug\543 - NumericalAnalysis_lab3.exe
+C:\Users\mi\Desktop\Programma\CPP\543 - NumericalAnalysis_lab3\Debug\543 - NumericalAnalysis_lab3.pdb

@@ -2,3 +2,5 @@ D:\СПБПУ Петра Великого\2 курс\4 семестр\ЭВМ\lab
 D:\СПБПУ Петра Великого\2 курс\4 семестр\ЭВМ\lab1\bmpeshka\Debug\bmpeshka.pdb
 D:\СПБПУ Петра Великого\2 курс\4 семестр\ЭВМ\lab1\【李怡佳】bmpeshka\Debug\bmpeshka.exe
 D:\СПБПУ Петра Великого\2 курс\4 семестр\ЭВМ\lab1\【李怡佳】bmpeshka\Debug\bmpeshka.pdb
+C:\Users\mi\Desktop\Programma\CPP\532 - 24bit BMP 转 32bit\Debug\bmpeshka.exe
+C:\Users\mi\Desktop\Programma\CPP\532 - 24bit BMP 转 32bit\Debug\bmpeshka.pdb
