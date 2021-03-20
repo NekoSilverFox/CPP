@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\Programma\CPP\535 - SSE-AVX 16-8\Debug\535 - SSE-AVX 16-8.exe
+C:\Users\mi\Desktop\Programma\CPP\535 - SSE-AVX 16-8\Debug\535 - SSE-AVX 16-8.pdb
