@@ -10,35 +10,78 @@
 #pragma comment(lib, "fmodex_vc.lib")
 using namespace std;
 
-
-
 int _tmain(int argc, _TCHAR* argv[])
 {
-// FMOD 4
-FMOD::System * system;
-FMOD::System_Create(&system);
-system->init(16, FMOD_INIT_NORMAL, 0);
-FMOD::Sound * sound; // sound
-FMOD::Channel * channel; // sound channel
-system->createSound("Classical_Artists.mp3", FMOD_SOFTWARE | FMOD_LOOP_OFF, 0, &sound); // creating sound
-system->playSound(FMOD_CHANNEL_FREE, sound, false, 0);// playing sound (assigning it to a channel)
-//channel->setPaused(false); // actually play sound
+	// FMOD 4
+	FMOD_RESULT result;
+	FMOD::System* system;
+	result = FMOD::System_Create(&system);
+	result = system->init(16, FMOD_INIT_NORMAL, 0);
 
-getch();
+	FMOD::Sound* sound; // sound
+	FMOD::Channel* channel; // sound channel
 
-// FMOD 3
+	//result = system->createSound("Classical_Artists.mp3", FMOD_SOFTWARE | FMOD_LOOP_OFF, 0, &sound); // creating sound
+	result = system->createSound("Classical_Artists.mp3", FMOD_LOOP_OFF | FMOD_3D | FMOD_HARDWARE, 0, &sound); // creating 3d sound
+	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, 0);// playing sound (assigning it to a channel)
+	//channel->setPaused(false); // actually play sound
 
-//FSOUND_SAMPLE * handle;
-//FSOUND_Init (22050, 32, 0);
-//
-//handle=FSOUND_Sample_Load (0,"jules.mp3",0, 0, 0); // load and play sample
-//
-//FSOUND_PlaySound (0,handle);
-//
-//FSOUND_SetVolume(FSOUND_ALL ,256);
-//FSOUND_SetPaused(FSOUND_ALL,false);
-//FSOUND_SetLoopMode(FSOUND_ALL,FSOUND_LOOP_NORMAL);
 
-	return 0;
+	float music_index = 0.0f;
+	float music_step = 0.05f;
+	float music_distance = 0.5f;
+	FMOD_BOOL playing = 1;
+	FMOD_VECTOR pos;
+	pos.x = 0.0f;
+	pos.y = 0.0f;
+	pos.z = 0.0f;
+	while (playing)
+	{
+		Sleep(10);
+		result = system->set3DListenerAttributes(0, &pos, 0, 0, 0);
+		result = system->update();
+
+		std::cout << "(" << pos.x << ", " << pos.y << ", " << pos.z << ")\t";
+
+		pos.x = 2.0f * sin(music_index) + music_distance;
+		pos.z = 2.0f * cos(music_index) + music_distance;
+		music_index += music_step;
+	}
+
+#if 0
+	int i = -10000;
+	while (true)
+	{
+		FMOD_VECTOR listenerpos = { i / 1000, 0.0f, 0.0f };  // 第一个参数：听者位置
+
+		// set3DMinMaxDistance(float min, float max)
+		result = system->set3DListenerAttributes(0, &listenerpos, 0, 0, 0);
+		result = system->update();
+		std::cout << i << ", ";
+		i++;
+
+		if (i == 10000)
+		{
+			i *= -1;
+		}
+	}
+#endif
+
+	//getch();
+
+	// FMOD 3
+
+	//FSOUND_SAMPLE * handle;
+	//FSOUND_Init (22050, 32, 0);
+	//
+	//handle=FSOUND_Sample_Load (0,"jules.mp3",0, 0, 0); // load and play sample
+	//
+	//FSOUND_PlaySound (0,handle);
+	//
+	//FSOUND_SetVolume(FSOUND_ALL ,256);
+	//FSOUND_SetPaused(FSOUND_ALL,false);
+	//FSOUND_SetLoopMode(FSOUND_ALL,FSOUND_LOOP_NORMAL);
+
+	//return 0;
 }
 
