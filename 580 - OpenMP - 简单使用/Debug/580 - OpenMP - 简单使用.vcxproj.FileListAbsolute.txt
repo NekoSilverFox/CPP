@@ -1,0 +1,2 @@
+C:\Users\mi\Desktop\Programma\CPP\580 - OpenMP - 简单使用\Debug\580 - OpenMP - 简单使用.exe
+C:\Users\mi\Desktop\Programma\CPP\580 - OpenMP - 简单使用\Debug\580 - OpenMP - 简单使用.pdb
