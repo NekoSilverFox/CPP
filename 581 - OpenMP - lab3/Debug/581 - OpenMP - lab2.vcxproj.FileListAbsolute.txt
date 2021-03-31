@@ -1,2 +1,4 @@
 C:\Users\mi\Desktop\Programma\CPP\581 - OpenMP - lab2\Debug\581 - OpenMP - lab2.exe
 C:\Users\mi\Desktop\Programma\CPP\581 - OpenMP - lab2\Debug\581 - OpenMP - lab2.pdb
+C:\Users\mi\Desktop\Programma\CPP\581 - OpenMP - lab3\Debug\581 - OpenMP - lab2.exe
+C:\Users\mi\Desktop\Programma\CPP\581 - OpenMP - lab3\Debug\581 - OpenMP - lab2.pdb
