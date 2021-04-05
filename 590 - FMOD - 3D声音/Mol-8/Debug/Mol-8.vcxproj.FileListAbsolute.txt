@@ -1,0 +1,3 @@
+C:\Users\mi\Desktop\Programma\CPP\590 - FMOD - 3D声音\Mol-8\Debug\Mol-8.exe
+C:\Users\mi\Desktop\Programma\CPP\590 - FMOD - 3D声音\Mol-8\Debug\Mol-8.pdb
+C:\Users\mi\Desktop\Programma\CPP\590 - FMOD - 3D声音\Debug\Mol-8.pdb

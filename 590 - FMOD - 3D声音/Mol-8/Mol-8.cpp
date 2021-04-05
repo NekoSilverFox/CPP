@@ -13,6 +13,7 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// FMOD 4
+	FMOD::DSP* dsp = 0;
 	FMOD_RESULT result;
 	FMOD::System* system;
 	result = FMOD::System_Create(&system);
@@ -22,15 +23,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	FMOD::Channel* channel; // sound channel
 
 	//result = system->createSound("Classical_Artists.mp3", FMOD_SOFTWARE | FMOD_LOOP_OFF, 0, &sound); // creating sound
-	result = system->createSound("Classical_Artists.mp3", FMOD_LOOP_OFF | FMOD_3D | FMOD_HARDWARE, 0, &sound); // creating 3d sound
+	result = system->createSound("Classical_Artists.mp3", FMOD_INIT_NORMAL | FMOD_LOOP_OFF | FMOD_3D | FMOD_HARDWARE, 0, &sound); // creating 3d sound
 	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, 0);// playing sound (assigning it to a channel)
 	//channel->setPaused(false); // actually play sound
 
-
+#if 1
 	float music_index = 0.0f;
 	float music_step = 0.05f;
 	float music_distance = 0.5f;
-	FMOD_BOOL playing = 1;
+	FMOD_BOOL playing = 1;  // true
 	FMOD_VECTOR pos;
 	pos.x = 0.0f;
 	pos.y = 0.0f;
@@ -47,8 +48,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		pos.z = 2.0f * cos(music_index) + music_distance;
 		music_index += music_step;
 	}
+#endif
+
+
+	//system->setSpeakerMode(FMOD_SPEAKERMODE::FMOD_SPEAKERMODE_QUAD);
+	//result = system->createDSPByType(FMOD_DSP_TYPE_TREMOLO, &dsp);
+	//result = system->addDSP(dsp, 0);
+	//result = system->update();
 
 #if 0
+
 	int i = -10000;
 	while (true)
 	{
@@ -58,6 +67,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		result = system->set3DListenerAttributes(0, &listenerpos, 0, 0, 0);
 		result = system->update();
 		std::cout << i << ", ";
+		Sleep(5);
 		i++;
 
 		if (i == 10000)
@@ -66,7 +76,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 	}
 #endif
-
 	//getch();
 
 	// FMOD 3
